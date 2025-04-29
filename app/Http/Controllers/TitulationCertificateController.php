@@ -29,7 +29,17 @@ class TitulationCertificateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->collect());
+        $titulation_certificate = new TitulationCertificate;
+        $titulation_certificate->type = $request->input('type');
+        $titulation_certificate->project_name = $request->input('project-name');
+        $titulation_certificate->remarks = $request->input('remarks');
+        $titulation_certificate->save();
+
+        foreach ($request->input('students') as $student_id)
+            $titulation_certificate->students()->attach($student_id);
+
+        return redirect(route('titulation_certificate'))->with('success', 'Acta creada');
     }
 
     /**

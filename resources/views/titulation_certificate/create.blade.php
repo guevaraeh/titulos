@@ -14,30 +14,28 @@
 				</div>
 				<div class="card-body">
 					
-                    <form action="{{ route('student.store') }}" method="POST">
+                    <form action="{{ route('titulation_certificate.store') }}" method="POST">
                         @csrf
                         
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Tipo</b><font color="red">*</font></label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" id="flexRadioDefault1" checked>
+                                <input class="form-check-input" type="radio" name="type" value="0" checked>
                                 <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" id="flexRadioDefault2">
+                                <input class="form-check-input" type="radio" name="type" value="1">
                                 <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" id="exampleFirstName" name="name" required>
+                            <input type="text" class="form-control" id="exampleFirstName" name="project-name" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>-</option>
+                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" placeholder="-">
                                 @foreach($students as $student)
                                 <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
                                 @endforeach
@@ -58,4 +56,10 @@
 	</div>
 </div>
 
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    $('.selectpicker').selectpicker();
+</script>
 @endsection

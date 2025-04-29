@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/titulation_certificate', [TitulationCertificateController::class, 'index'])->name('titulation_certificate');
     Route::get('/titulation_certificate/create', [TitulationCertificateController::class, 'create'])->name('titulation_certificate.create');
+    Route::post('/titulation_certificate', [TitulationCertificateController::class, 'store'])->name('titulation_certificate.store');
 
     Route::get('/student', [StudentController::class, 'index'])->name('student');
     Route::get('/student/create', [StudentController::class, 'create'])->name('student.create');
