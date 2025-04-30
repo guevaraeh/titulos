@@ -49,8 +49,14 @@ class TitulationCertificateController extends Controller
      */
     public function show(TitulationCertificate $titulationCertificate)
     {
+        $students = Student::select('id','name','lastname');
+        foreach($titulationCertificate->students as $st)
+            $students->where('id','<>',$st->id);
+        $students = $students->get();
+        //dd($students);
+
         $date = Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY');
-        return view('titulation_certificate.show',['titulation_certificate' => $titulationCertificate, 'date' => $date]);
+        return view('titulation_certificate.show',['titulation_certificate' => $titulationCertificate, 'date' => $date, 'students' => $students]);
     }
 
     /**
@@ -86,6 +92,18 @@ class TitulationCertificateController extends Controller
     {
         $titulationCertificate->students()->detach($student->id);
         return redirect(route('titulation_certificate.show', $titulationCertificate))->with('success', 'Estudiante sacado');
+    }
+
+    public function generate_pdf(TitulationCertificate $titulationCertificate)
+    {
+        $data = [
+            'title' => 'Acta de Titulación',
+            'titulation_certificate' => $titulationCertificate,
+        ]; 
+              
+        //$pdf = PDF::loadView('myPDF', $data);
+       
+        //return $pdf->download('acta.pdf');
     }
 
     /**

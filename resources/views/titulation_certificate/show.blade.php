@@ -45,6 +45,16 @@
             <div class="card-header py-3">
                 <h5 class="card-title text-primary">Datos de los estudiantes</h5>
             </div>
+            <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
+                @csrf
+                <select class="form-select" placeholder="-" name="student-id">
+                    @foreach($students as $student)
+                    <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Agregar</button>
+            </form>
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
