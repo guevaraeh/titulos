@@ -51,7 +51,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        session(['previous_url' => url()->previous()]);
+        return view('student.edit',['student' => $student]);
     }
 
     /**
@@ -59,7 +60,13 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $student->name = $request->input('name');
+        $student->lastname = $request->input('lastname');
+        $student->dni = $request->input('dni');
+        $student->career = $request->input('career');
+        $student->save();
+
+        return redirect(session('previous_url'))->with('success', 'Alumno editado');
     }
 
     /**

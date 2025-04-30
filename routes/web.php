@@ -19,10 +19,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/titulation_certificate', [TitulationCertificateController::class, 'index'])->name('titulation_certificate');
     Route::get('/titulation_certificate/create', [TitulationCertificateController::class, 'create'])->name('titulation_certificate.create');
     Route::post('/titulation_certificate', [TitulationCertificateController::class, 'store'])->name('titulation_certificate.store');
+    Route::get('/titulation_certificate/{titulation_certificate}', [TitulationCertificateController::class, 'show'])->name('titulation_certificate.show');
+    Route::get('/titulation_certificate/{titulation_certificate}/edit', [TitulationCertificateController::class, 'edit'])->name('titulation_certificate.edit');
+    Route::put('/titulation_certificate/{titulation_certificate}', [TitulationCertificateController::class, 'update'])->name('titulation_certificate.update');
+    Route::post('/titulation_certificate/{titulation_certificate}/add', [TitulationCertificateController::class, 'add_student'])->name('titulation_certificate.add_student');
+    Route::get('/titulation_certificate/{titulation_certificate}/drop/{student}', [TitulationCertificateController::class, 'drop_student'])->name('titulation_certificate.drop_student');
+    Route::delete('/titulation_certificate/{titulation_certificate}/destroy', [TitulationCertificateController::class, 'edit'])->name('titulation_certificate.destroy');
 
     Route::get('/student', [StudentController::class, 'index'])->name('student');
     Route::get('/student/create', [StudentController::class, 'create'])->name('student.create');
     Route::post('/student', [StudentController::class, 'store'])->name('student.store');
+    Route::get('/student/{student}', [StudentController::class, 'store'])->name('student.show');
+    Route::get('/student/{student}/edit', [StudentController::class, 'edit'])->name('student.edit');
+    Route::put('/student/{student}', [StudentController::class, 'update'])->name('student.update');
+    Route::delete('/student/{student}/destroy', [StudentController::class, 'destroy'])->name('student.destroy');
 });
 
 require __DIR__.'/settings.php';

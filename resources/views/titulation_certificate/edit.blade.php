@@ -14,42 +14,33 @@
 				</div>
 				<div class="card-body">
 					
-                    <form action="{{ route('titulation_certificate.store') }}" method="POST">
+                    <form action="{{ route('titulation_certificate.update', $titulation_certificate->id) }}" method="POST">
                         @csrf
-                        
+                        @method('PUT')
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" value="0" checked>
+                                <input class="form-check-input" type="radio" name="type" value="0" {{ $titulation_certificate->type == 0 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" value="1">
+                                <input class="form-check-input" type="radio" name="type" value="1" {{ $titulation_certificate->type == 1 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" id="exampleFirstName" name="project-name" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
-                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" placeholder="-">
-                                @foreach($students as $student)
-                                <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="exampleFirstName" name="project-name" value="{{ $titulation_certificate->project_name }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ date('Y-m-d', time()) }}" readonly>
+                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ $titulation_certificate->certificate_date }}" readonly>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
-                            <textarea class="form-control" id="validationCustom01" name="remarks"></textarea>
+                            <textarea class="form-control" id="validationCustom01" name="remarks" value="{{ $titulation_certificate->remarks }}"></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>
@@ -65,7 +56,6 @@
 
 @section('javascript')
 <script type="text/javascript">
-    $('.selectpicker').selectpicker();
 
     new tempusDominus.TempusDominus(document.getElementById("cert-date"), {
         useCurrent: false,
@@ -81,7 +71,7 @@
             },
         },
         localization: {
-            locale: 'es',
+            locale: 'en',
             format: "yyyy-MM-dd"
         },
     });

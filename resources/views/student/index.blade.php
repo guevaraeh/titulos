@@ -14,28 +14,36 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-bordered" width="100%" cellspacing="0">
+						<table class="table table-hover" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Apellidos</th>
                                     <th>Nombres</th>
+                                    <th>DNI</th>
+                                    <th>Carrera Profesional</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Apellidos</th>
                                     <th>Nombres</th>
+                                    <th>DNI</th>
+                                    <th>Carrera Profesional</th>
+                                    <th></th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 @foreach($students as $student)
                                 
                                 <tr>
-                                    <td>{{ $student->id }}</td>
                                     <td>{{ $student->lastname }}</td>
                                     <td>{{ $student->name }}</td>
+                                    <td>{{ $student->dni }}</td>
+                                    <td>{{ $student->career }}</td>
+                                    <td>
+                                        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info btn-sm" title="Editar">Editar</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 

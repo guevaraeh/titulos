@@ -12,8 +12,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
 
-        <!-- Barra de arriba -->
-        {{--@include('includes.topbar')--}}
+        @include('includes.bar')
 
         <!-- Contenido de la pagina -->
         @yield('content')
@@ -24,5 +23,13 @@
     </div>
     @include('includes.scripts')
     @yield('javascript')
+    
+    @if(Session::has('success'))
+    <script type="text/javascript">
+    $( document ).ready(function() {
+      toastr.success('<strong>¡Exito!</strong><br>'+'{{ session("success") }}');
+    });
+    </script>
+    @endif
   </body>
 </html>

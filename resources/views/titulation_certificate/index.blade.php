@@ -4,6 +4,8 @@
 <title>Titulos</title>
 @endsection
 
+<?php $types = ['Proyecto vinculado a formación recibida', 'Examen de suficiencia profesional']; ?>
+
 @section('content')
 <div class="container-fluid">
 	<div class="row">
@@ -14,32 +16,40 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-bordered" width="100%" cellspacing="0">
+						<table class="table table-hover" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Tipo</th>
-                                    <th>Nombre</th>
+                                    <th>Nombre del proyecto</th>
+                                    <th>Fecha</th>
+                                    <th>Estudiantes</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Tipo</th>
-                                    <th>Nombre</th>
+                                    <th>Nombre del proyecto</th>
+                                    <th>Fecha</th>
+                                    <th>Estudiantes</th>
+                                    <th></th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                            	<tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
                                 @foreach($titulation_certificates as $titulation_certificate)
                                 <tr>
-                                    <td>{{ $titulation_certificate->id }}</td>
-                                    <td>{{ $titulation_certificate->type }}</td>
-                                    <td>{{ $titulation_certificate->name }}</td>
+                                    <td>{{ $types[$titulation_certificate->type] }}</td>
+                                    <td>{{ $titulation_certificate->project_name }}</td>
+                                    <td>{{ $titulation_certificate->certificate_date }}</td>
+                                    <td>
+                                    @foreach($titulation_certificate->students as $student)
+                                        <li>{{ $student->lastname . ' ' . $student->name }}</li>
+                                    @endforeach
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('titulation_certificate.show', $titulation_certificate->id) }}" class="btn btn-primary btn-sm" title="Ver">Ver</a>
+                                        <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info btn-sm" title="Editar">Editar</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

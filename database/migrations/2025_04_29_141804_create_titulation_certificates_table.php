@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->boolean('type');
             $table->string('project_name');
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
             $table->date('certificate_date')->nullable();
             $table->timestamps();
         });
