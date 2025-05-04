@@ -36,6 +36,8 @@
                         </tbody>
                     </table>
                 </div>
+                <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-primary" title="Pdf">PDF</a>
+                <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info" title="Editar">Editar</a>
             </div>
         </div>
     </div>
@@ -45,15 +47,6 @@
             <div class="card-header py-3">
                 <h5 class="card-title text-primary">Datos de los estudiantes</h5>
             </div>
-            <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
-                @csrf
-                <select class="form-select" placeholder="-" name="student-id">
-                    @foreach($students as $student)
-                    <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
-                    @endforeach
-                </select>
-                <button type="submit" class="btn btn-primary">Agregar</button>
-            </form>
 
             <div class="card-body">
                 <div class="table-responsive">
@@ -83,9 +76,46 @@
                             
                         </tbody>
                     </table>
+
+                    @if(count($titulation_certificate->students) < 3)
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Agregar estudiante
+                    </button>
+
+                    <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Agregar estudiante</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @csrf
+                                    <select class="selectpicker form-control" placeholder="-" name="student-id" data-live-search="true">
+                                        @foreach($students as $student)
+                                        <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    $('.selectpicker').selectpicker();
+</script>
 @endsection

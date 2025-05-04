@@ -52,7 +52,7 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         session(['previous_url' => url()->previous()]);
-        return view('student.edit',['student' => $student]);
+        return view('student.edit',['student' => $student, 'previous' => session('previous_url')]);
     }
 
     /**

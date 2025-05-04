@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('student_titulation_certificate', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constraint();
-            $table->foreignId('titulation_certificate_id')->constraint();
+            $table->foreignId('student_id');
+            $table->foreignId('titulation_certificate_id');
             $table->timestamps();
         });
     }

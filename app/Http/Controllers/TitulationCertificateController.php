@@ -6,6 +6,7 @@ use App\Models\TitulationCertificate;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use PDF;
 
 class TitulationCertificateController extends Controller
 {
@@ -52,7 +53,7 @@ class TitulationCertificateController extends Controller
         $students = Student::select('id','name','lastname');
         foreach($titulationCertificate->students as $st)
             $students->where('id','<>',$st->id);
-        $students = $students->get();
+        $students = $students->orderBy('lastname', 'asc')->get();
         //dd($students);
 
         $date = Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY');
@@ -65,7 +66,7 @@ class TitulationCertificateController extends Controller
     public function edit(TitulationCertificate $titulationCertificate)
     {
         session(['previous_url' => url()->previous()]);
-        return view('titulation_certificate.edit',['titulation_certificate' => $titulationCertificate]);
+        return view('titulation_certificate.edit',['titulation_certificate' => $titulationCertificate, 'previous' => session('previous_url')]);
     }
 
     /**
@@ -84,8 +85,11 @@ class TitulationCertificateController extends Controller
 
     public function add_student(Request $request, TitulationCertificate $titulationCertificate)
     {
-        $titulationCertificate->students()->attach($request->input('student-id'));
-        return redirect(route('titulation_certificate.show', $titulationCertificate))->with('success', 'Estudiante agregado');
+        if(count($titulationCertificate->students) < 3)
+        {
+            $titulationCertificate->students()->attach($request->input('student-id'));
+            return redirect(route('titulation_certificate.show', $titulationCertificate))->with('success', 'Estudiante agregado');
+        }
     }
 
     public function drop_student(TitulationCertificate $titulationCertificate, Student $student)
@@ -99,11 +103,15 @@ class TitulationCertificateController extends Controller
         $data = [
             'title' => 'Acta de Titulación',
             'titulation_certificate' => $titulationCertificate,
+            'count_students' => count($titulationCertificate->students),
+            'date' => Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY'),
         ]; 
               
-        //$pdf = PDF::loadView('myPDF', $data);
+        PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('pdf.certificate', $data);
        
-        //return $pdf->download('acta.pdf');
+        //return $pdf->download('prueba.pdf');
+        return $pdf->stream();
     }
 
     /**

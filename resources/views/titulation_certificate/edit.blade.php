@@ -40,10 +40,11 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
-                            <textarea class="form-control" id="validationCustom01" name="remarks" value="{{ $titulation_certificate->remarks }}"></textarea>
+                            <textarea class="form-control" id="validationCustom01" name="remarks">{{ $titulation_certificate->remarks }}</textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="{{ $previous }}" class="btn btn-danger">Cancelar</a>
                     </form>
 
 				</div>

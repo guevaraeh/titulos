@@ -38,6 +38,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="{{ $previous }}" class="btn btn-danger">Cancelar</a>
                     </form>
 
 				</div>

@@ -49,6 +49,7 @@
                                     <td>
                                         <a href="{{ route('titulation_certificate.show', $titulation_certificate->id) }}" class="btn btn-primary btn-sm" title="Ver">Ver</a>
                                         <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info btn-sm" title="Editar">Editar</a>
+                                        <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary btn-sm" title="Pdf">PDF</a>
                                     </td>
                                 </tr>
                                 @endforeach
