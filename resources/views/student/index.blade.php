@@ -17,6 +17,7 @@
 						<table class="table table-hover" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
+                                    <th>Foto</th>
                                     <th>Apellidos</th>
                                     <th>Nombres</th>
                                     <th>DNI</th>
@@ -26,6 +27,7 @@
                             </thead>
                             <tfoot>
                                 <tr>
+                                    <th>Foto</th>
                                     <th>Apellidos</th>
                                     <th>Nombres</th>
                                     <th>DNI</th>
@@ -37,11 +39,13 @@
                                 @foreach($students as $student)
                                 
                                 <tr>
+                                    <td><img src="{{ asset('storage/'.$student->photo) }}" height="50"  width="40"></td>
                                     <td>{{ $student->lastname }}</td>
                                     <td>{{ $student->name }}</td>
                                     <td>{{ $student->dni }}</td>
                                     <td>{{ $student->career }}</td>
                                     <td>
+                                        <a href="{{ route('student.show', $student->id) }}" class="btn btn-primary btn-sm" title="Ver">Ver</a>
                                         <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info btn-sm" title="Editar">Editar</a>
                                     </td>
                                 </tr>

@@ -6,7 +6,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     body {
-      font-family: "Arial", sans-serif;
+      /*font-family: "Arial", sans-serif;*/
+      /*font-family: 'Helvetica', 'Arial', sans-serif;*/
+      font-family:helvetica;
       font-size: 11px;
       margin: 30px;
     }
@@ -24,12 +26,19 @@
     .titulo {
       font-weight: bold;
       margin: 5px 0;
-	  text-align: center;
+	   text-align: center;
+    }
+
+    .titulo-principal {
+      font-weight: bold;
+      font-size: 14px;
+      margin: 6px 0;
+     text-align: center;
     }
 
     .institucion {
-      font-family: "Arial Narrow", Arial, sans-serif;
-      font-size: 10px;
+      /*font-family: "Arial Narrow", "Arial", sans-serif;*/
+      /*font-size: 10px;*/
       margin-top: 4px;
 	  text-align: center;
     }
@@ -58,8 +67,9 @@
 
     th, td {
       border: 1px solid black;
-      padding: 5px;
+      padding: 3px;
       text-align: center;
+      height: 26px;
     }
 
     .observaciones {
@@ -100,28 +110,22 @@
 	  font-weight: bold;
 	}
 
-  .logo-izquierda {
-      position: relative;
-      top: 0;
-      left: 0;
-      height: 50px;
-    }
-
-    .logo-derecha {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 50px;
-    }
 
     .encabezado {
       text-align: center;
       margin-top: 10px;
     }
 
-    .alineacion td {
+    .alineacion-imagen td {
       border: none;
       padding: 0;
+    }
+
+    .alineacion td {
+      border: none;
+      padding-left: 0;
+      padding-bottom: 10px;
+      text-align: left;
     }
 
   </style>
@@ -129,7 +133,7 @@
 <body>
 
 
-<table width="100%" style="margin-bottom: 10px;" class="alineacion">
+<table width="100%" style="margin-bottom: 10px;" class="alineacion-imagen">
   <tr>
     <td align="left">
       <img src="{{ public_path('/minedu.png') }}" alt="Logo Perú" height="50">
@@ -138,42 +142,45 @@
       
     </td>
     <td align="right">
-      <img src="{{ public_path('/logo.png') }}" alt="Logo Institución" height="50">
+      <img src="{{ public_path('/logo.png') }}" alt="Logo Institución" height="60">
     </td>
   </tr>
 </table>
 
-  {{--
-  <img src="{{ public_path('/minedu.png') }}" class="logo-izquierda" alt="Logo Perú">
-  <img src="{{ public_path('/logo.png') }}" class="logo-derecha" alt="Logo Institución">
-  --}}
 
     <div class="institucion">INSTITUTO DE EDUCACIÓN SUPERIOR TECNOLÓGICO PÚBLICO</div>
     <div class="titulo">"PEDRO P. DÍAZ"</div>
 
   <div class="header">
     <div class="institucion" style="text-align: left;">Gerencia Regional de Educación de Arequipa</div>
-    <div class="titulo">ACTA DE TITULACIÓN</div>
+    <div class="titulo-principal">ACTA DE TITULACIÓN</div>
   </div>
 
-
+{{--
   <div class="checkboxes">
     <label>Proyecto vinculado a la formación recibida: <span class="box">{{ $titulation_certificate->type == 0 ? 'X' : '' }}</span></label>
     <label>Examen de suficiencia profesional: <span class="box">{{ $titulation_certificate->type == 1 ? 'X' : '' }}</span></label>
   </div>
+--}}
+<table width="100%" class="alineacion">
+  <tr>
+    <td>Proyecto vinculado a la formación recibida: <span class="box">{{ $titulation_certificate->type == 0 ? 'X' : '' }}</span></td>
+    <td>Examen de suficiencia profesional: <span class="box">{{ $titulation_certificate->type == 1 ? 'X' : '' }}</span></td>
+  </tr>
+</table>
 
-  <div class="line"><strong>Nombre del proyecto: </strong> {{ $titulation_certificate->project_name }}</div>
+  <div class="line">Nombre del proyecto: <u>{{ $titulation_certificate->project_name }}</u>______________________________________</div>
 
   <div class="seccion">
     <strong>Datos de los Estudiantes:</strong>
     <table>
       <thead>
         <tr>
-          <th width="5%">N°</th>
-          <th width="30%">Apellidos y Nombres de los Estudiantes</th>
-          <th>D.N.I</th>
-          <th>Carrera Profesional</th>
-          <th>Firma</th>
+          <td width="5%">N°</td>
+          <td width="35%">Apellidos y Nombres de los <br>Estudiantes</td>
+          <td width="15%">D.N.I</td>
+          <td width="25%">Carrera Profesional</td>
+          <td>Firma</th>
         </tr>
       </thead>
       <tbody>
@@ -205,15 +212,15 @@
     <table>
       <thead>
         <tr>
-          <th rowspan="2">Estudiantes</th>
-          <th colspan="3">Miembro del Jurado</th>
-          <th width="15%" rowspan="2">Promedio de Calificación Personal</th>
-          <th rowspan="2">Calificación Final Personal<br>(En letras)</th>
+          <td rowspan="2">Estudiantes</td>
+          <td colspan="3" style="height: 13px;">Miembro del Jurado</td>
+          <td width="15%" rowspan="2">Promedio de Calificación Personal</td>
+          <td rowspan="2">Calificación Final Personal<br>(En letras)</td>
         </tr>
         <tr>
-          <th>Presidente</th>
-          <th>Secretario</th>
-          <th>Vocal</th>
+          <td style="height: 13px;">Presidente</td>
+          <td style="height: 13px;">Secretario</td>
+          <td style="height: 13px;">Vocal</td>
         </tr>
       </thead>
       <tbody>
@@ -225,8 +232,8 @@
   </div>
 
   <div class="seccion">
-    <strong>Observaciones:</strong>
-    <div class="observaciones">___________________________________________________________________________________________</div>
+    <small>OBSERVACIONES:</small><br>
+    <div class="observaciones"><u>{{ $titulation_certificate->remarks }}</u>___________________________________________________________________________________________</div>
   </div>
 
   <div class="lugar-fecha">
@@ -236,8 +243,14 @@
 
   <table class="firmas">
     <tr>
-      <td>_________________________<br>Presidente</td>
+      <td style="white-space: nowrap;">_________________________<br>Presidente</td>
+      <td></td>
       <td>_________________________<br>Secretario</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>_________________________<br>Vocal</td>
+      <td></td>
     </tr>
   </table>
 

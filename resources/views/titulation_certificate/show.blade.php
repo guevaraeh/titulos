@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h5 class="card-title text-primary">Acta de Titulacion</h5>
+                <h5 class="card-title text-primary">Acta de Titulación</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -54,6 +54,7 @@
                         <thead>
                             <tr>
                                 <th>N°</th>
+                                <th>Foto</th>
                                 <th>Apellidos y nombres</th>
                                 <th>DNI</th>
                                 <th>Carrera Profesional</th>
@@ -63,6 +64,7 @@
                             @foreach($titulation_certificate->students as $student)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td><img src="{{ asset('storage/'.$student->photo) }}" height="50" width="40"></td>
                                     <td>{{ $student->lastname . ' ' . $student->name }}</td>
                                     <td>{{ $student->dni }}</td>
                                     <td>{{ $student->career }}</td>

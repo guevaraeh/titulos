@@ -14,7 +14,7 @@
 				</div>
 				<div class="card-body">
 					
-                    <form action="{{ route('student.store') }}" method="POST">
+                    <form action="{{ route('student.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="mb-3">
@@ -37,7 +37,13 @@
                             <input type="text" class="form-control" id="exampleFirstName" name="career" required>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label"><b>Foto</b></label>
+                            <input type="file" class="form-control" id="exampleFirstName" name="photo" id="photo">
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="{{ route('student') }}" class="btn btn-danger">Cancelar</a>
                     </form>
 
 				</div>

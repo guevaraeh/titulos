@@ -25,12 +25,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/titulation_certificate/{titulation_certificate}/add', [TitulationCertificateController::class, 'add_student'])->name('titulation_certificate.add_student');
     Route::get('/titulation_certificate/{titulation_certificate}/drop/{student}', [TitulationCertificateController::class, 'drop_student'])->name('titulation_certificate.drop_student');
     Route::get('/titulation_certificate/{titulation_certificate}/generate-pdf', [TitulationCertificateController::class, 'generate_pdf'])->name('titulation_certificate.generate_pdf');
-    Route::delete('/titulation_certificate/{titulation_certificate}/destroy', [TitulationCertificateController::class, 'edit'])->name('titulation_certificate.destroy');
+    Route::delete('/titulation_certificate/{titulation_certificate}/destroy', [TitulationCertificateController::class, 'destroy'])->name('titulation_certificate.destroy');
 
     Route::get('/student', [StudentController::class, 'index'])->name('student');
     Route::get('/student/create', [StudentController::class, 'create'])->name('student.create');
     Route::post('/student', [StudentController::class, 'store'])->name('student.store');
-    Route::get('/student/{student}', [StudentController::class, 'store'])->name('student.show');
+    Route::get('/student/{student}', [StudentController::class, 'show'])->name('student.show');
     Route::get('/student/{student}/edit', [StudentController::class, 'edit'])->name('student.edit');
     Route::put('/student/{student}', [StudentController::class, 'update'])->name('student.update');
     Route::delete('/student/{student}/destroy', [StudentController::class, 'destroy'])->name('student.destroy');

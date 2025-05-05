@@ -35,7 +35,7 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
-                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" placeholder="-">
+                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="-">
                                 @foreach($students as $student)
                                 <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
                                 @endforeach
@@ -53,6 +53,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="{{ route('titulation_certificate') }}" class="btn btn-danger">Cancelar</a>
                     </form>
 
 				</div>

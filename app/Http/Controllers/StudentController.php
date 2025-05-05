@@ -28,11 +28,29 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        /*$request->validate([
+            'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'dni' => 'required|max:255',
+            'career' => 'required|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,webp,avif|max:2048', // Max 2MB
+        ]);*/
+
+        //dd($request->hasFile('photo'));
+
         $student = new Student;
         $student->name = $request->input('name');
         $student->lastname = $request->input('lastname');
         $student->dni = $request->input('dni');
         $student->career = $request->input('career');
+
+        if($request->hasFile('photo'))
+        {
+            $imageName = time().'.'.$request->file('photo')->extension();  
+            $request->file('photo')->move(public_path('storage'), $imageName);
+            $student->photo = $imageName;
+        }
+
         $student->save();
 
         return redirect(route('student'))->with('success', 'Alumno registrado');
@@ -43,7 +61,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return view('student.show',['student' => $student]);
     }
 
     /**
@@ -64,6 +82,14 @@ class StudentController extends Controller
         $student->lastname = $request->input('lastname');
         $student->dni = $request->input('dni');
         $student->career = $request->input('career');
+
+        if($request->hasFile('photo'))
+        {
+            $imageName = time().'.'.$request->file('photo')->extension();  
+            $request->file('photo')->move(public_path('storage'), $imageName);
+            $student->photo = $imageName;
+        }
+
         $student->save();
 
         return redirect(session('previous_url'))->with('success', 'Alumno editado');
