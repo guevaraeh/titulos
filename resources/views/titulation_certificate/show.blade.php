@@ -64,7 +64,7 @@
                             @foreach($titulation_certificate->students as $student)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><img src="{{ asset('storage/'.$student->photo) }}" height="50" width="40"></td>
+                                    <td><img src="{{ asset($student->photo ? 'storage/'.$student->photo : 'no-photo.png') }}" height="50" width="40"></td>
                                     <td>{{ $student->lastname . ' ' . $student->name }}</td>
                                     <td>{{ $student->dni }}</td>
                                     <td>{{ $student->career }}</td>
@@ -79,6 +79,7 @@
                         </tbody>
                     </table>
 
+                    {{--
                     @if(count($titulation_certificate->students) < 3)
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Agregar estudiante
@@ -94,7 +95,7 @@
                                 </div>
                                 <div class="modal-body">
                                     @csrf
-                                    <select class="selectpicker form-control" placeholder="-" name="student-id" data-live-search="true">
+                                    <select class="selectpicker form-control" placeholder="- Selecciona estudiante -" name="student-id" data-live-search="true">
                                         @foreach($students as $student)
                                         <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
                                         @endforeach
@@ -109,6 +110,34 @@
                     </div>
                     </form>
                     @endif
+                    --}}
+
+                    @if(count($titulation_certificate->students) < 3)
+                    <button id="openModalBtn" type="button" class="btn btn-primary">Agregar Estudiante</button>
+
+                    <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">Agregar estudiante</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @csrf
+                                    <select class="selpick form-control" placeholder="- Selecciona estudiante -" name="student-id" id="student-id" data-live-search="true">
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -118,6 +147,33 @@
 
 @section('javascript')
 <script type="text/javascript">
-    $('.selectpicker').selectpicker();
+    //$('.selectpicker').selectpicker();
+
+    var data_on = false;
+    $('#openModalBtn').on('click', function () {
+
+        if(!data_on)
+        {
+            $.ajax({
+                method: "POST",
+                url: "{{ route('student.get_students_ajax') }}",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(results){
+                    //$('#student-select').html(result);
+                    results.forEach(function(result) {
+                        $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));
+                    });
+                    $('.selpick').selectpicker();
+                }
+            });
+        }
+        data_on = true;
+
+        var modal = new bootstrap.Modal(document.getElementById('myModal'));
+        modal.show();
+    });
+
 </script>
 @endsection

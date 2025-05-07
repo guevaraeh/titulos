@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/student/{student}', [StudentController::class, 'show'])->name('student.show');
     Route::get('/student/{student}/edit', [StudentController::class, 'edit'])->name('student.edit');
     Route::put('/student/{student}', [StudentController::class, 'update'])->name('student.update');
+    Route::post('/student/get-students-ajax', [StudentController::class, 'get_students_ajax'])->name('student.get_students_ajax');
     Route::delete('/student/{student}/destroy', [StudentController::class, 'destroy'])->name('student.destroy');
 });
 

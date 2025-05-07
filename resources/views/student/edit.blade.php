@@ -39,7 +39,7 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Foto</b></label>
-                            <input type="file" class="form-control" id="exampleFirstName" name="photo" id="photo">
+                            <input type="file" class="form-control" id="exampleFirstName" name="photo" id="photo" accept="image/*">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>

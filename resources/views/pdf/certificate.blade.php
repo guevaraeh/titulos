@@ -209,11 +209,11 @@
         </tr>
       </thead>
       <tbody>
-        {{--
+        <!--
         <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
         <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
         <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
-        --}}
+        -->
         @foreach($titulation_certificate->students as $student)
         <tr><td>{{ $loop->iteration }}</td><td class="datos">{{ $student->lastname . ' ' . $student->name }}</td><td class="datos">{{ $student->dni }}</td><td class="datos">{{ $student->career }}</td><td></td></tr>
         @endforeach

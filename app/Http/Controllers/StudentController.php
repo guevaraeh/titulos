@@ -4,15 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use DataTables;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('student.index',['students' => Student::get()]);
+        if($request->ajax())
+        {
+            $students = Student::query()->orderBy('lastname','ASC');
+
+            return DataTables::eloquent($students)
+            ->addColumn('actions', function(Student $data) {
+                $actions = '
+                    <a href="'.route('student.show', $data->id).'" class="btn btn-primary btn-sm" title="Ver">Ver</a>
+                    <a href="'.route('student.edit', $data->id).'" class="btn btn-info btn-sm" title="Editar">Editar</a>
+                ';
+                return $actions;
+            })
+            ->editColumn('photo', function(Student $data) {
+                return '<img src="'.asset($data->photo ? 'storage/'.$data->photo : 'no-photo.png').'" height="50"  width="40">';
+            })
+            ->rawColumns(['actions','photo'])
+            ->make(true);
+        }
+
+        //return view('student.index',['students' => Student::get()]);
+        return view('student.index');
     }
 
     /**
@@ -93,6 +114,21 @@ class StudentController extends Controller
         $student->save();
 
         return redirect(session('previous_url'))->with('success', 'Alumno editado');
+    }
+
+    public function get_students_ajax(Request $request)
+    {
+        if($request->ajax())
+        {
+            $students = Student::select('id','name','lastname')->orderBy('lastname','asc')->get();
+            /*$select_student = '<select class="selectpicker form-control" placeholder="- Selecciona estudiante -" name="student-id" data-live-search="true">';
+            foreach ($students as $student)
+                $select_student .= '<option value="'.$student->id.'">'.$student->name.'</option>';
+            $select_student .= '</select>';*/
+
+            return response()->json($students);
+            //return response()->json($select_student);    
+        }
     }
 
     /**

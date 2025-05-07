@@ -14,7 +14,7 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-hover" width="100%" cellspacing="0">
+						<table class="table table-hover" id="datat" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
                                     <th>Foto</th>
@@ -36,6 +36,7 @@
                                 </tr>
                             </tfoot>
                             <tbody>
+                                {{--
                                 @foreach($students as $student)
                                 
                                 <tr>
@@ -50,7 +51,8 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                
+                                --}}
+
                             </tbody>
 						</table>
 					</div>
@@ -60,4 +62,28 @@
 	</div>
 </div>
 
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+$( document ).ready(function() {
+
+    var dt = $('#datat').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
+        },
+        processing: true,
+        serverSide: true,
+        ajax:"{{ route('student') }}",
+        columns: [
+            {data:'photo', name:'photo'},
+            {data:'lastname', name:'lastname'},
+            {data:'name', name:'name'},
+            {data:'dni', name:'dni'},
+            {data:'career', name:'career'},
+            {data:'actions', name:'actions'},
+        ],
+    });    
+});
+</script>
 @endsection
