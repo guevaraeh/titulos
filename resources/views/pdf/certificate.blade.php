@@ -8,9 +8,13 @@
     body {
       /*font-family: "Arial", sans-serif;*/
       /*font-family: 'Helvetica', 'Arial', sans-serif;*/
-      font-family:helvetica;
+      font-family:'Helvetica', sans-serif;
       font-size: 11px;
       margin: 30px;
+    }
+    .datos{
+      font-family:'Arial';
+      font-size: 12px;
     }
 
     .header {
@@ -57,12 +61,13 @@
 
     .seccion {
       margin-top: 20px;
+      margin-bottom: 0px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     th, td {
@@ -90,7 +95,7 @@
     }
 
     .lugar-fecha {
-      margin-top: 20px;
+      margin-top: 50px;
 	  text-align: right;
     }
 
@@ -128,6 +133,14 @@
       text-align: left;
     }
 
+    .lineas td {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      padding: 0;
+      text-align: left;
+    }
+
   </style>
 </head>
 <body>
@@ -156,20 +169,32 @@
     <div class="titulo-principal">ACTA DE TITULACIÓN</div>
   </div>
 
-{{--
+<!--
   <div class="checkboxes">
     <label>Proyecto vinculado a la formación recibida: <span class="box">{{ $titulation_certificate->type == 0 ? 'X' : '' }}</span></label>
     <label>Examen de suficiencia profesional: <span class="box">{{ $titulation_certificate->type == 1 ? 'X' : '' }}</span></label>
   </div>
---}}
+-->
 <table width="100%" class="alineacion">
   <tr>
-    <td>Proyecto vinculado a la formación recibida: <span class="box">{{ $titulation_certificate->type == 0 ? 'X' : '' }}</span></td>
-    <td>Examen de suficiencia profesional: <span class="box">{{ $titulation_certificate->type == 1 ? 'X' : '' }}</span></td>
+    <td width="50%">Proyecto vinculado a la formación recibida: <span class="box">{{ $titulation_certificate->type == 0 ? 'X' : '' }}</span></td>
+    <td width="50%">Examen de suficiencia profesional: <span class="box">{{ $titulation_certificate->type == 1 ? 'X' : '' }}</span></td>
   </tr>
 </table>
 
+<!--
   <div class="line">Nombre del proyecto: <u>{{ $titulation_certificate->project_name }}</u>______________________________________</div>
+-->
+<table width="100%" class="lineas">
+  <tr>
+    <td width="17%" style="border-bottom: none;">Nombre del proyecto:</td>
+    <td class="datos">{{ $titulation_certificate->project_name }}</td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+
 
   <div class="seccion">
     <strong>Datos de los Estudiantes:</strong>
@@ -190,7 +215,7 @@
         <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
         --}}
         @foreach($titulation_certificate->students as $student)
-        <tr><td>{{ $loop->iteration }}</td><td>{{ $student->lastname . ' ' . $student->name }}</td><td>{{ $student->dni }}</td><td>{{ $student->career }}</td><td></td></tr>
+        <tr><td>{{ $loop->iteration }}</td><td class="datos">{{ $student->lastname . ' ' . $student->name }}</td><td class="datos">{{ $student->dni }}</td><td class="datos">{{ $student->career }}</td><td></td></tr>
         @endforeach
         
         @if($count_students < 1)
@@ -231,9 +256,22 @@
     </table>
   </div>
 
+<!--
   <div class="seccion">
     <small>OBSERVACIONES:</small><br>
     <div class="observaciones"><u>{{ $titulation_certificate->remarks }}</u>___________________________________________________________________________________________</div>
+  </div>
+  -->
+  <div class="seccion">
+    <small>OBSERVACIONES:</small><br>
+    <table width="100%" class="lineas">
+      <tr>
+        <td class="datos">{{ $titulation_certificate->remarks }}</td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+    </table>
   </div>
 
   <div class="lugar-fecha">
