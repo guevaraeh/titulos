@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('titulation_certificates', function (Blueprint $table) {
             $table->id();
             $table->boolean('type');
-            $table->string('project_name');
+            $table->string('project_name')->nullable();
             $table->text('remarks')->nullable();
             $table->date('certificate_date')->nullable();
             $table->timestamps();

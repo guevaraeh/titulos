@@ -31,7 +31,7 @@
                             </tr>
                             <tr>
                                 <th>Carrera profesional</th>
-                                <td>{{ $student->career }}</td>
+                                <td>{{ $student->career->name }}</td>
                             </tr>
                         </tbody>
                     </table>

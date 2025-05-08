@@ -30,12 +30,16 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" id="exampleFirstName" name="project-name" value="{{ $titulation_certificate->project_name }}" required>
+                            @if($titulation_certificate->type == 0)
+                            <input type="text" class="form-control" id="project-name" name="project-name" value="{{ $titulation_certificate->project_name }}" required>
+                            @else
+                            <input type="text" class="form-control" id="project-name" name="project-name" value="" disabled>
+                            @endif
                         </div>
 
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ $titulation_certificate->certificate_date }}" readonly>
+                            <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
+                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ $titulation_certificate->certificate_date }}">
                         </div>
 
                         <div class="mb-3">
@@ -44,7 +48,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{{ $previous }}" class="btn btn-danger">Cancelar</a>
+                        <a href="{{ session('url_from') }}" class="btn btn-danger">Cancelar</a>
                     </form>
 
 				</div>
@@ -57,6 +61,20 @@
 
 @section('javascript')
 <script type="text/javascript">
+$( document ).ready(function() {
+
+    $('input[name="type"]').change(function(){
+        if($(this).val() == 1)
+        {
+            $('#project-name').prop('required', false);
+            $('#project-name').prop('disabled', true);
+        }
+        else
+        {
+            $('#project-name').prop('disabled', false);
+            $('#project-name').prop('required', true);
+        }
+    });
 
     new tempusDominus.TempusDominus(document.getElementById("cert-date"), {
         useCurrent: false,
@@ -76,5 +94,7 @@
             format: "yyyy-MM-dd"
         },
     });
+
+});
 </script>
 @endsection

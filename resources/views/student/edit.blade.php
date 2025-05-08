@@ -34,7 +34,11 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Carrera</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" id="exampleFirstName" name="career" value="{{ $student->career }}" required>
+                            <select class="form-control" name="career-id" aria-label="Default select example">
+                                @foreach($careers as $career)
+                                <option value="{{ $career->id }}" {{ $student->career_id == $career->id ? 'selected' : '' }} >{{ $career->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -43,7 +47,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{{ $previous }}" class="btn btn-danger">Cancelar</a>
+                        <a href="{{ session('url_from') }}" class="btn btn-danger">Cancelar</a>
                     </form>
 
 				</div>

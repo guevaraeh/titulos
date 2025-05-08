@@ -30,12 +30,12 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" id="exampleFirstName" name="project-name" required>
+                            <input type="text" class="form-control" id="project-name" name="project-name" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
-                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="-">
+                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="- Seleccionar Estudiantes -">
                                 @foreach($students as $student)
                                 <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
                                 @endforeach
@@ -43,8 +43,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ date('Y-m-d', time()) }}" readonly>
+                            <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
+                            <input type="text" class="form-control" name="certificate-date" id="cert-date" >
                         </div>
 
                         <div class="mb-3">
@@ -66,6 +66,21 @@
 
 @section('javascript')
 <script type="text/javascript">
+$( document ).ready(function() {
+
+    $('input[name="type"]').change(function(){
+        if($(this).val() == 1)
+        {
+            $('#project-name').prop('required', false);
+            $('#project-name').prop('disabled', true);
+        }
+        else
+        {
+            $('#project-name').prop('disabled', false);
+            $('#project-name').prop('required', true);
+        }
+    });
+
     $('.selectpicker').selectpicker();
 
     new tempusDominus.TempusDominus(document.getElementById("cert-date"), {
@@ -86,5 +101,7 @@
             format: "yyyy-MM-dd"
         },
     });
+
+});
 </script>
 @endsection

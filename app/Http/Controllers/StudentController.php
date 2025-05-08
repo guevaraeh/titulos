@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Career;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -13,9 +14,12 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
+        session(['url_from' => route('student')]);
+
         if($request->ajax())
         {
             $students = Student::query()->orderBy('lastname','ASC');
+            //->join('careers', 'students.career_id', '=', 'careers.id');
 
             return DataTables::eloquent($students)
             ->addColumn('actions', function(Student $data) {
@@ -28,6 +32,13 @@ class StudentController extends Controller
             ->editColumn('photo', function(Student $data) {
                 return '<img src="'.asset($data->photo ? 'storage/'.$data->photo : 'no-photo.png').'" height="50"  width="40">';
             })
+            ->editColumn('career_id', function(Student $data) {
+                return $data->career->name;
+            })
+            /*->filterColumn('career_id', function($query, $keyword) {
+                $sql = "careers.name like ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })*/
             ->rawColumns(['actions','photo'])
             ->make(true);
         }
@@ -41,7 +52,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student.create');
+        return view('student.create',['careers' => Career::get()]);
     }
 
     /**
@@ -63,7 +74,7 @@ class StudentController extends Controller
         $student->name = $request->input('name');
         $student->lastname = $request->input('lastname');
         $student->dni = $request->input('dni');
-        $student->career = $request->input('career');
+        $student->career_id = $request->input('career-id');
 
         if($request->hasFile('photo'))
         {
@@ -74,7 +85,7 @@ class StudentController extends Controller
 
         $student->save();
 
-        return redirect(route('student'))->with('success', 'Alumno registrado');
+        return redirect(route('student.show',$student->id))->with('success', 'Alumno registrado');
     }
 
     /**
@@ -82,6 +93,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        session(['url_from' => route('student.show',$student->id)]);
         return view('student.show',['student' => $student]);
     }
 
@@ -90,8 +102,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        session(['previous_url' => url()->previous()]);
-        return view('student.edit',['student' => $student, 'previous' => session('previous_url')]);
+        return view('student.edit',['student' => $student, 'careers' => Career::get()]);
     }
 
     /**
@@ -102,7 +113,7 @@ class StudentController extends Controller
         $student->name = $request->input('name');
         $student->lastname = $request->input('lastname');
         $student->dni = $request->input('dni');
-        $student->career = $request->input('career');
+        $student->career_id = $request->input('career-id');
 
         if($request->hasFile('photo'))
         {
@@ -113,21 +124,20 @@ class StudentController extends Controller
 
         $student->save();
 
-        return redirect(session('previous_url'))->with('success', 'Alumno editado');
+        return redirect(session('url_from'))->with('success', 'Alumno editado');
     }
 
     public function get_students_ajax(Request $request)
     {
         if($request->ajax())
         {
-            $students = Student::select('id','name','lastname')->orderBy('lastname','asc')->get();
-            /*$select_student = '<select class="selectpicker form-control" placeholder="- Selecciona estudiante -" name="student-id" data-live-search="true">';
-            foreach ($students as $student)
-                $select_student .= '<option value="'.$student->id.'">'.$student->name.'</option>';
-            $select_student .= '</select>';*/
+            //$careers = Career::get();
 
+            $students = Student::select('id','name','lastname');
+            foreach($request->input('selected_students') as $st)
+                $students->where('id','<>',$st);
+            $students = $students->orderBy('lastname', 'asc')->get();
             return response()->json($students);
-            //return response()->json($select_student);    
         }
     }
 

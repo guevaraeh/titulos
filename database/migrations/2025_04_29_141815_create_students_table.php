@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('dni');
-            $table->string('career');
+            $table->foreignId('career_id');
             $table->string('photo')->nullable();
             $table->timestamps();
         });

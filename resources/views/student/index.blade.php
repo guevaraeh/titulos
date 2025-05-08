@@ -36,22 +36,6 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                {{--
-                                @foreach($students as $student)
-                                
-                                <tr>
-                                    <td><img src="{{ asset('storage/'.$student->photo) }}" height="50"  width="40"></td>
-                                    <td>{{ $student->lastname }}</td>
-                                    <td>{{ $student->name }}</td>
-                                    <td>{{ $student->dni }}</td>
-                                    <td>{{ $student->career }}</td>
-                                    <td>
-                                        <a href="{{ route('student.show', $student->id) }}" class="btn btn-primary btn-sm" title="Ver">Ver</a>
-                                        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info btn-sm" title="Editar">Editar</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                --}}
 
                             </tbody>
 						</table>
@@ -80,7 +64,7 @@ $( document ).ready(function() {
             {data:'lastname', name:'lastname'},
             {data:'name', name:'name'},
             {data:'dni', name:'dni'},
-            {data:'career', name:'career'},
+            {data:'career_id', name:'career_id'},
             {data:'actions', name:'actions'},
         ],
     });    

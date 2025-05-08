@@ -10,11 +10,12 @@
       /*font-family: 'Helvetica', 'Arial', sans-serif;*/
       font-family:'Helvetica', sans-serif;
       font-size: 11px;
-      margin: 30px;
+      margin: 25px;
     }
     .datos{
       font-family:'Arial';
       font-size: 12px;
+      text-transform: uppercase;
     }
 
     .header {
@@ -30,19 +31,21 @@
     .titulo {
       font-weight: bold;
       margin: 5px 0;
+      font-size: 12px;
 	   text-align: center;
     }
 
     .titulo-principal {
       font-weight: bold;
-      font-size: 14px;
+      font-size: 16px;
       margin: 6px 0;
      text-align: center;
+     padding-bottom: 15px;
     }
 
     .institucion {
       /*font-family: "Arial Narrow", "Arial", sans-serif;*/
-      /*font-size: 10px;*/
+      font-size: 12px;
       margin-top: 4px;
 	  text-align: center;
     }
@@ -95,7 +98,7 @@
     }
 
     .lugar-fecha {
-      margin-top: 50px;
+      margin-top: 40px;
 	  text-align: right;
     }
 
@@ -134,6 +137,7 @@
     }
 
     .lineas td {
+      border: 0.5px solid;
       border-top: none;
       border-left: none;
       border-right: none;
@@ -201,10 +205,10 @@
     <table>
       <thead>
         <tr>
-          <td width="5%">N°</td>
-          <td width="35%">Apellidos y Nombres de los <br>Estudiantes</td>
-          <td width="15%">D.N.I</td>
-          <td width="25%">Carrera Profesional</td>
+          <td width="4%">N°</td>
+          <td width="39%">Apellidos y Nombres de los <br>Estudiantes</td>
+          <td width="11%">D.N.I</td>
+          <td width="27%">Carrera Profesional</td>
           <td>Firma</th>
         </tr>
       </thead>
@@ -215,7 +219,7 @@
         <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
         -->
         @foreach($titulation_certificate->students as $student)
-        <tr><td>{{ $loop->iteration }}</td><td class="datos">{{ $student->lastname . ' ' . $student->name }}</td><td class="datos">{{ $student->dni }}</td><td class="datos">{{ $student->career }}</td><td></td></tr>
+        <tr><td>{{ $loop->iteration }}</td><td class="datos">{{ $student->lastname . ' ' . $student->name }}</td><td class="datos">{{ $student->dni }}</td><td class="datos">{{ $student->career->name }}</td><td></td></tr>
         @endforeach
         
         @if($count_students < 1)
@@ -238,18 +242,18 @@
       <thead>
         <tr>
           <td rowspan="2">Estudiantes</td>
-          <td colspan="3" style="height: 13px;">Miembro del Jurado</td>
-          <td width="15%" rowspan="2">Promedio de Calificación Personal</td>
+          <td colspan="3" style="padding: 0;">Miembro del Jurado</td>
+          <td rowspan="2">Promedio de Calificación Personal</td>
           <td rowspan="2">Calificación Final Personal<br>(En letras)</td>
         </tr>
         <tr>
-          <td style="height: 13px;">Presidente</td>
-          <td style="height: 13px;">Secretario</td>
-          <td style="height: 13px;">Vocal</td>
+          <td style="padding: 0;">Presidente</td>
+          <td style="padding: 0;">Secretario</td>
+          <td style="padding: 0;">Vocal</td>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Estudiante 1</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>Estudiante 1</td><td width="16%"></td><td width="16%"></td><td width="16%"></td><td width="16%"></td><td width="16%"></td></tr>
         <tr><td>Estudiante 2</td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><td>Estudiante 3</td><td></td><td></td><td></td><td></td><td></td></tr>
       </tbody>
@@ -275,7 +279,6 @@
   </div>
 
   <div class="lugar-fecha">
-    {{-- Arequipa, _____ de ______________ del _______ --}}
     Arequipa, {{ $date }}
   </div>
 

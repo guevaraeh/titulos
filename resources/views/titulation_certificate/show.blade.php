@@ -21,10 +21,12 @@
                                 <th class="col-4">Tipo</th>
                                 <td>{{ $types[$titulation_certificate->type] }}</td>
                             </tr>
+                            @if(!$titulation_certificate->type)
                             <tr>
                                 <th>Nombre del proyecto</th>
                                 <td>{{ $titulation_certificate->project_name }}</td>
                             </tr>
+                            @endif
                             <tr>
                                 <th>Fecha</th>
                                 <td>{{ $date }}</td>
@@ -36,7 +38,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-primary" title="Pdf">PDF</a>
+                <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary" title="Pdf">PDF</a>
                 <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info" title="Editar">Editar</a>
             </div>
         </div>
@@ -67,7 +69,7 @@
                                     <td><img src="{{ asset($student->photo ? 'storage/'.$student->photo : 'no-photo.png') }}" height="50" width="40"></td>
                                     <td>{{ $student->lastname . ' ' . $student->name }}</td>
                                     <td>{{ $student->dni }}</td>
-                                    <td>{{ $student->career }}</td>
+                                    <td>{{ $student->career->name }}</td>
                                     <td>
                                         <a href="{{ route('student.edit', $student->id) }}" class="btn btn-primary btn-sm" title="Editar">Editar</a>
                                         <a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger btn-sm" title="Quitar">Quitar</a>
@@ -78,39 +80,6 @@
                             
                         </tbody>
                     </table>
-
-                    {{--
-                    @if(count($titulation_certificate->students) < 3)
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Agregar estudiante
-                    </button>
-
-                    <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Agregar estudiante</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    @csrf
-                                    <select class="selectpicker form-control" placeholder="- Selecciona estudiante -" name="student-id" data-live-search="true">
-                                        @foreach($students as $student)
-                                        <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary">Agregar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </form>
-                    @endif
-                    --}}
 
                     @if(count($titulation_certificate->students) < 3)
                     <button id="openModalBtn" type="button" class="btn btn-primary">Agregar Estudiante</button>
@@ -158,7 +127,8 @@
                 method: "POST",
                 url: "{{ route('student.get_students_ajax') }}",
                 data: {
-                    _token: "{{ csrf_token() }}"
+                    _token: "{{ csrf_token() }}",
+                    selected_students: @json($titulation_certificate->students->pluck('id')->toArray()),
                 },
                 success: function(results){
                     //$('#student-select').html(result);
