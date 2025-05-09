@@ -16,7 +16,7 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-hover" width="100%" cellspacing="0">
+						<table class="table table-hover" id="datat" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
                                     <th>Tipo</th>
@@ -36,6 +36,7 @@
                                 </tr>
                             </tfoot>
                             <tbody>
+                                {{--
                                 @foreach($titulation_certificates as $titulation_certificate)
                                 <tr>
                                     <td>{{ $types[$titulation_certificate->type] }}</td>
@@ -53,6 +54,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                --}}
                             </tbody>
 						</table>
 					</div>
@@ -62,4 +64,27 @@
 	</div>
 </div>
 
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+$( document ).ready(function() {
+
+    var dt = $('#datat').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
+        },
+        processing: true,
+        serverSide: true,
+        ajax:"{{ route('titulation_certificate') }}",
+        columns: [
+            {data:'type', name:'type'},
+            {data:'project_name', name:'project_name'},
+            {data:'certificate_date', name:'certificate_date'},
+            {data:'student_group', name:'student_group'},
+            {data:'actions', name:'actions'},
+        ],
+    });    
+});
+</script>
 @endsection

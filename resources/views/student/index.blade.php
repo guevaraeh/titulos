@@ -64,7 +64,7 @@ $( document ).ready(function() {
             {data:'lastname', name:'lastname'},
             {data:'name', name:'name'},
             {data:'dni', name:'dni'},
-            {data:'career_id', name:'career_id'},
+            {data:'career', name:'career'},
             {data:'actions', name:'actions'},
         ],
     });    

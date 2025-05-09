@@ -60,7 +60,13 @@
                             @foreach($student->titulation_certificates as $titulation_certificate)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $titulation_certificate->project_name }}</td>
+                                    <td><a href="{{ route('titulation_certificate.show', $titulation_certificate->id) }}">
+                                        @if($titulation_certificate->project_name)
+                                        {{ $titulation_certificate->project_name }}
+                                        @else
+                                        <i>Examen de suficiencia profesional</i>
+                                        @endif
+                                        </a></td>
                                     <td>
                                         <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-primary" title="Pdf">PDF</a>
                                         <a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar">Quitar</a>

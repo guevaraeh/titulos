@@ -175,24 +175,24 @@
 
 <!--
   <div class="checkboxes">
-    <label>Proyecto vinculado a la formación recibida: <span class="box">{{ $titulation_certificate->type == 0 ? 'X' : '' }}</span></label>
-    <label>Examen de suficiencia profesional: <span class="box">{{ $titulation_certificate->type == 1 ? 'X' : '' }}</span></label>
+    <label>Proyecto vinculado a la formación recibida: <span class="box">{{ $type == 0 ? 'X' : '' }}</span></label>
+    <label>Examen de suficiencia profesional: <span class="box">{{ $type == 1 ? 'X' : '' }}</span></label>
   </div>
 -->
 <table width="100%" class="alineacion">
   <tr>
-    <td width="50%">Proyecto vinculado a la formación recibida: <span class="box">{{ $titulation_certificate->type == 0 ? 'X' : '' }}</span></td>
-    <td width="50%">Examen de suficiencia profesional: <span class="box">{{ $titulation_certificate->type == 1 ? 'X' : '' }}</span></td>
+    <td width="50%">Proyecto vinculado a la formación recibida: <span class="box">{{ $type == 0 ? 'X' : '' }}</span></td>
+    <td width="50%">Examen de suficiencia profesional: <span class="box">{{ $type == 1 ? 'X' : '' }}</span></td>
   </tr>
 </table>
 
 <!--
-  <div class="line">Nombre del proyecto: <u>{{ $titulation_certificate->project_name }}</u>______________________________________</div>
+  <div class="line">Nombre del proyecto: <u>{{ $project_name }}</u>______________________________________</div>
 -->
 <table width="100%" class="lineas">
   <tr>
     <td width="17%" style="border-bottom: none;">Nombre del proyecto:</td>
-    <td class="datos">{{ $titulation_certificate->project_name }}</td>
+    <td class="datos">{{ $project_name }}</td>
   </tr>
   <tr>
     <td colspan="2"></td>
@@ -218,7 +218,7 @@
         <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
         <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
         -->
-        @foreach($titulation_certificate->students as $student)
+        @foreach($students as $student)
         <tr><td>{{ $loop->iteration }}</td><td class="datos">{{ $student->lastname . ' ' . $student->name }}</td><td class="datos">{{ $student->dni }}</td><td class="datos">{{ $student->career->name }}</td><td></td></tr>
         @endforeach
         
@@ -263,14 +263,14 @@
 <!--
   <div class="seccion">
     <small>OBSERVACIONES:</small><br>
-    <div class="observaciones"><u>{{ $titulation_certificate->remarks }}</u>___________________________________________________________________________________________</div>
+    <div class="observaciones"><u>{{ $remarks }}</u>___________________________________________________________________________________________</div>
   </div>
   -->
   <div class="seccion">
     <small>OBSERVACIONES:</small><br>
     <table width="100%" class="lineas">
       <tr>
-        <td class="datos">{{ $titulation_certificate->remarks }}</td>
+        <td class="datos">{{ $remarks }}</td>
       </tr>
       <tr>
         <td></td>

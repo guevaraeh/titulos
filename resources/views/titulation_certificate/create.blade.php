@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Titula</title>
+<title>Crear Acta de Titulación</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Crear titulación</h6>
+					<h6 class="m-0 font-weight-bold">Crear Acta de Titulación</h6>
 				</div>
 				<div class="card-body">
 					
@@ -35,9 +35,20 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
+                            {{--
                             <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="- Seleccionar Estudiantes -">
                                 @foreach($students as $student)
                                 <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
+                                @endforeach
+                            </select>
+                            --}}
+                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="- Seleccionar Estudiantes -">
+                                @foreach($careers as $career)
+                                <optgroup label="{{ $career->name }}">
+                                    @foreach($career->students as $student)
+                                    <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
+                                    @endforeach
+                                </optgroup>
                                 @endforeach
                             </select>
                         </div>

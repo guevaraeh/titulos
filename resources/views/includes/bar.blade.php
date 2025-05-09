@@ -14,6 +14,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('titulation_certificate') }}">Lista</a></li>
             <li><a class="dropdown-item" href="{{ route('titulation_certificate.create') }}">Crear acta</a></li>
+            <li><a class="dropdown-item" href="{{ route('titulation_certificate.generate_pdf_empty') }}" target="_blank">Acta vacia</a></li>
           </ul>
         </li>
         

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Career;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use DataTables;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class StudentController extends Controller
 {
@@ -18,8 +21,9 @@ class StudentController extends Controller
 
         if($request->ajax())
         {
-            $students = Student::query()->orderBy('lastname','ASC');
-            //->join('careers', 'students.career_id', '=', 'careers.id');
+            $students = Student::query()->orderBy('lastname','ASC')
+            ->select([DB::raw("careers.name as career"),'students.*'])
+            ->join('careers', 'students.career_id', '=', 'careers.id');
 
             return DataTables::eloquent($students)
             ->addColumn('actions', function(Student $data) {
@@ -32,13 +36,13 @@ class StudentController extends Controller
             ->editColumn('photo', function(Student $data) {
                 return '<img src="'.asset($data->photo ? 'storage/'.$data->photo : 'no-photo.png').'" height="50"  width="40">';
             })
-            ->editColumn('career_id', function(Student $data) {
-                return $data->career->name;
+            ->editColumn('career', function(Student $data) {
+                return $data->career;
             })
-            /*->filterColumn('career_id', function($query, $keyword) {
+            ->filterColumn('career', function($query, $keyword) {
                 $sql = "careers.name like ?";
                 $query->whereRaw($sql, ["%{$keyword}%"]);
-            })*/
+            })
             ->rawColumns(['actions','photo'])
             ->make(true);
         }

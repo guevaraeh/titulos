@@ -67,7 +67,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td><img src="{{ asset($student->photo ? 'storage/'.$student->photo : 'no-photo.png') }}" height="50" width="40"></td>
-                                    <td>{{ $student->lastname . ' ' . $student->name }}</td>
+                                    <td><a href="{{ route('student.show', $student->id) }}">{{ $student->lastname . ' ' . $student->name }}</a></td>
                                     <td>{{ $student->dni }}</td>
                                     <td>{{ $student->career->name }}</td>
                                     <td>
