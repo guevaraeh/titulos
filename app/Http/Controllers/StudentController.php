@@ -145,6 +145,23 @@ class StudentController extends Controller
         }
     }
 
+    public function get_students_by_career_ajax(Request $request)
+    {
+        if($request->ajax())
+        {
+            $students = Student::select('id','name','lastname','career_id')
+            ->where('career_id', $request->input('career'))
+            ->orderBy('lastname', 'asc');
+            if($request->input('selected_students'))
+            {
+                foreach($request->input('selected_students') as $st)
+                    $students->where('id','<>',$st);
+            }
+            $students = $students->get();
+            return response()->json($students);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */

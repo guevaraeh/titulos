@@ -42,6 +42,8 @@
                                 @endforeach
                             </select>
                             --}}
+
+                            {{--
                             <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="- Seleccionar Estudiantes -">
                                 @foreach($careers as $career)
                                 <optgroup label="{{ $career->name }}">
@@ -51,6 +53,14 @@
                                 </optgroup>
                                 @endforeach
                             </select>
+                            --}}
+                            
+                            <button type="button" id="add-student" class="btn btn-light btn-sm"><i class="bi bi-plus-lg"></i></button>
+                            <button type="button" id="del-student" class="btn btn-light btn-sm"><i class="bi bi-dash-lg"></i></button>
+                            <div id="num-students">
+                                
+                            </div>
+                            
                         </div>
 
                         <div class="mb-3">
@@ -92,7 +102,6 @@ $( document ).ready(function() {
         }
     });
 
-    $('.selectpicker').selectpicker();
 
     new tempusDominus.TempusDominus(document.getElementById("cert-date"), {
         useCurrent: false,
@@ -112,6 +121,90 @@ $( document ).ready(function() {
             format: "yyyy-MM-dd"
         },
     });
+
+    
+    var num_students = 1;
+    var careers = @json($careers);
+    var option_careers = ''
+    careers.forEach(function(career) {
+        option_careers += '<option value="'+career.id+'">'+career.name+'</option>';
+    });
+    var selected_students = [];
+    $('#num-students').append(
+        '<div id="set-1" class="form-group row mb-3">'+
+            '<div class="col-sm-1">'+
+                '<label class="form-label">Est. 1</label>'+
+            '</div>'+
+            '<div class="col-sm-5">'+
+                '<select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
+                option_careers
+                +'</select>'+
+            '</div>'+
+            '<div class="col-sm-6" id="sel-1">'+
+                '<select class="form-control select-student" id="student-1" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>'+
+            '</div>'+
+        '</div>'
+        );
+    $('#career-1').selectpicker();
+    
+    $('#num-students').on('change', '.career', function() {
+        var num_st= $(this).attr('num-data');
+        $.ajax({
+            method: "POST",
+            url: "{{ route('student.get_students_by_career_ajax') }}",
+            data: {
+                _token: "{{ csrf_token() }}",
+                career: $(this).val(),
+            },
+            success: function(results){
+                $("#sel-"+num_st).html('');
+                $("#sel-"+num_st).append('<select class="form-control" id="student-'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
+
+                results.forEach(function(result) {
+                    $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
+                });
+                $("#student-"+num_st).selectpicker();
+            },
+        });
+    });
+
+    /*$('#num-students').on('change', '.select-student', function() {
+        selected_students += { ,value : $(this).val};
+    });*/
+    
+    //https://www.encodedna.com/2013/07/dynamically-add-remove-textbox-control-using-jquery.htm
+    $('#add-student').click(function() {
+        if (num_students < 3) 
+        {
+            num_students = num_students + 1;
+            $('#num-students').append(
+                '<div id="set-'+num_students+'" class="form-group row mb-3">'+
+                    '<div class="col-sm-1">'+
+                        '<label class="form-label">Est. '+num_students+'</label>'+
+                    '</div>'+
+                    '<div class="col-sm-5">'+
+                        '<select class="form-control career" id="career-'+num_students+'" num-data="'+num_students+'" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
+                        option_careers
+                        +'</select>'+
+                    '</div>'+
+                    '<div class="col-sm-6" id="sel-'+num_students+'">'+
+                        '<select class="form-control select-student" id="student-'+num_students+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>'+
+                    '</div>'+
+                '</div>'
+                );
+            $('#career-'+num_students).selectpicker();
+        }
+    });
+    $('#del-student').click(function() {
+        if (num_students > 1) 
+        { 
+            $('#set-'+num_students).remove(); 
+            num_students = num_students - 1; 
+        }
+    });
+    
+
+    //$('.selectpicker').selectpicker();
 
 });
 </script>

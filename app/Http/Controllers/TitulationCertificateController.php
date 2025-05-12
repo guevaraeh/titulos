@@ -94,10 +94,11 @@ class TitulationCertificateController extends Controller
     {
         //return view('titulation_certificate.create',['students' => Student::orderBy('lastname','ASC')->get()]);
 
-        $careers = Career::with(['students' => function (Builder $query) {
+        /*$careers = Career::with(['students' => function (Builder $query) {
             $query->orderBy('lastname', 'asc');
-        }])->get();
+        }])->get();*/
         //dd($careers->toArray());
+        $careers = Career::select('id','name')->get();
         return view('titulation_certificate.create',['careers' => $careers]);
     }
 

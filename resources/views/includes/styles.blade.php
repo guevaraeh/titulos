@@ -8,4 +8,4 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css" crossorigin="anonymous">
 
-<link rel="stylesheet" href="{{ asset('/libraries/bootstrap-styles/bootstrap-sandstone.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/libraries/bootstrap-styles/bootstrap-yeti.min.css') }}">

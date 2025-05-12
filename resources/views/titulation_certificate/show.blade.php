@@ -131,7 +131,6 @@
                     selected_students: @json($titulation_certificate->students->pluck('id')->toArray()),
                 },
                 success: function(results){
-                    //$('#student-select').html(result);
                     results.forEach(function(result) {
                         $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));
                     });
