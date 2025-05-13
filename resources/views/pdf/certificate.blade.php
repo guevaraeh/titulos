@@ -9,8 +9,8 @@
       /*font-family: "Arial", sans-serif;*/
       /*font-family: 'Helvetica', 'Arial', sans-serif;*/
       font-family:'Helvetica', sans-serif;
-      font-size: 11px;
-      margin: 25px;
+      font-size: 12px;
+      margin: 27px;
     }
     .datos{
       font-family:'Arial';
@@ -31,23 +31,24 @@
     .titulo {
       font-weight: bold;
       margin: 5px 0;
-      font-size: 12px;
+      font-size: 13px;
 	   text-align: center;
     }
 
     .titulo-principal {
       font-weight: bold;
       font-size: 16px;
-      margin: 6px 0;
+      margin: 8px;
      text-align: center;
      padding-bottom: 15px;
+     padding-top: 5px;
     }
 
     .institucion {
       /*font-family: "Arial Narrow", "Arial", sans-serif;*/
-      font-size: 12px;
+      font-size: 13px;
       margin-top: 4px;
-	  text-align: center;
+	   text-align: center;
     }
 
     .checkboxes {
@@ -63,7 +64,7 @@
     }
 
     .seccion {
-      margin-top: 20px;
+      margin-top: 15px;
       margin-bottom: 0px;
     }
 
@@ -77,7 +78,7 @@
       border: 1px solid black;
       padding: 3px;
       text-align: center;
-      height: 26px;
+      height: 27px;
     }
 
     .observaciones {
@@ -143,6 +144,7 @@
       border-right: none;
       padding: 0;
       text-align: left;
+      height: 25px;
     }
 
   </style>
@@ -187,15 +189,15 @@
 </table>
 
 <!--
-  <div class="line">Nombre del proyecto: <u>{{ $project_name }}</u>______________________________________</div>
+  <div class="line">Nombre del proyecto: <u>{{ $project_name[0] }}</u>______________________________________</div>
 -->
 <table width="100%" class="lineas">
   <tr>
-    <td width="17%" style="border-bottom: none;">Nombre del proyecto:</td>
-    <td class="datos">{{ $project_name }}</td>
+    <td width="18%" style="border-bottom: none;">Nombre del proyecto:</td>
+    <td class="datos">{{ $project_name[0] }}</td>
   </tr>
   <tr>
-    <td colspan="2"></td>
+    <td class="datos" colspan="2">{{ $project_name[1] }}</td>
   </tr>
 </table>
 
@@ -253,7 +255,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>Estudiante 1</td><td width="16%"></td><td width="16%"></td><td width="16%"></td><td width="16%"></td><td width="16%"></td></tr>
+        <tr><td>Estudiante 1</td><td width="16.5%"></td><td width="16.5%"></td><td width="16.5%"></td><td width="16.5%"></td><td width="16.5%"></td></tr>
         <tr><td>Estudiante 2</td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><td>Estudiante 3</td><td></td><td></td><td></td><td></td><td></td></tr>
       </tbody>
@@ -263,17 +265,17 @@
 <!--
   <div class="seccion">
     <small>OBSERVACIONES:</small><br>
-    <div class="observaciones"><u>{{ $remarks }}</u>___________________________________________________________________________________________</div>
+    <div class="observaciones"><u>{{ $remarks[0] }}</u>___________________________________________________________________________________________</div>
   </div>
   -->
   <div class="seccion">
     <small>OBSERVACIONES:</small><br>
     <table width="100%" class="lineas">
       <tr>
-        <td class="datos">{{ $remarks }}</td>
+        <td class="datos">{{ $remarks[0] }}</td>
       </tr>
       <tr>
-        <td></td>
+        <td class="datos">{{ $remarks[1] }}</td>
       </tr>
     </table>
   </div>

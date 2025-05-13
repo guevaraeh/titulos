@@ -93,9 +93,24 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                 </div>
                                 <div class="modal-body">
+                                    {{--
                                     @csrf
                                     <select class="selpick form-control" placeholder="- Selecciona estudiante -" name="student-id" id="student-id" data-live-search="true">
                                     </select>
+                                    --}}
+
+                                    @csrf
+                                    <div class="mb-3">
+                                        <select class="selectpicker form-control" id="career" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                            @foreach($careers as $career)
+                                            <option value="{{ $career->id }}">{{ $career->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3" id="sel">
+                                        <select class="form-control select-student" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled required></select>
+                                    </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -116,12 +131,13 @@
 
 @section('javascript')
 <script type="text/javascript">
-    //$('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker();
 
-    var data_on = false;
+    //var data_on = false;
     $('#openModalBtn').on('click', function () {
 
-        if(!data_on)
+        {{--
+        /*if(!data_on)
         {
             $.ajax({
                 method: "POST",
@@ -138,11 +154,37 @@
                 }
             });
         }
-        data_on = true;
+        data_on = true;*/
+        --}}
 
         var modal = new bootstrap.Modal(document.getElementById('myModal'));
         modal.show();
     });
+
+    $('#career').on('change', function() {
+
+        $.ajax({
+            method: "POST",
+            url: "{{ route('student.get_students_by_career_ajax') }}",
+            data: {
+                _token: "{{ csrf_token() }}",
+                career: $(this).val(),
+                selected_students: @json($titulation_certificate->students->pluck('id')->toArray()),
+            },
+            success: function(results){
+                $("#sel").html('');
+                $("#sel").append('<select class="form-control" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
+
+                results.forEach(function(result) {
+                    $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));
+                });
+                $("#student-id").selectpicker();
+            },
+        });
+
+    });
+
+
 
 </script>
 @endsection

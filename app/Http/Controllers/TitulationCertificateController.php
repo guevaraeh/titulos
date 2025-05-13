@@ -129,8 +129,10 @@ class TitulationCertificateController extends Controller
         //UPDATE students SET career_id = FLOOR(RAND()*9+1)
 
         session(['url_from' => route('titulation_certificate.show',$titulationCertificate->id)]);
+
         $date = $titulationCertificate->certificate_date ? Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '-';
-        return view('titulation_certificate.show',['titulation_certificate' => $titulationCertificate, 'date' => $date]);
+
+        return view('titulation_certificate.show',['titulation_certificate' => $titulationCertificate, 'date' => $date, 'careers' => Career::get()]);
     }
 
     /**
@@ -172,12 +174,51 @@ class TitulationCertificateController extends Controller
 
     public function generate_pdf(TitulationCertificate $titulationCertificate)
     {
+        $limit_p = 75;
+        $project_name = ['', ''];
+
+        if (strlen($titulationCertificate->project_name) <= $limit_p)
+            $project_name[0] = $titulationCertificate->project_name;
+        else
+        {
+            $pos = strrpos(substr($titulationCertificate->project_name, 0, $limit_p), ' ');
+            if ($pos === false)
+                $pos = $limit_p;
+
+            $part1 = trim(substr($titulationCertificate->project_name, 0, $pos));
+            $part2 = trim(substr($titulationCertificate->project_name, $pos));
+
+            $project_name = [$part1, $part2];
+        }
+
+        $limit_r = 85;
+        $remarks = ['', ''];
+
+        if (strlen($titulationCertificate->remarks) <= $limit_r)
+            $remarks[0] = $titulationCertificate->remarks;
+        else
+        {
+            $pos = strrpos(substr($titulationCertificate->remarks, 0, $limit_r), ' ');
+            if ($pos === false)
+                $pos = $limit_r;
+
+            $part1 = trim(substr($titulationCertificate->remarks, 0, $pos));
+            $part2 = trim(substr($titulationCertificate->remarks, $pos));
+
+            $remarks = [$part1, $part2];
+        }
+
+        //dd($project_name);
+        
+
         $data = [
             'type' => $titulationCertificate->type,
-            'project_name' => $titulationCertificate->project_name,
+            //'project_name' => $titulationCertificate->project_name,
+            'project_name' => $project_name,
             'students' => $titulationCertificate->students,
             'count_students' => count($titulationCertificate->students),
-            'remarks' => $titulationCertificate->remarks,
+            //'remarks' => $titulationCertificate->remarks,
+            'remarks' => $remarks,
             'date' => $titulationCertificate->certificate_date ? Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '_____ de ______________ del _______',
         ];
               
@@ -192,10 +233,10 @@ class TitulationCertificateController extends Controller
     {
         $data = [
             'type' => 3,
-            'project_name' => null,
+            'project_name' => ['', ''],
             'students' => [],
             'count_students' => 0,
-            'remarks' => null,
+            'remarks' => ['', ''],
             'date' => '_____ de ______________ del _______',
         ];
               

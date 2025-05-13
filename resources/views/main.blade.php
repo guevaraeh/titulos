@@ -36,7 +36,6 @@
   </body>
 </html>
 
-
 {{--
 <!DOCTYPE html>
 <html lang="es">
@@ -90,13 +89,13 @@
         }
         
         .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.75);
+            /*color: rgba(255, 255, 255, 0.75);*/
             border-radius: 5px;
             margin-bottom: 5px;
         }
         
         .sidebar .nav-link:hover {
-            color: #fff;
+            /*color: #fff;*/
             background: rgba(255, 255, 255, 0.1);
         }
         
@@ -160,35 +159,35 @@
 </head>
 <body>
     <!-- Sidebar (sobre navbar) -->
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar bg-dark" id="sidebar" data-bs-theme="dark">
         <a href="#" class="sidebar-brand">
             <i class="bi bi-robot"></i>
-            <span class="brand-text">MiApp</span>
+            <span class="navbar-brand mb-0 h1">Administrador</span>
         </a>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <i class="bi bi-speedometer2"></i> Dashboard
+                <a class="nav-link" href="{{ route('titulation_certificate') }}">
+                    <i class="bi bi-speedometer2"></i> Actas
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-people"></i> Usuarios
+                <a class="nav-link" href="{{ route('titulation_certificate.create') }}">
+                    <i class="bi bi-people"></i> Crear Acta
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-file-earmark-text"></i> Reportes
+                <a class="nav-link" href="{{ route('titulation_certificate.generate_pdf_empty') }}">
+                    <i class="bi bi-file-earmark-text"></i> Acta vacia
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-bar-chart"></i> Estadísticas
+                <a class="nav-link" href="{{ route('student') }}">
+                    <i class="bi bi-bar-chart"></i> Estudiantes
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-gear"></i> Configuración
+                <a class="nav-link" href="{{ route('student.create') }}">
+                    <i class="bi bi-gear"></i> Crear Estudiante
                 </a>
             </li>
         </ul>
@@ -221,6 +220,7 @@
 
     <!-- Contenido principal -->
     <div class="main-content">
+        <!--
         <h1 class="mb-4">Contenido Principal</h1>
         <div class="card">
             <div class="card-body">
@@ -229,11 +229,14 @@
                 <p>El navbar ahora muestra siempre sus elementos de menú sin colapsarse.</p>
             </div>
         </div>
+        -->
+        @yield('content')
     </div>
 
     <!-- Bootstrap 5.3 JS Bundle con Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+    @include('includes.scripts')
+    @yield('javascript')
     <!-- Script para manejar el sidebar -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {

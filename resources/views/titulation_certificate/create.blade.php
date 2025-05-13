@@ -55,10 +55,25 @@
                             </select>
                             --}}
                             
-                            <button type="button" id="add-student" class="btn btn-light btn-sm"><i class="bi bi-plus-lg"></i></button>
-                            <button type="button" id="del-student" class="btn btn-light btn-sm"><i class="bi bi-dash-lg"></i></button>
+                            <button type="button" id="add-student" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i></button>
+                            <button type="button" id="del-student" class="btn btn-danger btn-sm"><i class="bi bi-dash-lg"></i></button>
+                            
                             <div id="num-students">
-                                
+                                <div id="set-1" class="form-group row mb-3">
+                                    <div class="col-sm-1">
+                                        <label class="form-label">Est. 1</label>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                            @foreach($careers as $career)
+                                            <option value="{{ $career->id }}">{{ $career->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6" id="sel-1">
+                                        <select class="form-control select-student" id="student-1" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
+                                    </div>
+                                </div>
                             </div>
                             
                         </div>
@@ -129,24 +144,25 @@ $( document ).ready(function() {
     careers.forEach(function(career) {
         option_careers += '<option value="'+career.id+'">'+career.name+'</option>';
     });
-    var selected_students = [];
-    $('#num-students').append(
-        '<div id="set-1" class="form-group row mb-3">'+
-            '<div class="col-sm-1">'+
-                '<label class="form-label">Est. 1</label>'+
-            '</div>'+
-            '<div class="col-sm-5">'+
-                '<select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
-                option_careers
-                +'</select>'+
-            '</div>'+
-            '<div class="col-sm-6" id="sel-1">'+
-                '<select class="form-control select-student" id="student-1" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>'+
-            '</div>'+
-        '</div>'
-        );
+    let selected_sts = [];
+
     $('#career-1').selectpicker();
     
+    $('#num-students').on('change', '.select-student', function() {
+        selected_sts = [];
+        $('select[name="students[]"]').each(function () {
+            selected_sts.push($(this).val());
+        });
+
+        /*for (var i=1; i<=num_students; i++) {
+            for(var j=0; j<selected_sts.lenght; j++)
+            {
+                $('#student-'+i+' option[value="'+selected_sts[j]+'"]').remove();
+            }
+            $('#student-'+i).selectpicker('refresh');
+        }*/
+    });
+
     $('#num-students').on('change', '.career', function() {
         var num_st= $(this).attr('num-data');
         $.ajax({
@@ -155,10 +171,11 @@ $( document ).ready(function() {
             data: {
                 _token: "{{ csrf_token() }}",
                 career: $(this).val(),
+                selected_students: selected_sts,
             },
             success: function(results){
                 $("#sel-"+num_st).html('');
-                $("#sel-"+num_st).append('<select class="form-control" id="student-'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
+                $("#sel-"+num_st).append('<select class="form-control select-student" id="student-'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
 
                 results.forEach(function(result) {
                     $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
@@ -167,10 +184,6 @@ $( document ).ready(function() {
             },
         });
     });
-
-    /*$('#num-students').on('change', '.select-student', function() {
-        selected_students += { ,value : $(this).val};
-    });*/
     
     //https://www.encodedna.com/2013/07/dynamically-add-remove-textbox-control-using-jquery.htm
     $('#add-student').click(function() {
@@ -188,11 +201,16 @@ $( document ).ready(function() {
                         +'</select>'+
                     '</div>'+
                     '<div class="col-sm-6" id="sel-'+num_students+'">'+
-                        '<select class="form-control select-student" id="student-'+num_students+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>'+
+                        '<select class="form-control select-student" id="student-'+num_students+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>'+
                     '</div>'+
                 '</div>'
                 );
             $('#career-'+num_students).selectpicker();
+
+            selected_sts = [];
+            $('select[name="students[]"]').each(function () {
+                selected_sts.push($(this).val());
+            });
         }
     });
     $('#del-student').click(function() {
