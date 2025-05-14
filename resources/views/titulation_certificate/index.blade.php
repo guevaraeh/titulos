@@ -12,7 +12,7 @@
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Actas de titulacion</h6>
+					<h6 class="m-0 font-weight-bold">Actas de Titulación</h6>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -36,25 +36,6 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                {{--
-                                @foreach($titulation_certificates as $titulation_certificate)
-                                <tr>
-                                    <td>{{ $types[$titulation_certificate->type] }}</td>
-                                    <td>{{ $titulation_certificate->project_name }}</td>
-                                    <td>{{ $titulation_certificate->certificate_date }}</td>
-                                    <td>
-                                    @foreach($titulation_certificate->students as $student)
-                                        <li>{{ $student->lastname . ' ' . $student->name }}</li>
-                                    @endforeach
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('titulation_certificate.show', $titulation_certificate->id) }}" class="btn btn-primary btn-sm" title="Ver">Ver</a>
-                                        <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info btn-sm" title="Editar">Editar</a>
-                                        <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary btn-sm" title="Pdf">PDF</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                --}}
                             </tbody>
 						</table>
 					</div>
@@ -84,7 +65,30 @@ $( document ).ready(function() {
             {data:'student_group', name:'student_group'},
             {data:'actions', name:'actions'},
         ],
-    });    
+    });
+    
+    dt.on('draw', function() {
+        $('.swalDefaultSuccess').click(function(){
+            Swal.fire({
+                title: '¿Esta seguro que desea eliminarlo?',
+                text: '',
+                showDenyButton: true,
+                confirmButtonText: "Si, eliminar",
+                denyButtonText: "No, cancelar",
+                icon: "warning",
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    denyButton: 'btn btn-danger'
+                }
+            }).then((result) => {
+                if(result.isConfirmed){
+                    $('#deleteall').attr('action', $(this).attr('formaction'));
+                    $('#deleteall').submit();
+                }
+            })
+        });
+    });
+
 });
 </script>
 @endsection

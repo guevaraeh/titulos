@@ -34,7 +34,7 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Carrera</b><font color="red">*</font></label>
-                            <select class="form-control" name="career-id" aria-label="Default select example" placeholder="- Seleccionar Estudiantes -">
+                            <select class="form-select" name="career-id" aria-label="Default select example" placeholder="- Seleccionar Estudiantes -">
                                 @foreach($careers as $career)
                                 <option value="{{ $career->id }}">{{ $career->name }}</option>
                                 @endforeach

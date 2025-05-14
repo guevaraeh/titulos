@@ -36,7 +36,9 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info" title="Editar">Editar</a>
+                <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i> Editar</a>
+                <button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="{{ route('student.destroy',$student->id) }}" value="{{ $student->lastname .' '. $student->name }}" title="Eliminar"><i class="bi-trash"></i> Eliminar</button>
+
             </div>
         </div>
     </div>
@@ -44,7 +46,7 @@
     <div class="col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h5 class="card-title text-primary">Proyectos</h5>
+                <h5 class="card-title text-primary">Actas</h5>
             </div>
 
             <div class="card-body">
@@ -68,8 +70,10 @@
                                         @endif
                                         </a></td>
                                     <td>
-                                        <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-primary" title="Pdf">PDF</a>
-                                        <a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar">Quitar</a>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary" title="Pdf"><i class="bi-file-earmark-pdf"></i></a>
+                                            <a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -82,4 +86,30 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+
+    $('.swalDefaultSuccess').click(function(){
+        Swal.fire({
+            title: '¿Esta seguro que desea eliminarlo?',
+            text: 'Estudiante: '+$(this).val(),
+            showDenyButton: true,
+            confirmButtonText: "Si, eliminar",
+            denyButtonText: "No, cancelar",
+            icon: "warning",
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                denyButton: 'btn btn-danger'
+            }
+        }).then((result) => {
+            if(result.isConfirmed){
+                $('#deleteall').attr('action', $(this).attr('formaction'));
+                $('#deleteall').submit();
+            }
+        })
+    });
+
+</script>
 @endsection

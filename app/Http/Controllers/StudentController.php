@@ -28,13 +28,16 @@ class StudentController extends Controller
             return DataTables::eloquent($students)
             ->addColumn('actions', function(Student $data) {
                 $actions = '
-                    <a href="'.route('student.show', $data->id).'" class="btn btn-primary btn-sm" title="Ver">Ver</a>
-                    <a href="'.route('student.edit', $data->id).'" class="btn btn-info btn-sm" title="Editar">Editar</a>
+                <div class="btn-group" role="group">
+                    <a href="'.route('student.show', $data->id).'" class="btn btn-primary" title="Ver"><i class="bi-eye"></i></a>
+                    <a href="'.route('student.edit', $data->id).'" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>
+                    <button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="'.route('student.destroy',$data->id).'" value="'. $data->lastname .' '. $data->name .'" title="Eliminar"><i class="bi-trash"></i></button>
+                </div>
                 ';
                 return $actions;
             })
             ->editColumn('photo', function(Student $data) {
-                return '<img src="'.asset($data->photo ? 'storage/'.$data->photo : 'no-photo.png').'" height="50"  width="40">';
+                return '<img src="'.asset($data->photo ? 'storage/'.$data->photo : 'no-photo.png').'" height="40"  width="30">';
             })
             ->editColumn('career', function(Student $data) {
                 return $data->career;
@@ -167,6 +170,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        foreach($student->titulation_certificates as $titulation_certificate)
+            $titulation_certificate->students()->detach($student->id);
+        $student->delete();
+        return redirect(route('student'))->with('success', 'Estudiante eliminado');
     }
 }

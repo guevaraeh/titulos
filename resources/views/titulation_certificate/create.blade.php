@@ -35,25 +35,6 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
-                            {{--
-                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="- Seleccionar Estudiantes -">
-                                @foreach($students as $student)
-                                <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
-                                @endforeach
-                            </select>
-                            --}}
-
-                            {{--
-                            <select class="selectpicker form-control" name="students[]" aria-label="Default select example" multiple data-live-search="true" data-max-options="3" placeholder="- Seleccionar Estudiantes -">
-                                @foreach($careers as $career)
-                                <optgroup label="{{ $career->name }}">
-                                    @foreach($career->students as $student)
-                                    <option value="{{ $student->id }}">{{ $student->lastname . ' ' . $student->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                                @endforeach
-                            </select>
-                            --}}
                             
                             <button type="button" id="add-student" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i></button>
                             <button type="button" id="del-student" class="btn btn-danger btn-sm"><i class="bi bi-dash-lg"></i></button>
@@ -71,7 +52,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-6" id="sel-1">
-                                        <select class="form-control select-student" id="student-1" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
+                                        <select class="form-control select-student" id="student-1" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
                                     </div>
                                 </div>
                             </div>
@@ -152,14 +133,24 @@ $( document ).ready(function() {
         selected_sts = [];
         $('select[name="students[]"]').each(function () {
             selected_sts.push($(this).val());
+            /*var element = $(this).val();
+            console.log('array' ,selected_sts);
+            $('[name="students[]"]').each(function() {
+                console.log('bucle' ,element);
+                console.log('elemento' ,$(this));
+                $(this).find('option[value="'+element+'"]').remove();
+                $(this).selectpicker('refresh');
+            });*/
         });
 
         /*for (var i=1; i<=num_students; i++) {
-            for(var j=0; j<selected_sts.lenght; j++)
+            for(var j=0; j<selected_sts.length; j++)
             {
-                $('#student-'+i+' option[value="'+selected_sts[j]+'"]').remove();
+                //$('#student-'+i+' option[value="'+selected_sts[j]+'"]').remove();
+                $('#student-'+i).find('[value="'+selected_sts[j]+'"]').remove();
+                $('#student-'+i).selectpicker('refresh');
             }
-            $('#student-'+i).selectpicker('refresh');
+            //$('#student-'+i).selectpicker('refresh');
         }*/
     });
 
@@ -201,7 +192,7 @@ $( document ).ready(function() {
                         +'</select>'+
                     '</div>'+
                     '<div class="col-sm-6" id="sel-'+num_students+'">'+
-                        '<select class="form-control select-student" id="student-'+num_students+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>'+
+                        '<select class="form-control select-student" id="student-'+num_students+'" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>'+
                     '</div>'+
                 '</div>'
                 );

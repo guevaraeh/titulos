@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id');
             $table->foreignId('titulation_certificate_id');
-            $table->timestamps();
+            //$table->timestamps();
         });
     }
 

@@ -42,7 +42,7 @@ class TitulationCertificateController extends Controller
             ])
             ->join('student_titulation_certificate', 'titulation_certificates.id', '=', 'student_titulation_certificate.titulation_certificate_id')
             ->join('students', 'student_titulation_certificate.student_id', '=', 'students.id')
-            ->groupBy('titulation_certificates.id', 'titulation_certificates.type', 'titulation_certificates.project_name', 'titulation_certificates.remarks', 'titulation_certificates.certificate_date', 'titulation_certificates.created_at', 'titulation_certificates.updated_at')
+            ->groupBy('titulation_certificates.id', 'titulation_certificates.type', 'titulation_certificates.project_name', 'titulation_certificates.remarks', 'titulation_certificates.certificate_date', 'titulation_certificates.created_at', 'titulation_certificates.updated_at', 'titulation_certificates.deleted_at')
             ;
 
             return DataTables::eloquent($titulation_certificates)
@@ -75,9 +75,12 @@ class TitulationCertificateController extends Controller
             })
             ->addColumn('actions', function(TitulationCertificate $data) {
                 $actions = '
-                    <a href="'.route('titulation_certificate.show', $data->id).'" class="btn btn-primary btn-sm" title="Ver">Ver</a>
-                    <a href="'.route('titulation_certificate.edit', $data->id).'" class="btn btn-info btn-sm" title="Editar">Editar</a>
-                    <a href="'.route('titulation_certificate.generate_pdf', $data->id).'" target="_blank" class="btn btn-secondary btn-sm" title="Pdf">PDF</a>
+                <div class="btn-group" role="group">
+                    <a href="'.route('titulation_certificate.show', $data->id).'" class="btn btn-primary" title="Ver"><i class="bi-eye"></i></a>
+                    <a href="'.route('titulation_certificate.edit', $data->id).'" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>
+                    <a href="'.route('titulation_certificate.generate_pdf', $data->id).'" target="_blank" class="btn btn-secondary" title="Pdf"><i class="bi-file-earmark-pdf"></i></a>
+                    <button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="'.route('titulation_certificate.destroy',$data->id).'" value="" title="Eliminar"><i class="bi-trash"></i></button>
+                </div>
                 ';
                 return $actions;
             })
@@ -92,12 +95,6 @@ class TitulationCertificateController extends Controller
      */
     public function create()
     {
-        //return view('titulation_certificate.create',['students' => Student::orderBy('lastname','ASC')->get()]);
-
-        /*$careers = Career::with(['students' => function (Builder $query) {
-            $query->orderBy('lastname', 'asc');
-        }])->get();*/
-        //dd($careers->toArray());
         $careers = Career::select('id','name')->get();
         return view('titulation_certificate.create',['careers' => $careers]);
     }
@@ -129,9 +126,7 @@ class TitulationCertificateController extends Controller
         //UPDATE students SET career_id = FLOOR(RAND()*9+1)
 
         session(['url_from' => route('titulation_certificate.show',$titulationCertificate->id)]);
-
         $date = $titulationCertificate->certificate_date ? Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '-';
-
         return view('titulation_certificate.show',['titulation_certificate' => $titulationCertificate, 'date' => $date, 'careers' => Career::get()]);
     }
 
@@ -247,11 +242,71 @@ class TitulationCertificateController extends Controller
         return $pdf->stream();
     }
 
+    public function set_certificate_fast()
+    {
+        
+    }
+    
+    public function generate_pdf_fast($form_data)
+    {
+        $limit_p = 75;
+        $project_name = ['', ''];
+
+        if (strlen($form_data->project_name) <= $limit_p)
+            $project_name[0] = $form_data->project_name;
+        else
+        {
+            $pos = strrpos(substr($form_data->project_name, 0, $limit_p), ' ');
+            if ($pos === false)
+                $pos = $limit_p;
+
+            $part1 = trim(substr($form_data->project_name, 0, $pos));
+            $part2 = trim(substr($form_data->project_name, $pos));
+
+            $project_name = [$part1, $part2];
+        }
+
+        $limit_r = 85;
+        $remarks = ['', ''];
+
+        if (strlen($form_data->remarks) <= $limit_r)
+            $remarks[0] = $form_data->remarks;
+        else
+        {
+            $pos = strrpos(substr($form_data->remarks, 0, $limit_r), ' ');
+            if ($pos === false)
+                $pos = $limit_r;
+
+            $part1 = trim(substr($form_data->remarks, 0, $pos));
+            $part2 = trim(substr($form_data->remarks, $pos));
+
+            $remarks = [$part1, $part2];
+        }
+
+        $data = [
+            'type' => $form_data->type,
+            'project_name' => $project_name,
+            'students' => $form_data->students,
+            'count_students' => count($form_data->students),
+            'remarks' => $remarks,
+            'date' => $form_data->certificate_date ? Carbon::parse($form_data->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '_____ de ______________ del _______',
+        ];
+              
+        PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('pdf.certificate', $data);
+       
+        //return $pdf->download('prueba.pdf');
+        return $pdf->stream();        
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(TitulationCertificate $titulationCertificate)
     {
-        //
+        foreach($titulationCertificate->students as $student)
+            $titulationCertificate->students()->detach($student->id);
+        $titulationCertificate->delete();
+        return redirect(route('titulation_certificate'))->with('success', 'Acta eliminada');
     }
 }

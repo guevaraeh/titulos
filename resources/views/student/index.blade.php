@@ -58,7 +58,7 @@ $( document ).ready(function() {
         },
         processing: true,
         serverSide: true,
-        ajax:"{{ route('student') }}",
+        ajax: "{{ route('student') }}",
         columns: [
             {data:'photo', name:'photo'},
             {data:'lastname', name:'lastname'},
@@ -67,7 +67,30 @@ $( document ).ready(function() {
             {data:'career', name:'career'},
             {data:'actions', name:'actions'},
         ],
-    });    
+    });  
+    
+    dt.on('draw', function() {
+        $('.swalDefaultSuccess').click(function(){
+            Swal.fire({
+                title: '¿Esta seguro que desea eliminarlo?',
+                text: 'Estudiante: '+$(this).val(),
+                showDenyButton: true,
+                confirmButtonText: "Si, eliminar",
+                denyButtonText: "No, cancelar",
+                icon: "warning",
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    denyButton: 'btn btn-danger'
+                }
+            }).then((result) => {
+                if(result.isConfirmed){
+                    $('#deleteall').attr('action', $(this).attr('formaction'));
+                    $('#deleteall').submit();
+                }
+            })
+        });
+    });
+
 });
 </script>
 @endsection

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('career_id');
             $table->string('photo')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
