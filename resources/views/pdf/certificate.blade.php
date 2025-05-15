@@ -78,7 +78,7 @@
       border: 1px solid black;
       padding: 3px;
       text-align: center;
-      height: 27px;
+      height: 29px;
     }
 
     .observaciones {
@@ -95,11 +95,11 @@
 
     .firmas td {
       border: none;
-      padding-top: 30px;
+      padding-top: 28px;
     }
 
     .lugar-fecha {
-      margin-top: 40px;
+      margin-top: 30px;
 	  text-align: right;
     }
 
@@ -221,7 +221,7 @@
         <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
         -->
         @foreach($students as $student)
-        <tr><td>{{ $loop->iteration }}</td><td class="datos">{{ $student->lastname . ' ' . $student->name }}</td><td class="datos">{{ $student->dni }}</td><td class="datos">{{ $student->career->name }}</td><td></td></tr>
+        <tr><td>{{ $loop->iteration }}</td><td class="datos">{{ $student['lastname'] . ' ' . $student['name'] }}</td><td class="datos">{{ $student['dni'] }}</td><td class="datos">{{ $student['career']['name'] }}</td><td></td></tr>
         @endforeach
         
         @if($count_students < 1)
@@ -269,7 +269,7 @@
   </div>
   -->
   <div class="seccion">
-    <small>OBSERVACIONES:</small><br>
+    <small>OBSERVACIONES:</small>
     <table width="100%" class="lineas">
       <tr>
         <td class="datos">{{ $remarks[0] }}</td>

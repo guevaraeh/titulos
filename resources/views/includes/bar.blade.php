@@ -15,6 +15,7 @@
             <li><a class="dropdown-item" href="{{ route('titulation_certificate') }}">Lista</a></li>
             <li><a class="dropdown-item" href="{{ route('titulation_certificate.create') }}">Crear acta</a></li>
             <li><a class="dropdown-item" href="{{ route('titulation_certificate.generate_pdf_empty') }}" target="_blank">Acta vacia</a></li>
+            <li><a class="dropdown-item" href="{{ route('titulation_certificate.create_fast') }}">Acta rapida</a></li>
           </ul>
         </li>
         

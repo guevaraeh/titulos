@@ -168,7 +168,7 @@ class TitulationCertificateController extends Controller
     }
 
     public function generate_pdf(TitulationCertificate $titulationCertificate)
-    {
+    {        
         $limit_p = 75;
         $project_name = ['', ''];
 
@@ -242,26 +242,29 @@ class TitulationCertificateController extends Controller
         return $pdf->stream();
     }
 
-    public function set_certificate_fast()
+    public function create_fast()
     {
-        
+        $careers = Career::select('id','name')->get();
+        return view('titulation_certificate.create_fast',['careers' => $careers]);
     }
     
-    public function generate_pdf_fast($form_data)
+    public function generate_pdf_fast(Request $request)
     {
+        //dd($request->collect());
+        
         $limit_p = 75;
         $project_name = ['', ''];
 
-        if (strlen($form_data->project_name) <= $limit_p)
-            $project_name[0] = $form_data->project_name;
+        if (strlen($request->input('project-name')) <= $limit_p)
+            $project_name[0] = $request->input('project-name');
         else
         {
-            $pos = strrpos(substr($form_data->project_name, 0, $limit_p), ' ');
+            $pos = strrpos(substr($request->input('project-name'), 0, $limit_p), ' ');
             if ($pos === false)
                 $pos = $limit_p;
 
-            $part1 = trim(substr($form_data->project_name, 0, $pos));
-            $part2 = trim(substr($form_data->project_name, $pos));
+            $part1 = trim(substr($request->input('project-name'), 0, $pos));
+            $part2 = trim(substr($request->input('project-name'), $pos));
 
             $project_name = [$part1, $part2];
         }
@@ -269,27 +272,27 @@ class TitulationCertificateController extends Controller
         $limit_r = 85;
         $remarks = ['', ''];
 
-        if (strlen($form_data->remarks) <= $limit_r)
-            $remarks[0] = $form_data->remarks;
+        if (strlen($request->input('remarks')) <= $limit_r)
+            $remarks[0] = $request->input('remarks');
         else
         {
-            $pos = strrpos(substr($form_data->remarks, 0, $limit_r), ' ');
+            $pos = strrpos(substr($request->input('remarks'), 0, $limit_r), ' ');
             if ($pos === false)
                 $pos = $limit_r;
 
-            $part1 = trim(substr($form_data->remarks, 0, $pos));
-            $part2 = trim(substr($form_data->remarks, $pos));
+            $part1 = trim(substr($request->input('remarks'), 0, $pos));
+            $part2 = trim(substr($request->input('remarks'), $pos));
 
             $remarks = [$part1, $part2];
         }
 
         $data = [
-            'type' => $form_data->type,
+            'type' => $request->input('type'),
             'project_name' => $project_name,
-            'students' => $form_data->students,
-            'count_students' => count($form_data->students),
+            'students' => $request->input('students'),
+            'count_students' => count($request->input('students')),
             'remarks' => $remarks,
-            'date' => $form_data->certificate_date ? Carbon::parse($form_data->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '_____ de ______________ del _______',
+            'date' => $request->input('certificate-date') ? Carbon::parse($request->input('certificate-date'))->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '_____ de ______________ del _______',
         ];
               
         PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
