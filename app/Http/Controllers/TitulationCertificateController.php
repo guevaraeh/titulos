@@ -235,7 +235,7 @@ class TitulationCertificateController extends Controller
             'date' => '_____ de ______________ del _______',
         ];
               
-        PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        //PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('pdf.certificate', $data);
        
         //return $pdf->download('prueba.pdf');
@@ -250,8 +250,6 @@ class TitulationCertificateController extends Controller
     
     public function generate_pdf_fast(Request $request)
     {
-        //dd($request->collect());
-        
         $limit_p = 75;
         $project_name = ['', ''];
 

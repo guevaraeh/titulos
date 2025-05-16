@@ -25,7 +25,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
         username: '',
         password: '',
-        remember: false,
+        remember: true,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -87,11 +87,19 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onClick={() => setData('remember', !data.remember)}
                             tabIndex={3}
                         />
+                        <Input
+                            id="remember"
+                            name="remember"
+                            type="hidden"
+                            required
+                            value={data.remember}
+                            tabIndex={3}
+                        />
                         <Label htmlFor="remember">Remember me</Label>
                     </div>
                     */}
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                    <Button type="submit" className="btn btn-primary mt-4 w-full" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Iniciar Sesion
                     </Button>

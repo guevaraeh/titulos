@@ -46,13 +46,14 @@
                                     </div>
                                     <div class="col-sm-5">
                                         <select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                            <option data-placeholder="true">- Seleccionar Carrera -</option>
                                             @foreach($careers as $career)
                                             <option value="{{ $career->id }}">{{ $career->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-sm-6" id="sel-1">
-                                        <select class="form-control select-student" id="student-1" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
+                                        <select class="form-control select-student" id="student-1" num-data="1" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
                                     </div>
                                 </div>
                             </div>
@@ -127,30 +128,62 @@ $( document ).ready(function() {
     });
     let selected_sts = [];
 
-    $('#career-1').selectpicker();
+    //$('#career-1').selectpicker();
+    /*new TomSelect("#career-1",{
+		plugins: ['dropdown_input'],
+	});*/
+    new SlimSelect({
+        select: '#career-1',
+        //selectClass: 'form-select',
+        settings: {
+            searchPlaceholder: 'Buscar',
+            searchText: 'Sin resultados',
+            searchingText: 'Buscando...',
+        },
+    });
+    /*$('#career-1').select2({
+        theme: 'bootstrap-5',
+        width: '100%',             // Adaptar al ancho del select original
+        placeholder: $('#career-1').data('placeholder'), // Usar data-placeholder si lo hay
+        height : 'resolve',
+    });*/
     
     $('#num-students').on('change', '.select-student', function() {
         selected_sts = [];
+        var num_st= $(this).attr('num-data');
         $('select[name="students[]"]').each(function () {
             selected_sts.push($(this).val());
             /*var element = $(this).val();
             console.log('array' ,selected_sts);
+
             $('[name="students[]"]').each(function() {
-                console.log('bucle' ,element);
-                console.log('elemento' ,$(this));
-                $(this).find('option[value="'+element+'"]').remove();
-                $(this).selectpicker('refresh');
+                
+                console.log('Numero', $(this).attr('num-data'))
+                if(num_st != $(this).attr('num-data'))
+                {
+                    console.log('bucle' ,element);
+                    console.log('elemento' ,$(this));
+                    $(this).find('[value="'+element+'"]').remove();
+                    $(this).selectpicker('refresh');
+                }
+                else console.log('igual', num_st, $(this).attr('num-data'));
             });*/
         });
 
-        /*for (var i=1; i<=num_students; i++) {
-            for(var j=0; j<selected_sts.length; j++)
-            {
-                //$('#student-'+i+' option[value="'+selected_sts[j]+'"]').remove();
-                $('#student-'+i).find('[value="'+selected_sts[j]+'"]').remove();
-                $('#student-'+i).selectpicker('refresh');
+        /*if($(this).attr('num-data'))
+        {
+            console.log('Bucle de ',$(this).attr('num-data'));
+            for (let i = 1; i <= num_students; i++) {
+                if($(this).attr('num-data') != i)
+                {
+                    console.log('Iteracion de ',i);
+                    var id = '#student-'+i;
+                    console.log(id);
+                    $(id).find('[value="'+$(this).val()+'"]').remove();
+
+                    $(id).selectpicker('refresh');
+                }
             }
-            //$('#student-'+i).selectpicker('refresh');
         }*/
     });
 
@@ -166,7 +199,7 @@ $( document ).ready(function() {
             },
             success: function(results){
                 $("#sel-"+num_st).html('');
-                $("#sel-"+num_st).append('<select class="form-control select-student" id="student-'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
+                $("#sel-"+num_st).append('<select class="form-control select-student" id="student-'+num_st+'" num-data="'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
 
                 results.forEach(function(result) {
                     $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
@@ -212,9 +245,6 @@ $( document ).ready(function() {
         }
     });
     
-
-    //$('.selectpicker').selectpicker();
-
 });
 </script>
 @endsection
