@@ -18,11 +18,11 @@
                         @csrf
                         
                         <div class="mb-3">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="type" value="0" checked>
                                 <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="type" value="1">
                                 <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
                             </div>
@@ -134,7 +134,6 @@ $( document ).ready(function() {
 	});*/
     new SlimSelect({
         select: '#career-1',
-        //selectClass: 'form-select',
         settings: {
             searchPlaceholder: 'Buscar',
             searchText: 'Sin resultados',
@@ -181,7 +180,7 @@ $( document ).ready(function() {
                     console.log(id);
                     $(id).find('[value="'+$(this).val()+'"]').remove();
 
-                    $(id).selectpicker('refresh');
+                    //$(id).selectpicker('refresh');
                 }
             }
         }*/
@@ -199,12 +198,25 @@ $( document ).ready(function() {
             },
             success: function(results){
                 $("#sel-"+num_st).html('');
-                $("#sel-"+num_st).append('<select class="form-control select-student" id="student-'+num_st+'" num-data="'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
-
+                $("#sel-"+num_st).append(
+                    '<select class="form-control select-student" id="student-'+num_st+'" num-data="'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required>'+
+                    '<option data-placeholder="true">- Seleccionar Estudiante -</option>'+
+                    '</select>'
+                );
+                
                 results.forEach(function(result) {
                     $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
                 });
-                $("#student-"+num_st).selectpicker();
+                //$("#student-"+num_st).selectpicker();
+                new SlimSelect({
+                    select: "#student-"+num_st,
+                    maxHeight: 200,
+                    settings: {
+                        searchPlaceholder: 'Buscar',
+                        searchText: 'Sin resultados',
+                        searchingText: 'Buscando...',
+                    },
+                });
             },
         });
     });
@@ -221,6 +233,7 @@ $( document ).ready(function() {
                     '</div>'+
                     '<div class="col-sm-5">'+
                         '<select class="form-control career" id="career-'+num_students+'" num-data="'+num_students+'" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
+                        '<option data-placeholder="true">- Seleccionar Carrera -</option>'+
                         option_careers
                         +'</select>'+
                     '</div>'+
@@ -229,7 +242,15 @@ $( document ).ready(function() {
                     '</div>'+
                 '</div>'
                 );
-            $('#career-'+num_students).selectpicker();
+            //$('#career-'+num_students).selectpicker();
+            new SlimSelect({
+                    select: '#career-'+num_students,
+                    settings: {
+                        searchPlaceholder: 'Buscar',
+                        searchText: 'Sin resultados',
+                        searchingText: 'Buscando...',
+                    },
+                });
 
             selected_sts = [];
             $('select[name="students[]"]').each(function () {

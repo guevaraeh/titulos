@@ -18,11 +18,11 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="type" value="0" {{ $titulation_certificate->type == 0 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="type" value="1" {{ $titulation_certificate->type == 1 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
                             </div>

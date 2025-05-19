@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="{{ asset('/logo.png') }}" />
-        <link rel="stylesheet" href="{{ asset('/libraries/bootstrap-styles/bootstrap-litera.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/libraries/bootstrap-styles/bootstrap-yeti.min.css') }}">
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {

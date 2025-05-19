@@ -105,7 +105,8 @@
 
                                         @csrf
                                         <div class="mb-3">
-                                            <select class="selectpicker form-control" id="career" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                            <select class="form-control" id="career" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                                <option data-placeholder="true">- Seleccionar Carrera -</option>
                                                 @foreach($careers as $career)
                                                 <option value="{{ $career->id }}">{{ $career->name }}</option>
                                                 @endforeach
@@ -136,7 +137,15 @@
 
 @section('javascript')
 <script type="text/javascript">
-    $('.selectpicker').selectpicker();
+    //$('.selectpicker').selectpicker();
+    new SlimSelect({
+        select: '#career',
+        settings: {
+            searchPlaceholder: 'Buscar',
+            searchText: 'Sin resultados',
+            searchingText: 'Buscando...',
+        },
+    });
 
     $('#openModalBtn').on('click', function () {
         var modal = new bootstrap.Modal(document.getElementById('myModal'));
@@ -160,7 +169,15 @@
                 results.forEach(function(result) {
                     $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));
                 });
-                $("#student-id").selectpicker();
+                //$("#student-id").selectpicker();
+                new SlimSelect({
+                    select: '#student-id',
+                    settings: {
+                        searchPlaceholder: 'Buscar',
+                        searchText: 'Sin resultados',
+                        searchingText: 'Buscando...',
+                    },
+                });
             },
         });
 

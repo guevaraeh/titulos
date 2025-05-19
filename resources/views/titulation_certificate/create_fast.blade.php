@@ -17,11 +17,11 @@
                     <form action="{{ route('titulation_certificate.generate_pdf_fast') }}" method="POST" target="_blank">
                         @csrf
                         <div class="mb-3">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="type" value="0" checked>
                                 <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="type" value="1">
                                 <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
                             </div>
@@ -43,14 +43,15 @@
                                     <div class="col-sm-1">
                                         <label class="form-label">Est. 1</label>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
                                         <input type="text" class="form-control" name="students[0][lastname]" id="lastname-1" placeholder="Apellidos" required>
-                                    </div>
-                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" name="students[0][name]" id="name-1" placeholder="Nombres" required>
+                                        </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <select class="form-control career" name="students[0][career][name]" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                            <option data-placeholder="true">- Seleccionar Carrera -</option>
                                             @foreach($careers as $career)
                                             <option value="{{ $career->name }}">{{ $career->name }}</option>
                                             @endforeach
@@ -129,7 +130,15 @@ $( document ).ready(function() {
         option_careers += '<option value="'+career.name+'">'+career.name+'</option>';
     });
 
-    $('#career-1').selectpicker();
+    //$('#career-1').selectpicker();
+    new SlimSelect({
+        select: '#career-1',
+        settings: {
+            searchPlaceholder: 'Buscar',
+            searchText: 'Sin resultados',
+            searchingText: 'Buscando...',
+        },
+    });
     
     $('#add-student').click(function() {
         if (num_students < 3) 
@@ -140,14 +149,15 @@ $( document ).ready(function() {
                     '<div class="col-sm-1">'+
                         '<label class="form-label">Est. '+num_students+'</label>'+
                     '</div>'+
-                    '<div class="col-sm-3">'+
+                    '<div class="col-sm-6">'+
+                        '<div class="input-group">'+
                         '<input type="text" class="form-control" name="students['+(num_students-1)+'][lastname]" id="lastname-'+num_students+'" placeholder="Apellidos" required>'+
-                    '</div>'+
-                    '<div class="col-sm-3">'+
                         '<input type="text" class="form-control" name="students['+(num_students-1)+'][name]" id="name-'+num_students+'" placeholder="Nombres" required>'+
+                        '</div>'+
                     '</div>'+
                     '<div class="col-sm-3">'+
                         '<select class="form-control career" name="students['+(num_students-1)+'][career][name]" id="career-'+num_students+'" num-data="'+num_students+'" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
+                        '<option data-placeholder="true">- Seleccionar Carrera -</option>'+
                         option_careers
                         +'</select>'+
                     '</div>'+
@@ -157,7 +167,15 @@ $( document ).ready(function() {
 
                 '</div>'
                 );
-            $('#career-'+num_students).selectpicker();
+            //$('#career-'+num_students).selectpicker();
+            new SlimSelect({
+                select: '#career-'+num_students,
+                settings: {
+                    searchPlaceholder: 'Buscar',
+                    searchText: 'Sin resultados',
+                    searchingText: 'Buscando...',
+                },
+            });
 
             /*selected_sts = [];
             $('select[name="students[]"]').each(function () {
