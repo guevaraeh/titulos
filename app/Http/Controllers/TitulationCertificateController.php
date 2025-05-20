@@ -110,6 +110,7 @@ class TitulationCertificateController extends Controller
         $titulation_certificate->project_name = $request->input('type') == '0' ? $request->input('project-name') : null;
         $titulation_certificate->certificate_date = $request->input('certificate-date') ? date('Y-m-d', strtotime($request->input('certificate-date'))) : null;
         $titulation_certificate->remarks = $request->input('remarks');
+        $titulation_certificate->rememeber_token = hash('sha256', date('Y-m-d H:i:s', time()));
         $titulation_certificate->save();
 
         foreach ($request->input('students') as $student_id)
@@ -298,6 +299,82 @@ class TitulationCertificateController extends Controller
        
         //return $pdf->download('prueba.pdf');
         return $pdf->stream();        
+    }
+
+    public function search_certificates()
+    {
+        //dd(time(), hash('sha256', time()), date('Y-m-d H:i:s', time()), hash('sha256', date('Y-m-d H:i:s', time())));
+
+        $careers = Career::select('id','name')->get();
+        return view('titulation_certificate.search_certificates',['careers' => $careers]);
+    }
+
+    public function get_certificates_ajax(Request $request)
+    {
+        if($request->ajax())
+        {
+            $student = Student::find($request->input('student_id'));
+            return response()->view('ajax.get_certificates', ['titulation_certificates' => $student->titulation_certificates]);
+        }
+    }
+
+    public function certificate($data)
+    {
+        $titulationCertificate = TitulationCertificate::where('remember_token' , $data)->firstOrFail();
+        
+        $limit_p = 75;
+        $project_name = ['', ''];
+
+        if (strlen($titulationCertificate->project_name) <= $limit_p)
+            $project_name[0] = $titulationCertificate->project_name;
+        else
+        {
+            $pos = strrpos(substr($titulationCertificate->project_name, 0, $limit_p), ' ');
+            if ($pos === false)
+                $pos = $limit_p;
+
+            $part1 = trim(substr($titulationCertificate->project_name, 0, $pos));
+            $part2 = trim(substr($titulationCertificate->project_name, $pos));
+
+            $project_name = [$part1, $part2];
+        }
+
+        $limit_r = 85;
+        $remarks = ['', ''];
+
+        if (strlen($titulationCertificate->remarks) <= $limit_r)
+            $remarks[0] = $titulationCertificate->remarks;
+        else
+        {
+            $pos = strrpos(substr($titulationCertificate->remarks, 0, $limit_r), ' ');
+            if ($pos === false)
+                $pos = $limit_r;
+
+            $part1 = trim(substr($titulationCertificate->remarks, 0, $pos));
+            $part2 = trim(substr($titulationCertificate->remarks, $pos));
+
+            $remarks = [$part1, $part2];
+        }
+
+        //dd($project_name);
+        
+
+        $data = [
+            'type' => $titulationCertificate->type,
+            //'project_name' => $titulationCertificate->project_name,
+            'project_name' => $project_name,
+            'students' => $titulationCertificate->students,
+            'count_students' => count($titulationCertificate->students),
+            //'remarks' => $titulationCertificate->remarks,
+            'remarks' => $remarks,
+            'date' => $titulationCertificate->certificate_date ? Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '_____ de ______________ del _______',
+        ];
+              
+        PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('pdf.certificate', $data);
+       
+        //return $pdf->download('prueba.pdf');
+        return $pdf->stream();
     }
 
     /**

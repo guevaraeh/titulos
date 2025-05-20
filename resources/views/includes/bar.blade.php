@@ -28,6 +28,13 @@
             <li><a class="dropdown-item" href="{{ route('student.create') }}">Crear estudiante</a></li>
           </ul>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('titulation_certificate.search_certificates') }}">
+            <i class="bi-card-people"></i> Buscar
+          </a>
+        </li>
+
       </ul>
 
       <ul class="navbar-nav ms-auto navbar-right">

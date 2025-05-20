@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('project_name')->nullable();
             $table->text('remarks')->nullable();
             $table->date('certificate_date')->nullable();
+            $table->string('remember_token');
             $table->timestamps();
             $table->softDeletes();
         });

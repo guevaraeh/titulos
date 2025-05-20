@@ -11,6 +11,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/generate-pdf-empty', [TitulationCertificateController::class, 'generate_pdf_empty'])->name('titulation_certificate.generate_pdf_empty');
+Route::get('/certificate/{data}', [TitulationCertificateController::class, 'certificate'])->name('titulation_certificate.certificate');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -28,6 +29,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/titulation_certificate/{titulation_certificate}/drop/{student}', [TitulationCertificateController::class, 'drop_student'])->name('titulation_certificate.drop_student');
     Route::get('/titulation_certificate/{titulation_certificate}/generate-pdf', [TitulationCertificateController::class, 'generate_pdf'])->name('titulation_certificate.generate_pdf');
     //Route::get('/generate-pdf-empty', [TitulationCertificateController::class, 'generate_pdf_empty'])->name('titulation_certificate.generate_pdf_empty');
+    
+    Route::get('/search-certificates', [TitulationCertificateController::class, 'search_certificates'])->name('titulation_certificate.search_certificates');
+    Route::post('/get-certificates-ajax', [TitulationCertificateController::class, 'get_certificates_ajax'])->name('titulation_certificate.get_certificates_ajax');
 
     Route::get('/create-fast-certificate', [TitulationCertificateController::class, 'create_fast'])->name('titulation_certificate.create_fast');
     Route::post('/generate-fast-certificate', [TitulationCertificateController::class, 'generate_pdf_fast'])->name('titulation_certificate.generate_pdf_fast');

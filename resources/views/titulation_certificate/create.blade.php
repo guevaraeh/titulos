@@ -119,7 +119,7 @@ $( document ).ready(function() {
         },
     });
 
-    
+    var sel_students = [null,null,null];
     var num_students = 1;
     var careers = @json($careers);
     var option_careers = ''
@@ -150,40 +150,31 @@ $( document ).ready(function() {
     $('#num-students').on('change', '.select-student', function() {
         selected_sts = [];
         var num_st= $(this).attr('num-data');
+        console.log('Casilla: ',num_st);
+        var elem = $(this).val();
         $('select[name="students[]"]').each(function () {
             selected_sts.push($(this).val());
-            /*var element = $(this).val();
-            console.log('array' ,selected_sts);
 
-            $('[name="students[]"]').each(function() {
-                
-                console.log('Numero', $(this).attr('num-data'))
-                if(num_st != $(this).attr('num-data'))
-                {
-                    console.log('bucle' ,element);
-                    console.log('elemento' ,$(this));
-                    $(this).find('[value="'+element+'"]').remove();
-                    $(this).selectpicker('refresh');
-                }
-                else console.log('igual', num_st, $(this).attr('num-data'));
-            });*/
+            /*********************/
+            console.log('Bucle: ', $(this).attr('num-data'));
+            if($(this).attr('num-data') != num_st)
+            {
+                console.log('N: ', $(this).attr('num-data'));
+                sel_students[$(this).attr('num-data')-1].destroy();
+                $('#student-'+$(this).attr('num-data')+' option[value="'+ elem+'"]').remove();
+                sel_students[$(this).attr('num-data')-1] = new SlimSelect({
+                    select: '#student-'+$(this).attr('num-data'),
+                    settings: {
+                        searchPlaceholder: 'Buscar',
+                        searchText: 'Sin resultados',
+                        searchingText: 'Buscando...',
+                    },
+                });
+            }
+            /*****************/
+
         });
 
-        /*if($(this).attr('num-data'))
-        {
-            console.log('Bucle de ',$(this).attr('num-data'));
-            for (let i = 1; i <= num_students; i++) {
-                if($(this).attr('num-data') != i)
-                {
-                    console.log('Iteracion de ',i);
-                    var id = '#student-'+i;
-                    console.log(id);
-                    $(id).find('[value="'+$(this).val()+'"]').remove();
-
-                    //$(id).selectpicker('refresh');
-                }
-            }
-        }*/
     });
 
     $('#num-students').on('change', '.career', function() {
@@ -208,7 +199,7 @@ $( document ).ready(function() {
                     $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
                 });
                 //$("#student-"+num_st).selectpicker();
-                new SlimSelect({
+                sel_students[num_st-1] = new SlimSelect({
                     select: "#student-"+num_st,
                     maxHeight: 200,
                     settings: {
