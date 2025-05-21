@@ -42,7 +42,7 @@ class TitulationCertificateController extends Controller
             ])
             ->join('student_titulation_certificate', 'titulation_certificates.id', '=', 'student_titulation_certificate.titulation_certificate_id')
             ->join('students', 'student_titulation_certificate.student_id', '=', 'students.id')
-            ->groupBy('titulation_certificates.id', 'titulation_certificates.type', 'titulation_certificates.project_name', 'titulation_certificates.remarks', 'titulation_certificates.certificate_date', 'titulation_certificates.created_at', 'titulation_certificates.updated_at', 'titulation_certificates.deleted_at')
+            ->groupBy('titulation_certificates.id', 'titulation_certificates.type', 'titulation_certificates.project_name', 'titulation_certificates.remarks', 'titulation_certificates.certificate_date', 'titulation_certificates.remember_token', 'titulation_certificates.created_at', 'titulation_certificates.updated_at', 'titulation_certificates.deleted_at')
             ;
 
             return DataTables::eloquent($titulation_certificates)
@@ -110,7 +110,7 @@ class TitulationCertificateController extends Controller
         $titulation_certificate->project_name = $request->input('type') == '0' ? $request->input('project-name') : null;
         $titulation_certificate->certificate_date = $request->input('certificate-date') ? date('Y-m-d', strtotime($request->input('certificate-date'))) : null;
         $titulation_certificate->remarks = $request->input('remarks');
-        $titulation_certificate->rememeber_token = hash('sha256', date('Y-m-d H:i:s', time()));
+        $titulation_certificate->remember_token = hash('sha256', date('Y-m-d H:i:s', time()));
         $titulation_certificate->save();
 
         foreach ($request->input('students') as $student_id)

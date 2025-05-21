@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="{{ asset('/logo.png') }}" />
-        <link rel="stylesheet" href="{{ asset('/libraries/bootstrap-styles/bootstrap-yeti.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/libraries/bootstrap-styles/bootstrap-sandstone.min.css') }}">
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {
@@ -31,9 +31,11 @@
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>Actas de Titulación</title>
         
         <a class="btn btn-primary" href="{{ route('titulation_certificate.generate_pdf_empty') }}" target="_blank">Acta vacia</a>
+        <a class="btn btn-primary" href="{{ route('titulation_certificate.search_certificates') }}">Buscar acta</a>
+
         {{-- <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" /> --}}
 

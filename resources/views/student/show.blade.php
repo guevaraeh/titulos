@@ -50,6 +50,7 @@
             </div>
 
             <div class="card-body">
+                @if(count($student->titulation_certificates) > 0)
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
@@ -82,6 +83,9 @@
                         </tbody>
                     </table>
                 </div>
+                @else
+                <p>No tiene actas registradas</p>
+                @endif
             </div>
         </div>
     </div>

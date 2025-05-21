@@ -39,7 +39,7 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ $titulation_certificate->certificate_date }}">
+                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ $titulation_certificate->certificate_date }}" readonly>
                         </div>
 
                         <div class="mb-3">
@@ -79,7 +79,14 @@ $( document ).ready(function() {
     new tempusDominus.TempusDominus(document.getElementById("cert-date"), {
         useCurrent: false,
         display: {
-            //icons: iconsDate,
+            icons: {
+                previous: 'bi bi-chevron-left',
+                next: 'bi bi-chevron-right',
+                clear: 'bi bi-trash',
+            },
+            buttons: {
+                clear: true,
+            },
             viewMode: 'calendar',
             components: {
               clock: false,
@@ -90,7 +97,7 @@ $( document ).ready(function() {
             },
         },
         localization: {
-            locale: 'en',
+            locale: 'es',
             format: "yyyy-MM-dd"
         },
     });

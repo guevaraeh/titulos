@@ -14,6 +14,8 @@
 				</div>
 				<div class="card-body">
 					
+                    <small>Nota: No se guardarán los registros, es solo para generar un acta con datos</small><hr>
+
                     <form action="{{ route('titulation_certificate.generate_pdf_fast') }}" method="POST" target="_blank">
                         @csrf
                         <div class="mb-3">
@@ -55,6 +57,7 @@
                                             @foreach($careers as $career)
                                             <option value="{{ $career->name }}">{{ $career->name }}</option>
                                             @endforeach
+                                            <option value="">Otro</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-2">
@@ -157,9 +160,10 @@ $( document ).ready(function() {
                     '</div>'+
                     '<div class="col-sm-3">'+
                         '<select class="form-control career" name="students['+(num_students-1)+'][career][name]" id="career-'+num_students+'" num-data="'+num_students+'" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
-                        '<option data-placeholder="true">- Seleccionar Carrera -</option>'+
-                        option_careers
-                        +'</select>'+
+                            '<option data-placeholder="true">- Seleccionar Carrera -</option>'+
+                            option_careers+
+                            '<option value="">Otro</option>'+
+                        '</select>'+
                     '</div>'+
                     '<div class="col-sm-2">'+
                         '<input type="number" class="form-control" name="students['+(num_students-1)+'][dni]" id="dni-'+num_students+'" placeholder="DNI" required>'+

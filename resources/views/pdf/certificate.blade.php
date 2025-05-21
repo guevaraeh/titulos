@@ -88,7 +88,7 @@
     }
 
     .firmas {
-      margin-top: 50px;
+      margin-top: 43px;
       width: 100%;
       text-align: center;
     }
@@ -161,7 +161,7 @@
       
     </td>
     <td align="right">
-      <img src="{{ public_path('/logo.png') }}" alt="Logo Institución" height="60">
+      <img src="{{ public_path('/logo.png') }}" alt="Logo Institución" height="70">
     </td>
   </tr>
 </table>
@@ -244,14 +244,14 @@
       <thead>
         <tr>
           <td rowspan="2">Estudiantes</td>
-          <td colspan="3" style="padding: 0;">Miembro del Jurado</td>
+          <td colspan="3" style="padding: 0; height: 14px;">Miembro del Jurado</td>
           <td rowspan="2">Promedio de Calificación Personal</td>
           <td rowspan="2">Calificación Final Personal<br>(En letras)</td>
         </tr>
         <tr>
-          <td style="padding: 0;">Presidente</td>
-          <td style="padding: 0;">Secretario</td>
-          <td style="padding: 0;">Vocal</td>
+          <td style="padding: 0; height: 14px;">Presidente</td>
+          <td style="padding: 0; height: 14px;">Secretario</td>
+          <td style="padding: 0; height: 14px;">Vocal</td>
         </tr>
       </thead>
       <tbody>

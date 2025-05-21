@@ -79,7 +79,7 @@
             },
             success: function(results){
                 $("#sel").html('');
-                $("#sel").append('<select class="form-control" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
+                $("#sel").append('<select class="form-control" name="student-id" id="student-id" placeholder="- Seleccionar Estudiante -" required><option data-placeholder="true">- Seleccionar Estudiante -</option></select>');
 
                 results.forEach(function(result) {
                     $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));

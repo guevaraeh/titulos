@@ -82,6 +82,7 @@ class StudentController extends Controller
         $student->lastname = $request->input('lastname');
         $student->dni = $request->input('dni');
         $student->career_id = $request->input('career-id');
+        $student->remember_token = hash('sha256',  $request->input('dni').time());
 
         if($request->hasFile('photo'))
         {

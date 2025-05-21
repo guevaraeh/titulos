@@ -62,7 +62,7 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" >
+                            <input type="text" class="form-control" name="certificate-date" id="cert-date" readonly>
                         </div>
 
                         <div class="mb-3">
@@ -103,7 +103,14 @@ $( document ).ready(function() {
     new tempusDominus.TempusDominus(document.getElementById("cert-date"), {
         useCurrent: false,
         display: {
-            //icons: iconsDate,
+            icons: {
+                previous: 'bi bi-chevron-left',
+                next: 'bi bi-chevron-right',
+                clear: 'bi bi-trash',
+            },
+            buttons: {
+                clear: true,
+            },
             viewMode: 'calendar',
             components: {
               clock: false,
@@ -128,10 +135,6 @@ $( document ).ready(function() {
     });
     let selected_sts = [];
 
-    //$('#career-1').selectpicker();
-    /*new TomSelect("#career-1",{
-		plugins: ['dropdown_input'],
-	});*/
     new SlimSelect({
         select: '#career-1',
         settings: {
@@ -140,12 +143,6 @@ $( document ).ready(function() {
             searchingText: 'Buscando...',
         },
     });
-    /*$('#career-1').select2({
-        theme: 'bootstrap-5',
-        width: '100%',             // Adaptar al ancho del select original
-        placeholder: $('#career-1').data('placeholder'), // Usar data-placeholder si lo hay
-        height : 'resolve',
-    });*/
     
     $('#num-students').on('change', '.select-student', function() {
         selected_sts = [];

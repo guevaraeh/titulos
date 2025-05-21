@@ -19,12 +19,14 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         $careers = Career::pluck('id');
+        $dni = fake()->numberBetween(10000000, 99999999);
 
         return [
             'name' => fake()->firstname() . ' ' . fake()->firstname(),
             'lastname' => fake()->lastname() . ' ' . fake()->lastname(),
-            'dni' => fake()->numberBetween(10000000, 99999999),
+            'dni' => $dni,
             'career_id' => fake()->randomElement($careers),
+            'remember_token' => hash('sha256',  $dni.time()),
             //'email' => fake()->email(),
         ];
     }

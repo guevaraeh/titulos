@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('dni');
             $table->foreignId('career_id');
             $table->string('photo')->nullable();
+            $table->string('remember_token');
             $table->timestamps();
             $table->softDeletes();
         });

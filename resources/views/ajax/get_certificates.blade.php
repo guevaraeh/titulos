@@ -1,3 +1,4 @@
+@if(count($titulation_certificates) > 0)
 <div class="table-responsive">
     <table class="table table-hover table-bordered">
         <thead>
@@ -29,3 +30,6 @@
         </tbody>
     </table>
 </div>
+@else
+<p>No hay actas a su nombre</p>
+@endif
