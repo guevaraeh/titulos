@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Crear Acta de Titulación</title>
+Crear Acta de Titulación
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Estudiante</title>
+Estudiante
 @endsection
 
 <?php $types = ['Proyecto vinculado a formación recibida', 'Examen de suficiencia profesional']; ?>

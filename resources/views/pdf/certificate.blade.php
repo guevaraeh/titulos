@@ -145,6 +145,8 @@
       padding: 0;
       text-align: left;
       height: 25px;
+      /*padding-left: 10px;
+      padding-right: 10px;*/
     }
 
   </style>
@@ -194,10 +196,10 @@
 <table width="100%" class="lineas">
   <tr>
     <td width="18%" style="border-bottom: none;">Nombre del proyecto:</td>
-    <td class="datos">{{ $project_name[0] }}</td>
+    <td class="datos" style="padding-left: 3px; padding-right: 3px;">{{ $project_name[0] }}</td>
   </tr>
   <tr>
-    <td class="datos" colspan="2">{{ $project_name[1] }}</td>
+    <td class="datos" colspan="2" style="padding-left: 3px; padding-right: 3px;">{{ $project_name[1] }}</td>
   </tr>
 </table>
 
@@ -272,10 +274,10 @@
     <small>OBSERVACIONES:</small>
     <table width="100%" class="lineas">
       <tr>
-        <td class="datos">{{ $remarks[0] }}</td>
+        <td class="datos" style="padding-left: 3px; padding-right: 3px;">{{ $remarks[0] }}</td>
       </tr>
       <tr>
-        <td class="datos">{{ $remarks[1] }}</td>
+        <td class="datos" style="padding-left: 3px; padding-right: 3px;">{{ $remarks[1] }}</td>
       </tr>
     </table>
   </div>

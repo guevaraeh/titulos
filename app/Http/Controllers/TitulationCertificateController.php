@@ -36,13 +36,14 @@ class TitulationCertificateController extends Controller
         if($request->ajax())
         {
             $titulation_certificates = TitulationCertificate::query()->orderBy('titulation_certificates.id', 'desc')
-            ->select([
+            /*->select([
                 DB::raw("GROUP_CONCAT(CONCAT(students.lastname, ' ', students.name) SEPARATOR ', ') as student_group"),
                 'titulation_certificates.*',
-            ])
-            ->join('student_titulation_certificate', 'titulation_certificates.id', '=', 'student_titulation_certificate.titulation_certificate_id')
-            ->join('students', 'student_titulation_certificate.student_id', '=', 'students.id')
-            ->groupBy('titulation_certificates.id', 'titulation_certificates.type', 'titulation_certificates.project_name', 'titulation_certificates.remarks', 'titulation_certificates.certificate_date', 'titulation_certificates.remember_token', 'titulation_certificates.created_at', 'titulation_certificates.updated_at', 'titulation_certificates.deleted_at')
+            ])*/
+            //->join('student_titulation_certificate', 'titulation_certificates.id', '=', 'student_titulation_certificate.titulation_certificate_id')
+            //->join('students', 'student_titulation_certificate.student_id', '=', 'students.id')
+            //->groupBy('titulation_certificates.id', 'titulation_certificates.type', 'titulation_certificates.project_name', 'titulation_certificates.remarks', 'titulation_certificates.certificate_date', 'titulation_certificates.remember_token', 'titulation_certificates.created_at', 'titulation_certificates.updated_at', 'titulation_certificates.deleted_at')
+            ->with('students')
             ;
 
             return DataTables::eloquent($titulation_certificates)
@@ -62,16 +63,22 @@ class TitulationCertificateController extends Controller
             })
             ->editColumn('student_group', function(TitulationCertificate $data) {
                 $sts = '';
-                /*$students = explode(', ', $data->student_group);
-                foreach($students as $student)
-                    $sts .= '<li>'.$student.'</li>';*/
-                foreach($data->students as $student)
-                    $sts .= '<li><a href="'.route('student.show', $student->id).'">'.$student->lastname.' '.$student->name.'</a></li>';
+                if(count($data->students) > 0)
+                {
+                    foreach($data->students as $student)
+                        $sts .= '<li><a href="'.route('student.show', $student->id).'">'.$student->lastname.' '.$student->name.'</a></li>';
+                }
                 return $sts;
             })
             ->filterColumn('student_group', function($query, $keyword) {
-                $sql = "CONCAT(students.lastname, ' ', students.name) like ?";
-                $query->whereRaw($sql, ["%{$keyword}%"]);
+                /*$sql = "CONCAT(students.lastname, ' ', students.name) like ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);*/
+                /*$query->whereHas('students', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });*/
+                $query->whereHas('students', function ($q) use ($keyword) {
+                    $q->whereRaw("CONCAT(students.lastname, ' ', students.name) like ?", "%{$keyword}%");
+                });
             })
             ->addColumn('actions', function(TitulationCertificate $data) {
                 $actions = '

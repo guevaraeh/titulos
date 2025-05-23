@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Crear Acta de Titulación rápida</title>
+Crear Acta de Titulación rápida
 @endsection
 
 @section('content')
@@ -51,9 +51,9 @@
                                         <input type="text" class="form-control" name="students[0][name]" id="name-1" placeholder="Nombres" required>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <select class="form-control career" name="students[0][career][name]" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
-                                            <option data-placeholder="true">- Seleccionar Carrera -</option>
+                                    <div class="col-sm-3" id="car1">
+                                        <select class="form-control career" name="students[0][career][name]" id="career-1" num-data="1" placeholder="- Seleccionar Carrera -">
+                                            <option data-placeholder="true" value="">- Seleccionar Carrera -</option>
                                             @foreach($careers as $career)
                                             <option value="{{ $career->name }}">{{ $career->name }}</option>
                                             @endforeach
@@ -70,7 +70,7 @@
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" id="certificate-date" name="certificate-date" >
+                            <input type="text" class="form-control" id="certificate-date" name="certificate-date" readonly>
                         </div>
 
                         <div class="mb-3">
@@ -110,7 +110,14 @@ $( document ).ready(function() {
     new tempusDominus.TempusDominus(document.getElementById("certificate-date"), {
         useCurrent: false,
         display: {
-            //icons: iconsDate,
+            icons: {
+                previous: 'bi bi-chevron-left',
+                next: 'bi bi-chevron-right',
+                clear: 'bi bi-trash',
+            },
+            buttons: {
+                clear: true,
+            },
             viewMode: 'calendar',
             components: {
               clock: false,
@@ -158,8 +165,8 @@ $( document ).ready(function() {
                         '<input type="text" class="form-control" name="students['+(num_students-1)+'][name]" id="name-'+num_students+'" placeholder="Nombres" required>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="col-sm-3">'+
-                        '<select class="form-control career" name="students['+(num_students-1)+'][career][name]" id="career-'+num_students+'" num-data="'+num_students+'" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
+                    '<div class="col-sm-3" id="car'+num_students+'">'+
+                        '<select class="form-control career" name="students['+(num_students-1)+'][career][name]" id="career-'+num_students+'" num-data="'+num_students+'" placeholder="- Seleccionar Carrera -">'+
                             '<option data-placeholder="true">- Seleccionar Carrera -</option>'+
                             option_careers+
                             '<option value="">Otro</option>'+
@@ -194,7 +201,23 @@ $( document ).ready(function() {
             num_students = num_students - 1; 
         }
     });
+
     
+    var another_careers = [false,false,false];
+    $('#num-students').on('change', '.career', function() {
+        if($(this).val() == '' && another_careers[$(this).attr('num-data')-1] == false)
+        {
+            $('#car'+$(this).attr('num-data')).append('<input class="form-control another" name="students['+($(this).attr('num-data')-1)+'][career][name]" id="another-career-'+$(this).attr('num-data')+'" num-data="'+$(this).attr('num-data')+'" placeholder="Seleccione otra carrera" required>');
+            $(this).removeAttr('name');
+            another_careers[$(this).attr('num-data')-1] = true;
+        }
+        else
+        {
+            $('#another-career-'+$(this).attr('num-data')).remove();
+            $(this).attr('name', 'students['+($(this).attr('num-data')-1)+'][career][name]');
+            another_careers[$(this).attr('num-data')-1] = false;
+        }
+    });
 
 });
 </script>

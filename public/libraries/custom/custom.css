@@ -1,0 +1,104 @@
+/* Ajustar el contenedor generado por Slim Select */
+.ss-main {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-right: 2rem; /* Espacio para la flecha */
+}
+
+/* Alinear correctamente la flecha a la derecha */
+.ss-main .ss-arrow {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Deja clics pasar al select */
+}
+
+/* Asegurar que el texto se mantenga alineado */
+.ss-main .ss-single-selected {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 1.5em;
+}
+
+
+
+
+.ss-main.form-control {
+  padding: 0.375rem 0.75rem; /* igual a .form-control */
+  height: auto;
+}
+
+/* SlimSelect */
+/*.ss-main .ss-arrow {
+    display: none !important;
+}*/
+
+.ss-main .ss-single-selected {
+    justify-content: flex-start !important; /* Elimina separación con la flecha */
+}
+
+.ss-main .ss-single {
+    /*padding: var(--ss-spacing-s) var(--ss-spacing-m) var(--ss-spacing-s) var(--ss-spacing-m);*/
+    margin: auto 0px auto 0px;
+    line-height: 1em;
+    align-items: center;
+    width: 100%;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    white-space: nowrap;
+}
+
+.ss-main.ss-content {
+    height: auto !important;
+    width: auto !important;
+    /*min-width: 600px !important;*/
+    /*overflow: auto !important;*/
+}
+
+.ss-list {
+  max-height: 240px; /* o el alto que desees */
+  overflow-y: auto;
+}
+
+.ss-selected {
+  background-color: var(--bs-primary) !important;
+  color: #fff !important; /* Texto blanco para contraste */
+}
+
+.ss-option:hover {
+  background-color: var(--bs-primary) !important;
+  /*background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important; */
+  color: #fff !important;
+}
+
+.ss-option.ss-highlighted {
+  background-color: var(--bs-primary) !important;
+  color: #fff !important;
+}
+
+.ss-content .ss-search input {
+    border-radius: var(--bs-border-radius)
+}
+.ss-content .ss-search input:focus {
+    box-shadow: 0 0 5px var(--bs-primary);
+}
+
+/*Tempus Dominus*/
+.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).active{
+  background-color: var(--bs-primary) !important;
+}
+
+.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).active{
+  background-color: var(--bs-primary) !important;
+}
+
+.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).active{
+  background-color: var(--bs-primary) !important;
+}
+
+.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).today:before{
+  border-bottom-color: var(--bs-primary) !important;
+}

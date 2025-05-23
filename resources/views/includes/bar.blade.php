@@ -64,6 +64,11 @@
             <i class="bi-card-file-earmark-text"></i> Acta vacia
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('titulation_certificate.create_fast') }}">
+            <i class="bi-card-file-earmark-text"></i> Hacer Acta
+          </a>
+        </li>
       </ul>
     </div>
   </div>

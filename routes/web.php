@@ -8,7 +8,8 @@ use App\Http\Controllers\StudentController;
 Route::get('/', function () {
     //return Inertia::render('welcome');
     //return redirect(route('login'));
-    return redirect(route('titulation_certificate.search_certificates'));
+    //return redirect(route('titulation_certificate.create_fast'));
+    return view('dashboard');
 })->name('home');
 
 Route::get('/generate-pdf-empty', [TitulationCertificateController::class, 'generate_pdf_empty'])->name('titulation_certificate.generate_pdf_empty');
@@ -16,6 +17,9 @@ Route::get('/search-certificates', [TitulationCertificateController::class, 'sea
 Route::post('/get-certificates-ajax', [TitulationCertificateController::class, 'get_certificates_ajax'])->name('titulation_certificate.get_certificates_ajax');
 Route::get('/certificate/{data}', [TitulationCertificateController::class, 'certificate'])->name('titulation_certificate.certificate');
 Route::post('/student/get-students-by-career-ajax', [StudentController::class, 'get_students_by_career_ajax'])->name('student.get_students_by_career_ajax');
+
+Route::get('/create-fast-certificate', [TitulationCertificateController::class, 'create_fast'])->name('titulation_certificate.create_fast');
+Route::post('/generate-fast-certificate', [TitulationCertificateController::class, 'generate_pdf_fast'])->name('titulation_certificate.generate_pdf_fast');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -37,8 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Route::get('/search-certificates', [TitulationCertificateController::class, 'search_certificates'])->name('titulation_certificate.search_certificates');
     //Route::post('/get-certificates-ajax', [TitulationCertificateController::class, 'get_certificates_ajax'])->name('titulation_certificate.get_certificates_ajax');
 
-    Route::get('/create-fast-certificate', [TitulationCertificateController::class, 'create_fast'])->name('titulation_certificate.create_fast');
-    Route::post('/generate-fast-certificate', [TitulationCertificateController::class, 'generate_pdf_fast'])->name('titulation_certificate.generate_pdf_fast');
+    //Route::get('/create-fast-certificate', [TitulationCertificateController::class, 'create_fast'])->name('titulation_certificate.create_fast');
+    //Route::post('/generate-fast-certificate', [TitulationCertificateController::class, 'generate_pdf_fast'])->name('titulation_certificate.generate_pdf_fast');
 
     Route::delete('/titulation_certificate/{titulation_certificate}/destroy', [TitulationCertificateController::class, 'destroy'])->name('titulation_certificate.destroy');
 

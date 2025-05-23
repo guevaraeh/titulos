@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Buscar Acta de Titulación</title>
+Buscar Acta de Titulación
 @endsection
 
 @section('content')

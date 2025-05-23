@@ -44,7 +44,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     <div className="grid gap-2">
                         <Label htmlFor="username">Usuario</Label>
                         <Input
-                            class="form-control"
+                            className="form-control"
                             id="username"
                             type="text"
                             required

@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Estudiantes</title>
+Estudiantes
 @endsection
 
 @section('content')
@@ -22,6 +22,7 @@
                                     <th>Nombres</th>
                                     <th>DNI</th>
                                     <th>Carrera Profesional</th>
+                                    <th>Nro. de Actas</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -32,6 +33,7 @@
                                     <th>Nombres</th>
                                     <th>DNI</th>
                                     <th>Carrera Profesional</th>
+                                    <th>Nro. de Actas</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
@@ -65,6 +67,7 @@ $( document ).ready(function() {
             {data:'name', name:'name'},
             {data:'dni', name:'dni'},
             {data:'career', name:'career'},
+            {data:'num_certificates', name:'num_certificates'},
             {data:'actions', name:'actions'},
         ],
     });  

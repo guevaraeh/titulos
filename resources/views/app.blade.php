@@ -33,8 +33,7 @@
 
         <title inertia>Actas de Titulación</title>
         
-        <a class="btn btn-primary" href="{{ route('titulation_certificate.generate_pdf_empty') }}" target="_blank">Acta vacia</a>
-        <a class="btn btn-primary" href="{{ route('titulation_certificate.search_certificates') }}">Buscar acta</a>
+        <a class="btn btn-primary" href="{{ route('home') }}">Inicio</a>
 
         {{-- <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" /> --}}

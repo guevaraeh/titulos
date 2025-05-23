@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Acta de Titulacion</title>
+Acta de Titulacion
 @endsection
 
 <?php $types = ['Proyecto vinculado a formación recibida', 'Examen de suficiencia profesional']; ?>
@@ -75,7 +75,9 @@
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('student.edit', $student->id) }}" class="btn btn-primary" title="Editar"><i class="bi-pencil"></i></a>
+                                                @if(count($titulation_certificate->students) > 1)
                                                 <a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

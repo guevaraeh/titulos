@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('/logo.png') }}" />
-    @yield('title')
+    <title>Actas de Titulación | @yield('title')</title>
+
     @include('includes.styles')
   </head>
   <body>

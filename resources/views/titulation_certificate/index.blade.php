@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Titulos</title>
+Lista de Actas Registradas
 @endsection
 
 <?php $types = ['Proyecto vinculado a formación recibida', 'Examen de suficiencia profesional']; ?>
@@ -12,7 +12,7 @@
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Actas de Titulación</h6>
+					<h6 class="m-0 font-weight-bold">Lista de Actas Registradas</h6>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">

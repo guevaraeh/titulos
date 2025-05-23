@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-<title>Titula</title>
+Titulación
 @endsection
 
 @section('content')

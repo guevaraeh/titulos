@@ -19,13 +19,23 @@ class StudentController extends Controller
     {
         session(['url_from' => route('student')]);
 
+        //dd(Student::pluck('id')->toArray()[1]);
+        //dd(DB::table('students')->pluck('id')->toArray());
+        //dd(Student::count());
+        //dd(rand());
+
         if($request->ajax())
         {
             $students = Student::query()->orderBy('lastname','ASC')
             ->select([DB::raw("careers.name as career"),'students.*'])
-            ->join('careers', 'students.career_id', '=', 'careers.id');
+            ->join('careers', 'students.career_id', '=', 'careers.id')
+            ->with('titulation_certificates');
 
             return DataTables::eloquent($students)
+            ->addColumn('num_certificates', function(Student $data) {
+                return count($data->titulation_certificates);
+                //return $data->titulation_certificates->pluck('project_name')->implode(', ');
+            })
             ->addColumn('actions', function(Student $data) {
                 $actions = '
                 <div class="btn-group" role="group">
@@ -71,7 +81,6 @@ class StudentController extends Controller
             'name' => 'required|max:255',
             'lastname' => 'required|max:255',
             'dni' => 'required|max:255',
-            'career' => 'required|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif,webp,avif|max:2048', // Max 2MB
         ]);*/
 
