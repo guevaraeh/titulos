@@ -46,7 +46,7 @@ Crear Acta de Titulación
                                     </div>
                                     <div class="col-sm-5">
                                         <select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
-                                            <option data-placeholder="true">- Seleccionar Carrera -</option>
+                                            <option data-placeholder="true" selected disabled>- Seleccionar Carrera -</option>
                                             @foreach($careers as $career)
                                             <option value="{{ $career->id }}">{{ $career->name }}</option>
                                             @endforeach
@@ -135,13 +135,19 @@ $( document ).ready(function() {
     });
     let selected_sts = [];
 
-    new SlimSelect({
+    /*new SlimSelect({
         select: '#career-1',
         settings: {
             searchPlaceholder: 'Buscar',
             searchText: 'Sin resultados',
             searchingText: 'Buscando...',
         },
+    });*/
+
+    $('#career-1').select2({
+        width: '100%',
+        language: 'es',
+        theme: 'bootstrap-5',
     });
     
     $('#num-students').on('change', '.select-student', function() {
@@ -153,7 +159,7 @@ $( document ).ready(function() {
             selected_sts.push($(this).val());
 
             /*********************/
-            console.log('Bucle: ', $(this).attr('num-data'));
+            /*console.log('Bucle: ', $(this).attr('num-data'));
             if($(this).attr('num-data') != num_st)
             {
                 console.log('N: ', $(this).attr('num-data'));
@@ -167,7 +173,7 @@ $( document ).ready(function() {
                         searchingText: 'Buscando...',
                     },
                 });
-            }
+            }*/
             /*****************/
 
         });
@@ -188,7 +194,7 @@ $( document ).ready(function() {
                 $("#sel-"+num_st).html('');
                 $("#sel-"+num_st).append(
                     '<select class="form-control select-student" id="student-'+num_st+'" num-data="'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required>'+
-                    '<option data-placeholder="true">- Seleccionar Estudiante -</option>'+
+                    '<option data-placeholder="true" selected disabled>- Seleccionar Estudiante -</option>'+
                     '</select>'
                 );
                 
@@ -196,7 +202,7 @@ $( document ).ready(function() {
                     $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
                 });
                 //$("#student-"+num_st).selectpicker();
-                sel_students[num_st-1] = new SlimSelect({
+                /*sel_students[num_st-1] = new SlimSelect({
                     select: "#student-"+num_st,
                     maxHeight: 200,
                     settings: {
@@ -204,6 +210,11 @@ $( document ).ready(function() {
                         searchText: 'Sin resultados',
                         searchingText: 'Buscando...',
                     },
+                });*/
+                sel_students[num_st-1] = $('#student-'+num_st).select2({
+                    width: '100%',
+                    language: 'es',
+                    theme: 'bootstrap-5',
                 });
             },
         });
@@ -221,7 +232,7 @@ $( document ).ready(function() {
                     '</div>'+
                     '<div class="col-sm-5">'+
                         '<select class="form-control career" id="career-'+num_students+'" num-data="'+num_students+'" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
-                        '<option data-placeholder="true">- Seleccionar Carrera -</option>'+
+                        '<option data-placeholder="true" selected disabled>- Seleccionar Carrera -</option>'+
                         option_careers
                         +'</select>'+
                     '</div>'+
@@ -231,14 +242,19 @@ $( document ).ready(function() {
                 '</div>'
                 );
             //$('#career-'+num_students).selectpicker();
-            new SlimSelect({
+            /*new SlimSelect({
                     select: '#career-'+num_students,
                     settings: {
                         searchPlaceholder: 'Buscar',
                         searchText: 'Sin resultados',
                         searchingText: 'Buscando...',
                     },
-                });
+                });*/
+            $('#career-'+num_students).select2({
+                width: '100%',
+                language: 'es',
+                theme: 'bootstrap-5',
+            });
 
             selected_sts = [];
             $('select[name="students[]"]').each(function () {

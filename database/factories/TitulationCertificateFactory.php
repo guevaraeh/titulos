@@ -25,7 +25,7 @@ class TitulationCertificateFactory extends Factory
             'type' => $type,
             'project_name' => $type == 0 ? fake()->sentence() : null,
             'remarks' => fake()->paragraph(),
-            'certificate_date' => fake()->dateTimeBetween('-200 days', 'now'),
+            'certificate_date' => fake()->dateTimeBetween('-100 days', '+100 days'),
             'remember_token' => hash('sha256',  time().rand())
         ];
     }

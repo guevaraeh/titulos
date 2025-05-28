@@ -99,29 +99,23 @@ Acta de Titulacion
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                     </div>
                                     <div class="modal-body">
-                                        {{--
-                                        @csrf
-                                        <select class="selpick form-control" placeholder="- Selecciona estudiante -" name="student-id" id="student-id" data-live-search="true">
-                                        </select>
-                                        --}}
-
                                         @csrf
                                         <div class="mb-3">
-                                            <select class="form-control" id="career" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
-                                                <option data-placeholder="true">- Seleccionar Carrera -</option>
+                                            <select class="form-control" id="career" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                                <option data-placeholder="true" selected disabled>- Seleccionar Carrera -</option>
                                                 @foreach($careers as $career)
                                                 <option value="{{ $career->id }}">{{ $career->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-3" id="sel">
-                                            <select class="form-control select-student" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled required></select>
+                                            <select class="form-control select-student" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
                                         </div>
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                         <button type="submit" class="btn btn-primary">Agregar</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -140,18 +134,25 @@ Acta de Titulacion
 @section('javascript')
 <script type="text/javascript">
     //$('.selectpicker').selectpicker();
-    new SlimSelect({
+    /*new SlimSelect({
         select: '#career',
         settings: {
             searchPlaceholder: 'Buscar',
             searchText: 'Sin resultados',
             searchingText: 'Buscando...',
         },
+    });*/
+    $('#career').select2({
+        dropdownParent: $('#myModal'),
+        width: '100%',
+        language: 'es',
+        theme: 'bootstrap-5',
     });
 
     $('#openModalBtn').on('click', function () {
         var modal = new bootstrap.Modal(document.getElementById('myModal'));
         modal.show();
+        
     });
 
     $('#career').on('change', function() {
@@ -166,19 +167,25 @@ Acta de Titulacion
             },
             success: function(results){
                 $("#sel").html('');
-                $("#sel").append('<select class="form-control" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" required></select>');
+                $("#sel").append('<select class="form-control" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" required><option data-placeholder="true" selected disabled>- Seleccionar Estudiante -</option></select>');
 
                 results.forEach(function(result) {
                     $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));
                 });
                 //$("#student-id").selectpicker();
-                new SlimSelect({
+                /*new SlimSelect({
                     select: '#student-id',
                     settings: {
                         searchPlaceholder: 'Buscar',
                         searchText: 'Sin resultados',
                         searchingText: 'Buscando...',
                     },
+                });*/
+                $('#student-id').select2({
+                    dropdownParent: $('#myModal'),
+                    width: '100%',
+                    language: 'es',
+                    theme: 'bootstrap-5',
                 });
             },
         });

@@ -1,7 +1,7 @@
 @if(Auth::user())
 <nav class="navbar navbar-expand-lg mb-4 topbar bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">Administrador</span>
+    <span class="navbar-brand mb-0 h1"><img src="{{ asset('/logo.png') }}" class="img-fluid" alt="Responsive image" width="20" height="20"> Administrador</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,6 +33,12 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('titulation_certificate.search_certificates') }}">
             <i class="bi bi-search"></i> Buscar
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('user.edit',Auth::user()) }}">
+            <i class="bi bi-person"></i> Editar usuario
           </a>
         </li>
 

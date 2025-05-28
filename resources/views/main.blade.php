@@ -32,7 +32,8 @@
     @if(Session::has('success'))
     <script type="text/javascript">
     $( document ).ready(function() {
-      toastr.success('<strong>¡Exito!</strong><br>'+'{{ session("success") }}');
+      toastr.success('{{ session("success") }}','<strong>¡Exito!</strong>',{closeButton: true,}
+      );
     });
     </script>
     @endif

@@ -64,8 +64,8 @@
     }
 
     .seccion {
-      margin-top: 15px;
-      margin-bottom: 0px;
+      margin-top: 14px;
+      margin-bottom: 0;
     }
 
     table {
@@ -88,19 +88,19 @@
     }
 
     .firmas {
-      margin-top: 43px;
+      margin-top: 39px;
       width: 100%;
       text-align: center;
     }
 
     .firmas td {
       border: none;
-      padding-top: 28px;
+      padding-top: 26px;
     }
 
     .lugar-fecha {
-      margin-top: 30px;
-	  text-align: right;
+      margin-top: 25px;
+	    text-align: right;
     }
 
     .bold {
@@ -108,8 +108,8 @@
     }
 	.box {
 	  display: inline-block;
-	  width: 12px;
-	  height: 12px;
+	  width: 13px;
+	  height: 13px;
 	  border: 1px solid #000;
 	  margin-right: 5px;
 	  font-size: 10px;
@@ -144,7 +144,7 @@
       border-right: none;
       padding: 0;
       text-align: left;
-      height: 25px;
+      height: 29px;
       /*padding-left: 10px;
       padding-right: 10px;*/
     }

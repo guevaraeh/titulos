@@ -53,7 +53,7 @@ Crear Acta de Titulación rápida
                                     </div>
                                     <div class="col-sm-3" id="car1">
                                         <select class="form-control career" name="students[0][career][name]" id="career-1" num-data="1" placeholder="- Seleccionar Carrera -">
-                                            <option data-placeholder="true" value="">- Seleccionar Carrera -</option>
+                                            <option data-placeholder="true" value="" selected disabled>- Seleccionar Carrera -</option>
                                             @foreach($careers as $career)
                                             <option value="{{ $career->name }}">{{ $career->name }}</option>
                                             @endforeach
@@ -141,13 +141,18 @@ $( document ).ready(function() {
     });
 
     //$('#career-1').selectpicker();
-    new SlimSelect({
+    /*new SlimSelect({
         select: '#career-1',
         settings: {
             searchPlaceholder: 'Buscar',
             searchText: 'Sin resultados',
             searchingText: 'Buscando...',
         },
+    });*/
+    $('#career-1').select2({
+        width: '100%',
+        language: 'es',
+        theme: 'bootstrap-5',
     });
     
     $('#add-student').click(function() {
@@ -179,13 +184,18 @@ $( document ).ready(function() {
                 '</div>'
                 );
             //$('#career-'+num_students).selectpicker();
-            new SlimSelect({
+            /*new SlimSelect({
                 select: '#career-'+num_students,
                 settings: {
                     searchPlaceholder: 'Buscar',
                     searchText: 'Sin resultados',
                     searchingText: 'Buscando...',
                 },
+            });*/
+            $('#career-'+num_students).select2({
+                width: '100%',
+                language: 'es',
+                theme: 'bootstrap-5',
             });
 
             /*selected_sts = [];
