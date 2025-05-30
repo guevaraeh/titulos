@@ -46,7 +46,7 @@ Crear Acta de Titulación
                                     </div>
                                     <div class="col-sm-5">
                                         <select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
-                                            <option data-placeholder="true" selected disabled>- Seleccionar Carrera -</option>
+                                            <option data-placeholder="true" selected disabled></option>
                                             @foreach($careers as $career)
                                             <option value="{{ $career->id }}">{{ $career->name }}</option>
                                             @endforeach
@@ -62,7 +62,7 @@ Crear Acta de Titulación
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" readonly>
+                            <input type="text" class="form-control" name="certificate-date" id="cert-date" placeholder="Año-Mes-Día" readonly>
                         </div>
 
                         <div class="mb-3">
@@ -135,19 +135,11 @@ $( document ).ready(function() {
     });
     let selected_sts = [];
 
-    /*new SlimSelect({
-        select: '#career-1',
-        settings: {
-            searchPlaceholder: 'Buscar',
-            searchText: 'Sin resultados',
-            searchingText: 'Buscando...',
-        },
-    });*/
-
     $('#career-1').select2({
         width: '100%',
         language: 'es',
         theme: 'bootstrap-5',
+        placeholder: '- Seleccionar Carrera -',
     });
     
     $('#num-students').on('change', '.select-student', function() {
@@ -176,6 +168,32 @@ $( document ).ready(function() {
             }*/
             /*****************/
 
+            /*if($(this).attr('num-data') != num_st)
+                $('#student-'+$(this).attr('num-data')+' option[value="'+ elem+'"]').remove();*/
+            
+            /*$('#student-'+$(this).attr('num-data')+' option').prop('disabled', false);
+            $('#student-'+$(this).attr('num-data')).trigger('change.select2');
+            for (let i = 0; i < selected_sts.length; i++) 
+            {
+                if($('#student-'+$(this).attr('num-data')).val() != elem)
+                {
+                    $('#student-'+$(this).attr('num-data')+' option[value="'+ elem+'"]').prop('disabled', true);
+                    $('#student-'+$(this).attr('num-data')).trigger('change.select2'); 
+                }               
+            }*/
+
+
+            /*$(this).find('option').prop('disabled', false);
+            $(this).trigger('change.select2');
+            for (let i = 0; i < selected_sts.length; i++) 
+            {
+                if($(this).val() != elem)
+                {
+                    $(this).find('option[value="'+ elem+'"]').prop('disabled', true);
+                    $(this).trigger('change.select2'); 
+                }               
+            }*/
+
         });
 
     });
@@ -194,27 +212,19 @@ $( document ).ready(function() {
                 $("#sel-"+num_st).html('');
                 $("#sel-"+num_st).append(
                     '<select class="form-control select-student" id="student-'+num_st+'" num-data="'+num_st+'" name="students[]" data-live-search="true" placeholder="- Seleccionar Estudiante -" required>'+
-                    '<option data-placeholder="true" selected disabled>- Seleccionar Estudiante -</option>'+
+                    '<option data-placeholder="true" selected disabled></option>'+
                     '</select>'
                 );
                 
                 results.forEach(function(result) {
                     $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
                 });
-                //$("#student-"+num_st).selectpicker();
-                /*sel_students[num_st-1] = new SlimSelect({
-                    select: "#student-"+num_st,
-                    maxHeight: 200,
-                    settings: {
-                        searchPlaceholder: 'Buscar',
-                        searchText: 'Sin resultados',
-                        searchingText: 'Buscando...',
-                    },
-                });*/
+
                 sel_students[num_st-1] = $('#student-'+num_st).select2({
                     width: '100%',
                     language: 'es',
                     theme: 'bootstrap-5',
+                    placeholder: '- Seleccionar Estudiante -',
                 });
             },
         });
@@ -232,7 +242,7 @@ $( document ).ready(function() {
                     '</div>'+
                     '<div class="col-sm-5">'+
                         '<select class="form-control career" id="career-'+num_students+'" num-data="'+num_students+'" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">'+
-                        '<option data-placeholder="true" selected disabled>- Seleccionar Carrera -</option>'+
+                        '<option data-placeholder="true" selected disabled></option>'+
                         option_careers
                         +'</select>'+
                     '</div>'+
@@ -241,19 +251,12 @@ $( document ).ready(function() {
                     '</div>'+
                 '</div>'
                 );
-            //$('#career-'+num_students).selectpicker();
-            /*new SlimSelect({
-                    select: '#career-'+num_students,
-                    settings: {
-                        searchPlaceholder: 'Buscar',
-                        searchText: 'Sin resultados',
-                        searchingText: 'Buscando...',
-                    },
-                });*/
+
             $('#career-'+num_students).select2({
                 width: '100%',
                 language: 'es',
                 theme: 'bootstrap-5',
+                placeholder: '- Seleccionar Carrera -',
             });
 
             selected_sts = [];

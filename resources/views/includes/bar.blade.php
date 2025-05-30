@@ -1,7 +1,8 @@
 @if(Auth::user())
 <nav class="navbar navbar-expand-lg mb-4 topbar bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1"><img src="{{ asset('/logo.png') }}" class="img-fluid" alt="Responsive image" width="20" height="20"> Administrador</span>
+    {{--<span class="navbar-brand mb-0 h1"><img src="{{ asset('/logo.png') }}" class="img-fluid" alt="Responsive image" width="20" height="20"> Administrador</span>--}}
+    <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('/logo.png') }}" class="d-inline-block align-text-top" alt="Inicio" width="20" height="20"> Administrador</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

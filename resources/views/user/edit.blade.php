@@ -69,15 +69,3 @@ Editar usuario
 
 </div>
 @endsection
-
-@section('javascript')
-<script>
-$( document ).ready(function() {
-    
-    @if(Session::has('error'))
-    toastr.error('<strong>¡Error!</strong><br>'+'{{ session("error") }}');
-    @endif
-
-});
-</script>
-@endsection

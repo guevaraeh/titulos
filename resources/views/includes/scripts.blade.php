@@ -17,3 +17,12 @@
 <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+@if(Session::has('success'))
+<script type="text/javascript">
+$( document ).ready(function() {
+    toastr.success('{{ session("success") }}','<strong>¡Exito!</strong>',{closeButton: true,}
+    );
+});
+</script>
+@endif

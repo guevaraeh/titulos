@@ -65,8 +65,13 @@ class TitulationCertificateController extends Controller
                 $sts = '';
                 if(count($data->students) > 0)
                 {
+                    $loop = 0;
                     foreach($data->students as $student)
-                        $sts .= '<li><a href="'.route('student.show', $student->id).'">'.$student->lastname.' '.$student->name.'</a></li>';
+                    {
+                        if($loop > 0) $sts .= '<br>';
+                        $sts .= '<a href="'.route('student.show', $student->id).'">'.$student->lastname.' '.$student->name.'</a>';
+                        $loop++;
+                    }
                 }
                 return $sts;
             })

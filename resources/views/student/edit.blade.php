@@ -35,6 +35,7 @@ Editar Estudiante
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Carrera</b><font color="red">*</font></label>
                             <select class="form-control" id="career-id" name="career-id" aria-label="Default select example">
+                                <option data-placeholder="true" selected disabled></option>
                                 @foreach($careers as $career)
                                 <option value="{{ $career->id }}" {{ $student->career_id == $career->id ? 'selected' : '' }} >{{ $career->name }}</option>
                                 @endforeach
@@ -61,13 +62,11 @@ Editar Estudiante
 @section('javascript')
 <script type="text/javascript">
 
-    new SlimSelect({
-        select: '#career-id',
-        settings: {
-            searchPlaceholder: 'Buscar',
-            searchText: 'Sin resultados',
-            searchingText: 'Buscando...',
-        },
+    $('#career-id').select2({
+        width: '100%',
+        language: 'es',
+        theme: 'bootstrap-5',
+        placeholder: '- Seleccionar Carrera -',
     });
 
 </script>

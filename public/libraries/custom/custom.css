@@ -144,9 +144,9 @@
 .select2-container--bootstrap-5 .select2-selection {
     min-height: 38px;
     padding: 0.375rem 0.75rem;
-    /*font: inherit;
-    color: inherit;*/
-    background-color: inherit !important;
+    font: inherit;
+    color: inherit;
+    /*background-color: inherit;*/
     border: var(--bs-border-width) solid var(--bs-select2-border-color) !important;
     border-radius: var(--bs-border-radius) !important;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;

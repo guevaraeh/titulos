@@ -53,7 +53,7 @@ Crear Acta de Titulación rápida
                                     </div>
                                     <div class="col-sm-3" id="car1">
                                         <select class="form-control career" name="students[0][career][name]" id="career-1" num-data="1" placeholder="- Seleccionar Carrera -">
-                                            <option data-placeholder="true" value="" selected disabled>- Seleccionar Carrera -</option>
+                                            <option data-placeholder="true" value="" selected disabled></option>
                                             @foreach($careers as $career)
                                             <option value="{{ $career->name }}">{{ $career->name }}</option>
                                             @endforeach
@@ -70,7 +70,7 @@ Crear Acta de Titulación rápida
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" id="certificate-date" name="certificate-date" readonly>
+                            <input type="text" class="form-control" id="certificate-date" name="certificate-date" placeholder="Año-Mes-Día" readonly>
                         </div>
 
                         <div class="mb-3">
@@ -153,6 +153,7 @@ $( document ).ready(function() {
         width: '100%',
         language: 'es',
         theme: 'bootstrap-5',
+        placeholder: '- Seleccionar Carrera -',
     });
     
     $('#add-student').click(function() {
@@ -172,7 +173,7 @@ $( document ).ready(function() {
                     '</div>'+
                     '<div class="col-sm-3" id="car'+num_students+'">'+
                         '<select class="form-control career" name="students['+(num_students-1)+'][career][name]" id="career-'+num_students+'" num-data="'+num_students+'" placeholder="- Seleccionar Carrera -">'+
-                            '<option data-placeholder="true">- Seleccionar Carrera -</option>'+
+                            '<option data-placeholder="true"></option>'+
                             option_careers+
                             '<option value="">Otro</option>'+
                         '</select>'+
@@ -183,19 +184,12 @@ $( document ).ready(function() {
 
                 '</div>'
                 );
-            //$('#career-'+num_students).selectpicker();
-            /*new SlimSelect({
-                select: '#career-'+num_students,
-                settings: {
-                    searchPlaceholder: 'Buscar',
-                    searchText: 'Sin resultados',
-                    searchingText: 'Buscando...',
-                },
-            });*/
+
             $('#career-'+num_students).select2({
                 width: '100%',
                 language: 'es',
                 theme: 'bootstrap-5',
+                placeholder: '- Seleccionar Carrera -',
             });
 
             /*selected_sts = [];

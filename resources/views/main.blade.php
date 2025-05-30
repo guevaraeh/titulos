@@ -21,7 +21,6 @@
 
         @include('includes.bar')
 
-        <!-- Contenido de la pagina -->
         @yield('content')
 
       </div>
@@ -29,13 +28,5 @@
     @include('includes.scripts')
     @yield('javascript')
     
-    @if(Session::has('success'))
-    <script type="text/javascript">
-    $( document ).ready(function() {
-      toastr.success('{{ session("success") }}','<strong>¡Exito!</strong>',{closeButton: true,}
-      );
-    });
-    </script>
-    @endif
   </body>
 </html>

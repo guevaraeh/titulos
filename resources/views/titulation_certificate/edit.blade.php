@@ -39,7 +39,7 @@ Titulación
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ $titulation_certificate->certificate_date }}" readonly>
+                            <input type="text" class="form-control" name="certificate-date" id="cert-date" value="{{ $titulation_certificate->certificate_date }}" placeholder="Año-Mes-Día" readonly>
                         </div>
 
                         <div class="mb-3">

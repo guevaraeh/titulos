@@ -11,6 +11,8 @@
       font-family:'Helvetica', sans-serif;
       font-size: 12px;
       margin: 27px;
+      margin-top: 15px;
+      margin-botto,: 15px;
     }
     .datos{
       font-family:'Arial';
@@ -78,7 +80,7 @@
       border: 1px solid black;
       padding: 3px;
       text-align: center;
-      height: 29px;
+      height: 30px;
     }
 
     .observaciones {
@@ -88,7 +90,7 @@
     }
 
     .firmas {
-      margin-top: 39px;
+      margin-top: 40px;
       width: 100%;
       text-align: center;
     }
@@ -99,7 +101,7 @@
     }
 
     .lugar-fecha {
-      margin-top: 25px;
+      margin-top: 27px;
 	    text-align: right;
     }
 

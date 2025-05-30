@@ -102,7 +102,7 @@ Acta de Titulacion
                                         @csrf
                                         <div class="mb-3">
                                             <select class="form-control" id="career" data-live-search="true" placeholder="- Seleccionar Carrera -">
-                                                <option data-placeholder="true" selected disabled>- Seleccionar Carrera -</option>
+                                                <option data-placeholder="true" selected disabled></option>
                                                 @foreach($careers as $career)
                                                 <option value="{{ $career->id }}">{{ $career->name }}</option>
                                                 @endforeach
@@ -133,20 +133,13 @@ Acta de Titulacion
 
 @section('javascript')
 <script type="text/javascript">
-    //$('.selectpicker').selectpicker();
-    /*new SlimSelect({
-        select: '#career',
-        settings: {
-            searchPlaceholder: 'Buscar',
-            searchText: 'Sin resultados',
-            searchingText: 'Buscando...',
-        },
-    });*/
+
     $('#career').select2({
         dropdownParent: $('#myModal'),
         width: '100%',
         language: 'es',
         theme: 'bootstrap-5',
+        placeholder: '- Seleccionar Carrera -',
     });
 
     $('#openModalBtn').on('click', function () {
@@ -167,25 +160,18 @@ Acta de Titulacion
             },
             success: function(results){
                 $("#sel").html('');
-                $("#sel").append('<select class="form-control" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" required><option data-placeholder="true" selected disabled>- Seleccionar Estudiante -</option></select>');
+                $("#sel").append('<select class="form-control" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" required><option data-placeholder="true" selected disabled></option></select>');
 
                 results.forEach(function(result) {
                     $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));
                 });
-                //$("#student-id").selectpicker();
-                /*new SlimSelect({
-                    select: '#student-id',
-                    settings: {
-                        searchPlaceholder: 'Buscar',
-                        searchText: 'Sin resultados',
-                        searchingText: 'Buscando...',
-                    },
-                });*/
+
                 $('#student-id').select2({
                     dropdownParent: $('#myModal'),
                     width: '100%',
                     language: 'es',
                     theme: 'bootstrap-5',
+                    placeholder: '- Seleccionar Estudiante -',
                 });
             },
         });
