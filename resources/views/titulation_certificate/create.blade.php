@@ -167,33 +167,20 @@ $( document ).ready(function() {
                 });
             }*/
             /*****************/
+        });
 
-            /*if($(this).attr('num-data') != num_st)
-                $('#student-'+$(this).attr('num-data')+' option[value="'+ elem+'"]').remove();*/
-            
-            /*$('#student-'+$(this).attr('num-data')+' option').prop('disabled', false);
-            $('#student-'+$(this).attr('num-data')).trigger('change.select2');
-            for (let i = 0; i < selected_sts.length; i++) 
-            {
-                if($('#student-'+$(this).attr('num-data')).val() != elem)
-                {
-                    $('#student-'+$(this).attr('num-data')+' option[value="'+ elem+'"]').prop('disabled', true);
-                    $('#student-'+$(this).attr('num-data')).trigger('change.select2'); 
-                }               
-            }*/
+        $('select[name="students[]"]').each(function () {
 
-
-            /*$(this).find('option').prop('disabled', false);
+            $(this).find('option').prop('disabled', false);
             $(this).trigger('change.select2');
             for (let i = 0; i < selected_sts.length; i++) 
             {
-                if($(this).val() != elem)
+                if($(this).val() != selected_sts[i])
                 {
-                    $(this).find('option[value="'+ elem+'"]').prop('disabled', true);
+                    $(this).find('option[value="'+ selected_sts[i]+'"]').prop('disabled', true);
                     $(this).trigger('change.select2'); 
                 }               
-            }*/
-
+            }
         });
 
     });
@@ -206,7 +193,7 @@ $( document ).ready(function() {
             data: {
                 _token: "{{ csrf_token() }}",
                 career: $(this).val(),
-                selected_students: selected_sts,
+                //selected_students: selected_sts,
             },
             success: function(results){
                 $("#sel-"+num_st).html('');
@@ -219,6 +206,9 @@ $( document ).ready(function() {
                 results.forEach(function(result) {
                     $("#student-"+num_st).append(new Option(result.lastname+' '+result.name, result.id));
                 });
+
+                for (let i = 0; i < selected_sts.length; i++) 
+                    $("#student-"+num_st).find('option[value="'+ selected_sts[i]+'"]').prop('disabled', true);
 
                 sel_students[num_st-1] = $('#student-'+num_st).select2({
                     width: '100%',

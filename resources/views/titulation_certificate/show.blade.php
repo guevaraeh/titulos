@@ -94,7 +94,7 @@ Acta de Titulacion
                         <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-primary text-white">
                                         <h5 class="modal-title" id="myModalLabel">Agregar estudiante</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                     </div>
@@ -148,6 +148,8 @@ Acta de Titulacion
         
     });
 
+    selected_sts = @json($titulation_certificate->students->pluck('id')->toArray());
+
     $('#career').on('change', function() {
 
         $.ajax({
@@ -156,7 +158,7 @@ Acta de Titulacion
             data: {
                 _token: "{{ csrf_token() }}",
                 career: $(this).val(),
-                selected_students: @json($titulation_certificate->students->pluck('id')->toArray()),
+                //selected_students: @json($titulation_certificate->students->pluck('id')->toArray()),
             },
             success: function(results){
                 $("#sel").html('');
@@ -165,6 +167,9 @@ Acta de Titulacion
                 results.forEach(function(result) {
                     $("#student-id").append(new Option(result.lastname+' '+result.name, result.id));
                 });
+
+                for (let i = 0; i < selected_sts.length; i++) 
+                    $('#student-id').find('option[value="'+ selected_sts[i]+'"]').prop('disabled', true);
 
                 $('#student-id').select2({
                     dropdownParent: $('#myModal'),
