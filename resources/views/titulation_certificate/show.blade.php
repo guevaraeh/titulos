@@ -76,7 +76,8 @@ Acta de Titulacion
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('student.edit', $student->id) }}" class="btn btn-primary" title="Editar"><i class="bi-pencil"></i></a>
                                                 @if(count($titulation_certificate->students) > 1)
-                                                <a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>
+                                                {{--<a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>--}}
+                                                <button type="button" class="btn btn-danger swaldrop" form="deleteall" formaction="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" value="{{ $student->lastname . ' ' . $student->name }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></button>
                                                 @endif
                                             </div>
                                         </td>
@@ -185,10 +186,30 @@ Acta de Titulacion
 
     $('.swalDefaultSuccess').click(function(){
         Swal.fire({
-            title: '¿Esta seguro que desea eliminarlo?',
+            title: '¿Esta seguro que desea eliminarlo completamente?',
             text: '',
             showDenyButton: true,
             confirmButtonText: "Si, eliminar",
+            denyButtonText: "No, cancelar",
+            icon: "warning",
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                denyButton: 'btn btn-danger'
+            }
+        }).then((result) => {
+            if(result.isConfirmed){
+                $('#deleteall').attr('action', $(this).attr('formaction'));
+                $('#deleteall').submit();
+            }
+        })
+    });
+
+    $('.swaldrop').click(function(){
+        Swal.fire({
+            title: '¿Esta seguro que desea quitarlo del acta?',
+            html: 'Estudiante: '+$(this).val()+'<br><small>(Se puede volver a asignar)</small>',
+            showDenyButton: true,
+            confirmButtonText: "Si, quitar",
             denyButtonText: "No, cancelar",
             icon: "warning",
             customClass: {

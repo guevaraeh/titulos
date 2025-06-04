@@ -35,7 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/titulation_certificate/{titulation_certificate}/edit', [TitulationCertificateController::class, 'edit'])->name('titulation_certificate.edit');
     Route::put('/titulation_certificate/{titulation_certificate}', [TitulationCertificateController::class, 'update'])->name('titulation_certificate.update');
     Route::post('/titulation_certificate/{titulation_certificate}/add', [TitulationCertificateController::class, 'add_student'])->name('titulation_certificate.add_student');
-    Route::get('/titulation_certificate/{titulation_certificate}/drop/{student}', [TitulationCertificateController::class, 'drop_student'])->name('titulation_certificate.drop_student');
+    //Route::get('/titulation_certificate/{titulation_certificate}/drop/{student}', [TitulationCertificateController::class, 'drop_student'])->name('titulation_certificate.drop_student');
+    Route::delete('/titulation_certificate/{titulation_certificate}/drop/{student}', [TitulationCertificateController::class, 'drop_student'])->name('titulation_certificate.drop_student');
     Route::get('/titulation_certificate/{titulation_certificate}/generate-pdf', [TitulationCertificateController::class, 'generate_pdf'])->name('titulation_certificate.generate_pdf');
     //Route::get('/generate-pdf-empty', [TitulationCertificateController::class, 'generate_pdf_empty'])->name('titulation_certificate.generate_pdf_empty');
     

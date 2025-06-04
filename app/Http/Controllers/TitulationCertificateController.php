@@ -36,32 +36,18 @@ class TitulationCertificateController extends Controller
         if($request->ajax())
         {
             $titulation_certificates = TitulationCertificate::query()->orderBy('titulation_certificates.id', 'desc')
-            /*->select([
-                DB::raw("GROUP_CONCAT(CONCAT(students.lastname, ' ', students.name) SEPARATOR ', ') as student_group"),
-                'titulation_certificates.*',
-            ])*/
-            //->join('student_titulation_certificate', 'titulation_certificates.id', '=', 'student_titulation_certificate.titulation_certificate_id')
-            //->join('students', 'student_titulation_certificate.student_id', '=', 'students.id')
-            //->groupBy('titulation_certificates.id', 'titulation_certificates.type', 'titulation_certificates.project_name', 'titulation_certificates.remarks', 'titulation_certificates.certificate_date', 'titulation_certificates.remember_token', 'titulation_certificates.created_at', 'titulation_certificates.updated_at', 'titulation_certificates.deleted_at')
             ->with('students')
+            /*->with(['students' => function (Builder $query) {
+                $query->orderBy('lastname', 'asc');
+            }])*/
             ;
 
             return DataTables::eloquent($titulation_certificates)
-            /*->addColumn('students', function(TitulationCertificate $data) {
-                $sts = '';
-                foreach($data->students as $student)
-                    $sts .= '<li>'.$student->lastname.' '.$student->name.'</li>';
-                return $sts;
-            })
-            ->filterColumn('students', function($query, $keyword) {
-                $sql = "CONCAT(students.lastname, ' ', students.name) like ?";
-                $query->whereRaw($sql, ["%{$keyword}%"]);
-            })*/
             ->editColumn('type', function(TitulationCertificate $data) {
                 $types = ['Proyecto vinculado a formación recibida', 'Examen de suficiencia profesional'];
                 return $types[$data->type];
             })
-            ->editColumn('student_group', function(TitulationCertificate $data) {
+            ->addColumn('student_group', function(TitulationCertificate $data) {
                 $sts = '';
                 if(count($data->students) > 0)
                 {
@@ -140,6 +126,11 @@ class TitulationCertificateController extends Controller
 
         session(['url_from' => route('titulation_certificate.show',$titulationCertificate->id)]);
         $date = $titulationCertificate->certificate_date ? Carbon::parse($titulationCertificate->certificate_date)->locale('es')->isoFormat('DD [de] MMMM [del] YYYY') : '-';
+
+        /*$titulationCertificate = $titulationCertificate->with(['students' => function (Builder $query) {
+                                                        $query->orderBy('lastname', 'asc');
+                                                    }])->get();*/
+
         return view('titulation_certificate.show',['titulation_certificate' => $titulationCertificate, 'date' => $date, 'careers' => Career::get()]);
     }
 
