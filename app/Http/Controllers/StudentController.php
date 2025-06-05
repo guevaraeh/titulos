@@ -47,7 +47,9 @@ class StudentController extends Controller
                 return $actions;
             })
             ->editColumn('photo', function(Student $data) {
-                return '<img src="'.asset($data->photo ? 'storage/'.$data->photo : 'no-photo.png').'" height="40"  width="30">';
+                if($data->photo)
+                    return '<img src="'.asset('storage/'.$data->photo).'" height="40"  width="30">';
+                return '-';
             })
             ->editColumn('career', function(Student $data) {
                 return $data->career;

@@ -5,6 +5,7 @@
             <tr>
                 <th>N°</th>
                 <th>Nombre del proyecto</th>
+                <th>Fecha</th>
                 <th></th>
             </tr>
         </thead>
@@ -16,6 +17,13 @@
                         {{ $titulation_certificate->project_name }}
                         @else
                         <i>Examen de suficiencia profesional</i>
+                        @endif
+                    </td>
+                    <td>
+                        @if($titulation_certificate->certificate_date)
+                        {{ $titulation_certificate->certificate_date }}
+                        @else
+                        <i>No fijado</i>
                         @endif
                     </td>
                     <td>

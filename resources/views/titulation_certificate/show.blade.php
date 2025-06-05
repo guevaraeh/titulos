@@ -60,7 +60,6 @@ Acta de Titulacion
                                     <th>N°</th>
                                     <th>Foto</th>
                                     <th>Apellidos y nombres</th>
-                                    <th>DNI</th>
                                     <th>Carrera Profesional</th>
                                     <th></th>
                                 </tr>
@@ -68,13 +67,18 @@ Acta de Titulacion
                                 @foreach($titulation_certificate->students as $student)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td><img src="{{ asset($student->photo ? 'storage/'.$student->photo : 'no-photo.png') }}" height="40" width="30"></td>
+                                        <td>
+                                            @if($student->photo)
+                                            <img src="{{ asset('storage/'.$student->photo) }}" height="40" width="30">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
                                         <td><a href="{{ route('student.show', $student->id) }}">{{ $student->lastname . ' ' . $student->name }}</a></td>
-                                        <td>{{ $student->dni }}</td>
                                         <td>{{ $student->career->name }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('student.edit', $student->id) }}" class="btn btn-primary" title="Editar"><i class="bi-pencil"></i></a>
+                                                <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>
                                                 @if(count($titulation_certificate->students) > 1)
                                                 {{--<a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>--}}
                                                 <button type="button" class="btn btn-danger swaldrop" form="deleteall" formaction="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" value="{{ $student->lastname . ' ' . $student->name }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></button>
@@ -87,44 +91,46 @@ Acta de Titulacion
                                 
                             </tbody>
                         </table>
+                    </div>
 
-                        @if(count($titulation_certificate->students) < 3)
-                        <button id="openModalBtn" type="button" class="btn btn-primary"><i class="bi-plus-lg"></i> Agregar Estudiante</button>
 
-                        <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
-                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-primary text-white">
-                                        <h5 class="modal-title" id="myModalLabel">Agregar estudiante</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <select class="form-control" id="career" data-live-search="true" placeholder="- Seleccionar Carrera -">
-                                                <option data-placeholder="true" selected disabled></option>
-                                                @foreach($careers as $career)
-                                                <option value="{{ $career->id }}">{{ $career->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="mb-3" id="sel">
-                                            <select class="form-control select-student" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
-                                        </div>
+                    @if(count($titulation_certificate->students) < 3)
+                    <button id="openModalBtn" type="button" class="btn btn-primary"><i class="bi-plus-lg"></i> Agregar Estudiante</button>
 
+                    <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title" id="myModalLabel">Agregar estudiante</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <select class="form-control" id="career" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                            <option data-placeholder="true" selected disabled></option>
+                                            @foreach($careers as $career)
+                                            <option value="{{ $career->id }}">{{ $career->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Agregar</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <div class="mb-3" id="sel">
+                                        <select class="form-control select-student" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
                                     </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </div>
-                        </form>
-                        @endif
-
                     </div>
+                    </form>
+                    @endif
+
+
                 </div>
             </div>
         </div>

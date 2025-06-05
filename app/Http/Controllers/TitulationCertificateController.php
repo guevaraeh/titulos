@@ -45,7 +45,14 @@ class TitulationCertificateController extends Controller
             return DataTables::eloquent($titulation_certificates)
             ->editColumn('type', function(TitulationCertificate $data) {
                 $types = ['Proyecto vinculado a formación recibida', 'Examen de suficiencia profesional'];
+                //$types = [$data->project_name, 'Examen de suficiencia profesional'];
                 return $types[$data->type];
+            })
+            ->editColumn('project_name', function(TitulationCertificate $data) {
+                if($data->project_name)
+                    return $data->project_name;
+                    //return $project_name; //para que de la pantalla de cargando
+                return '-';
             })
             ->addColumn('student_group', function(TitulationCertificate $data) {
                 $sts = '';

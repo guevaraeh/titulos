@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+//use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Student extends Model
 {
     use HasFactory;
@@ -22,5 +24,10 @@ class Student extends Model
     {
         return $this->belongsTo(Career::class, 'career_id');
     }
+
+    /*public function scores(): HasMany
+    {
+        return $this->hasMany(Score::class);
+    }*/
 
 }

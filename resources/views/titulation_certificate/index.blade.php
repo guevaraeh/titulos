@@ -19,22 +19,21 @@ Lista de Actas Registradas
 						<table class="table table-hover" id="datat" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
-                                    <th>Tipo</th>
+                                    {{--<th>Tipo</th>--}}
+                                    <th id="type-column">
+                                        <select class="form-select form-select-sm" id="type-filter" name="type" placeholder="Tipo">
+                                            <option></option>
+                                            <option value="0">Proyecto vinculado a formación recibida</option>
+                                            <option value="1">Examen de suficiencia profesional</option>
+                                        </select>
+                                    </th>
                                     <th>Nombre del proyecto</th>
                                     <th>Fecha</th>
                                     <th>Estudiantes</th>
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Nombre del proyecto</th>
-                                    <th>Fecha</th>
-                                    <th>Estudiantes</th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
+
                             <tbody>
                             </tbody>
 						</table>
@@ -52,6 +51,7 @@ Lista de Actas Registradas
 $( document ).ready(function() {
 
     var dt = $('#datat').DataTable({
+        responsive: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
         },
@@ -65,6 +65,26 @@ $( document ).ready(function() {
             {data:'student_group', name:'student_group'},
             {data:'actions', name:'actions'},
         ],
+
+        initComplete: function () {
+            this.api()
+                .columns('#type-column')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    let input = document.getElementById('type-filter');
+                    input.placeholder = title;
+                    input.setAttribute('data-dt-column', index);
+
+                    input.addEventListener('change', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                        console.log('Periodo:',input.value);
+                    });
+                });
+        }
     });
     
     dt.on('draw', function() {

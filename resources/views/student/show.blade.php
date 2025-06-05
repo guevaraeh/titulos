@@ -57,6 +57,7 @@ Estudiante
                             <tr>
                                 <th>N°</th>
                                 <th>Nombre del proyecto</th>
+                                <th>Fecha</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -69,10 +70,19 @@ Estudiante
                                         @else
                                         <i>Examen de suficiencia profesional</i>
                                         @endif
-                                        </a></td>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if($titulation_certificate->certificate_date)
+                                        {{ $titulation_certificate->certificate_date }}
+                                        @else
+                                        <i>No fijado</i>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary" title="Pdf"><i class="bi-file-earmark-pdf"></i></a>
+                                            <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>
                                             {{--<a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>--}}
                                             <button type="button" class="btn btn-danger swaldrop" form="deleteall" formaction="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" value="{{ $loop->iteration }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></button>
 

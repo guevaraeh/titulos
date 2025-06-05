@@ -26,17 +26,7 @@ Estudiantes
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Foto</th>
-                                    <th>Apellidos</th>
-                                    <th>Nombres</th>
-                                    <th>DNI</th>
-                                    <th>Carrera Profesional</th>
-                                    <th>Nro. de Actas</th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
+                            
                             <tbody>
 
                             </tbody>
@@ -55,6 +45,7 @@ Estudiantes
 $( document ).ready(function() {
 
     var dt = $('#datat').DataTable({
+        responsive: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
         },
