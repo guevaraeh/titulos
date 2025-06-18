@@ -11,9 +11,6 @@ Acta de Titulacion
     <div class="row">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h5 class="card-title text-primary">Acta de Titulación</h5>
-                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -39,6 +36,9 @@ Acta de Titulacion
                             </tbody>
                         </table>
                     </div>
+                    
+                </div>
+                <div class="card-footer py-3">
                     <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary" title="Pdf"><i class="bi-file-earmark-pdf"></i> PDF</a>
                     <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i> Editar</a>
                     <button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="{{ route('titulation_certificate.destroy',$titulation_certificate->id) }}" value="" title="Eliminar"><i class="bi-trash"></i> Eliminar Acta</button>
@@ -92,8 +92,9 @@ Acta de Titulacion
                             </tbody>
                         </table>
                     </div>
-
-
+                </div>
+                
+                <div class="card-footer py-3">
                     @if(count($titulation_certificate->students) < 3)
                     <button id="openModalBtn" type="button" class="btn btn-primary"><i class="bi-plus-lg"></i> Agregar Estudiante</button>
 
@@ -129,8 +130,6 @@ Acta de Titulacion
                     </div>
                     </form>
                     @endif
-
-
                 </div>
             </div>
         </div>

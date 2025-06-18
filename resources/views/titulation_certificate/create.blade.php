@@ -9,72 +9,71 @@ Crear Acta de Titulación
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
+            <form action="{{ route('titulation_certificate.store') }}" method="POST">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold">Crear Acta de Titulación</h6>
 				</div>
 				<div class="card-body">
-					
-                    <form action="{{ route('titulation_certificate.store') }}" method="POST">
-                        @csrf
+                    @csrf
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" value="0" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" value="1">
+                            <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
+                        <input type="text" class="form-control" id="project-name" name="project-name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
                         
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" value="0" checked>
-                                <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" value="1">
-                                <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" id="project-name" name="project-name" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
-                            
-                            <button type="button" id="add-student" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i></button>
-                            <button type="button" id="del-student" class="btn btn-danger btn-sm"><i class="bi bi-dash-lg"></i></button>
-                            
-                            <div id="num-students">
-                                <div id="set-1" class="form-group row mb-3">
-                                    <div class="col-sm-1">
-                                        <label class="form-label">Est. 1</label>
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
-                                            <option data-placeholder="true" selected disabled></option>
-                                            @foreach($careers as $career)
-                                            <option value="{{ $career->id }}">{{ $career->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6" id="sel-1">
-                                        <select class="form-control select-student" id="student-1" num-data="1" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
-                                    </div>
+                        <button type="button" id="add-student" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i></button>
+                        <button type="button" id="del-student" class="btn btn-danger btn-sm"><i class="bi bi-dash-lg"></i></button>
+                        
+                        <div id="num-students">
+                            <div id="set-1" class="form-group row mb-3">
+                                <div class="col-sm-1">
+                                    <label class="form-label">Est. 1</label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <select class="form-control career" id="career-1" num-data="1" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
+                                        <option data-placeholder="true" selected disabled></option>
+                                        @foreach($careers as $career)
+                                        <option value="{{ $career->id }}">{{ $career->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-6" id="sel-1">
+                                    <select class="form-control select-student" id="student-1" num-data="1" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled></select>
                                 </div>
                             </div>
-                            
                         </div>
+                        
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" name="certificate-date" id="cert-date" placeholder="Año-Mes-Día" readonly>
-                        </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
+                        <input type="text" class="form-control" name="certificate-date" id="cert-date" placeholder="Año-Mes-Día" readonly>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
-                            <textarea class="form-control" id="validationCustom01" name="remarks"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{{ route('titulation_certificate') }}" class="btn btn-danger">Cancelar</a>
-                    </form>
-
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
+                        <textarea class="form-control" id="validationCustom01" name="remarks"></textarea>
+                    </div>
+                    
 				</div>
+                <div class="card-footer py-3">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="{{ route('titulation_certificate') }}" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
 			</div>
 		</div>
 	</div>

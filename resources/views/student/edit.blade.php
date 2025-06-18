@@ -9,12 +9,11 @@ Editar Estudiante
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
+            <form action="{{ route('student.update', $student->id) }}" method="POST" enctype="multipart/form-data">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold">Editar Estudiante</h6>
 				</div>
 				<div class="card-body">
-					
-                    <form action="{{ route('student.update', $student->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
@@ -29,12 +28,12 @@ Editar Estudiante
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>DNI</b><font color="red">*</font></label>
-                            <input type="number" class="form-control" id="exampleFirstName" name="dni" value="{{ $student->dni }}" required>
+                            <input type="tel" pattern="[0-9]{8}" placeholder="00000000" class="form-control" id="exampleFirstName" name="dni" value="{{ $student->dni }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Carrera</b><font color="red">*</font></label>
-                            <select class="form-control" id="career-id" name="career-id" aria-label="Default select example">
+                            <select class="form-control" id="career-id" name="career-id">
                                 <option data-placeholder="true" selected disabled></option>
                                 @foreach($careers as $career)
                                 <option value="{{ $career->id }}" {{ $student->career_id == $career->id ? 'selected' : '' }} >{{ $career->name }}</option>
@@ -46,12 +45,12 @@ Editar Estudiante
                             <label for="exampleFormControlInput1" class="form-label"><b>Foto</b></label>
                             <input type="file" class="form-control" id="exampleFirstName" name="photo" id="photo" accept="image/*">
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{{ session('url_from') }}" class="btn btn-danger">Cancelar</a>
-                    </form>
-
 				</div>
+                <div class="card-footer py-3">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="{{ session('url_from') }}" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
 			</div>
 		</div>
 	</div>

@@ -9,6 +9,7 @@ Crear Acta de Titulación rápida
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
+            <form action="{{ route('titulation_certificate.generate_pdf_fast') }}" method="POST" target="_blank">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold">Crear Acta de Titulación rápida</h6>
 				</div>
@@ -16,73 +17,73 @@ Crear Acta de Titulación rápida
 					
                     <small>Nota: No se guardarán los registros, es solo para generar un acta con datos</small><hr>
 
-                    <form action="{{ route('titulation_certificate.generate_pdf_fast') }}" method="POST" target="_blank">
-                        @csrf
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" value="0" checked>
-                                <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" value="1">
-                                <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
-                            </div>
+                    @csrf
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" value="0" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">Proyecto vinculado a formación recibida</label>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
-                            <input type="text" class="form-control" id="project-name" name="project-name" required>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" value="1">
+                            <label class="form-check-label" for="flexRadioDefault2">Examen de suficiencia profesional</label>
                         </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
-                            
-                            <button type="button" id="add-student" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i></button>
-                            <button type="button" id="del-student" class="btn btn-danger btn-sm"><i class="bi bi-dash-lg"></i></button>
-                            
-                            <div id="num-students">
-                                <div id="set-1" class="form-group row mb-3">
-                                    <div class="col-sm-1">
-                                        <label class="form-label">Est. 1</label>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="input-group">
-                                        <input type="text" class="form-control" name="students[0][lastname]" id="lastname-1" placeholder="Apellidos" required>
-                                        <input type="text" class="form-control" name="students[0][name]" id="name-1" placeholder="Nombres" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3" id="car1">
-                                        <select class="form-control career" name="students[0][career][name]" id="career-1" num-data="1" placeholder="- Seleccionar Carrera -">
-                                            <option data-placeholder="true" value="" selected disabled></option>
-                                            @foreach($careers as $career)
-                                            <option value="{{ $career->name }}">{{ $career->name }}</option>
-                                            @endforeach
-                                            <option value="">Otro</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <input type="number" class="form-control" name="students[0][dni]" id="dni-1" placeholder="DNI" required>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Nombre del proyecto</b><font color="red">*</font></label>
+                        <input type="text" class="form-control" id="project-name" name="project-name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Estudiantes</b><font color="red">*</font></label>
+                        
+                        <button type="button" id="add-student" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i></button>
+                        <button type="button" id="del-student" class="btn btn-danger btn-sm"><i class="bi bi-dash-lg"></i></button>
+                        
+                        <div id="num-students">
+                            <div id="set-1" class="form-group row mb-3">
+                                <div class="col-sm-1">
+                                    <label class="form-label">Est. 1</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" name="students[0][lastname]" id="lastname-1" placeholder="Apellidos" required>
+                                    <input type="text" class="form-control" name="students[0][name]" id="name-1" placeholder="Nombres" required>
                                     </div>
                                 </div>
+                                <div class="col-sm-3" id="car1">
+                                    <select class="form-control career" name="students[0][career][name]" id="career-1" num-data="1" placeholder="- Seleccionar Carrera -">
+                                        <option data-placeholder="true" value="" selected disabled></option>
+                                        @foreach($careers as $career)
+                                        <option value="{{ $career->name }}">{{ $career->name }}</option>
+                                        @endforeach
+                                        <option value="">Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="tel" pattern="[0-9]{8}" placeholder="00000000" class="form-control" name="students[0][dni]" id="dni-1" placeholder="DNI" required>
+                                </div>
                             </div>
-                            
                         </div>
+                        
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
-                            <input type="text" class="form-control" id="certificate-date" name="certificate-date" placeholder="Año-Mes-Día" readonly>
-                        </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Fecha</b></label>
+                        <input type="text" class="form-control" id="certificate-date" name="certificate-date" placeholder="Año-Mes-Día" readonly>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
-                            <textarea class="form-control" id="remarks" name="remarks"></textarea>
-                        </div>
-
-                        <button type="submit" id="generate" class="btn btn-primary">Generar</button>
-                        <a href="{{ route('titulation_certificate') }}" class="btn btn-danger">Cancelar</a>
-                    </form>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Observaciones</b></label>
+                        <textarea class="form-control" id="remarks" name="remarks"></textarea>
+                    </div>
 
 				</div>
+                <div class="card-footer py-3">
+                    <button type="submit" id="generate" class="btn btn-primary">Generar</button>
+                    <a href="{{ route('titulation_certificate') }}" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
 			</div>
 		</div>
 	</div>
@@ -179,7 +180,7 @@ $( document ).ready(function() {
                         '</select>'+
                     '</div>'+
                     '<div class="col-sm-2">'+
-                        '<input type="number" class="form-control" name="students['+(num_students-1)+'][dni]" id="dni-'+num_students+'" placeholder="DNI" required>'+
+                        '<input type="tel" pattern="[0-9]{8}" placeholder="00000000" class="form-control" name="students['+(num_students-1)+'][dni]" id="dni-'+num_students+'" placeholder="DNI" required>'+
                     '</div>'+
 
                 '</div>'

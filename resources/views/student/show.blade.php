@@ -10,9 +10,6 @@ Estudiante
 <div class="container">
     <div class="col-lg-12">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h5 class="card-title text-primary">Estudiante</h5>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -36,9 +33,11 @@ Estudiante
                         </tbody>
                     </table>
                 </div>
+                
+            </div>
+            <div class="card-footer py-3">
                 <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i> Editar</a>
                 <button type="button" class="btn btn-danger swalDefaultSuccess" form="deleteall" formaction="{{ route('student.destroy',$student->id) }}" value="{{ $student->lastname .' '. $student->name }}" title="Eliminar"><i class="bi-trash"></i> Eliminar</button>
-
             </div>
         </div>
     </div>
