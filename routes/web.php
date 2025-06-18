@@ -58,6 +58,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Route::post('/student/get-students-by-career-ajax', [StudentController::class, 'get_students_by_career_ajax'])->name('student.get_students_by_career_ajax');
     Route::delete('/student/{student}/destroy', [StudentController::class, 'destroy'])->name('student.destroy');
 
+    Route::get('/students-import', function () {
+        return view('student.import');
+    })->name('import');
+    Route::post('/students-import', [StudentController::class, 'import'])->name('student.import');
+
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}/update', [UserController::class, 'update'])->name('user.update');
     Route::put('/user/{user}/update-password', [UserController::class, 'update_password'])->name('user.update_password');

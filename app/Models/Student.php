@@ -15,6 +15,14 @@ class Student extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'name',
+        'lastname',
+        'dni',
+        'career_id',
+        'remember_token',
+    ];
+
     public function titulation_certificates(): BelongsToMany
     {
         return $this->belongsToMany(TitulationCertificate::class);

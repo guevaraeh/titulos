@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use DataTables;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentsImport;
 
 class StudentController extends Controller
 {
@@ -23,6 +25,8 @@ class StudentController extends Controller
         //dd(DB::table('students')->pluck('id')->toArray());
         //dd(Student::count());
         //dd(rand());
+        //dd(isset(Career::pluck('id','name')->toArray()["Contabilidad"]) ? "yes" : "no");
+        //dd(Career::select('id')->where('name','Conta')->first());
 
         if($request->ajax())
         {
@@ -52,7 +56,9 @@ class StudentController extends Controller
                 return '-';
             })
             ->editColumn('career', function(Student $data) {
-                return $data->career;
+                if($data->career != null)
+                    return $data->career;
+                return '-';
             })
             ->filterColumn('career', function($query, $keyword) {
                 $sql = "careers.name like ?";
@@ -105,6 +111,17 @@ class StudentController extends Controller
         $student->save();
 
         return redirect(route('student.show',$student->id))->with('success', 'Alumno registrado');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file-students' => 'required|max:8192',
+        ]);
+  
+        Excel::import(new StudentsImport, $request->file('file-students'));
+                 
+        return redirect(route('student'))->with('success', 'Estudiantes creados.');
     }
 
     /**

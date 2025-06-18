@@ -28,6 +28,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('student') }}">Lista</a></li>
             <li><a class="dropdown-item" href="{{ route('student.create') }}">Crear estudiante</a></li>
+            <li><a class="dropdown-item" href="{{ route('import') }}">Importar</a></li>
           </ul>
         </li>
 
