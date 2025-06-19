@@ -31,9 +31,10 @@ class StudentController extends Controller
         if($request->ajax())
         {
             $students = Student::query()->orderBy('lastname','ASC')
-            ->select([DB::raw("careers.name as career"),'students.*'])
-            ->join('careers', 'students.career_id', '=', 'careers.id')
-            ->with('titulation_certificates');
+            //->select([DB::raw("careers.name as career"),'students.*'])
+            //->join('careers', 'students.career_id', '=', 'careers.id')
+            //->with(['career','titulation_certificates'])
+            ;
 
             return DataTables::eloquent($students)
             ->addColumn('num_certificates', function(Student $data) {
@@ -55,15 +56,19 @@ class StudentController extends Controller
                     return '<img src="'.asset('storage/'.$data->photo).'" height="40"  width="30">';
                 return '-';
             })
-            ->editColumn('career', function(Student $data) {
+            ->addColumn('career', function(Student $data) {
                 if($data->career != null)
-                    return $data->career;
+                    return $data->career->name;
                 return '-';
             })
-            ->filterColumn('career', function($query, $keyword) {
-                $sql = "careers.name like ?";
-                $query->whereRaw($sql, ["%{$keyword}%"]);
-            })
+            /*->filterColumn('career', function($query, $keyword) {
+                //$sql = "careers.name like ?";
+                //$query->whereRaw($sql, ["%{$keyword}%"]);
+                $query->where(function($q) use ($keyword) {
+                    $q->whereRaw("careers.name like ?", ["%{$keyword}%"])
+                      ->orWhereNull('students.career_id'); // incluye los nulos si hace falta
+                });
+            })*/
             ->rawColumns(['actions','photo'])
             ->make(true);
         }
@@ -110,7 +115,7 @@ class StudentController extends Controller
 
         $student->save();
 
-        return redirect(route('student.show',$student->id))->with('success', 'Alumno registrado');
+        return redirect(route('student.show',$student->id))->with('success', 'Estudiante registrado');
     }
 
     public function import(Request $request)
@@ -160,7 +165,7 @@ class StudentController extends Controller
 
         $student->save();
 
-        return redirect(session('url_from'))->with('success', 'Alumno editado');
+        return redirect(session('url_from'))->with('success', 'Estudiante editado');
     }
 
     public function get_students_ajax(Request $request)

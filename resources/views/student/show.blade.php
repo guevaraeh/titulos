@@ -28,7 +28,7 @@ Estudiante
                             </tr>
                             <tr>
                                 <th>Carrera profesional</th>
-                                <td>{{ $student->career->name }}</td>
+                                <td>{{ $student->career ? $student->career->name : '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -60,42 +60,45 @@ Estudiante
                                 <th></th>
                             </tr>
                         </thead>
-                            @foreach($student->titulation_certificates as $titulation_certificate)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{ route('titulation_certificate.show', $titulation_certificate->id) }}">
-                                        @if($titulation_certificate->project_name)
-                                        {{ $titulation_certificate->project_name }}
-                                        @else
-                                        <i>Examen de suficiencia profesional</i>
-                                        @endif
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @if($titulation_certificate->certificate_date)
-                                        {{ $titulation_certificate->certificate_date }}
-                                        @else
-                                        <i>No fijado</i>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary" title="Pdf"><i class="bi-file-earmark-pdf"></i></a>
-                                            <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>
-                                            {{--<a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>--}}
-                                            <button type="button" class="btn btn-danger swaldrop" form="deleteall" formaction="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" value="{{ $loop->iteration }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></button>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
                         <tbody>
-                            
+                        @foreach($student->titulation_certificates as $titulation_certificate)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td><a href="{{ route('titulation_certificate.show', $titulation_certificate->id) }}">
+                                    @if($titulation_certificate->project_name)
+                                    {{ $titulation_certificate->project_name }}
+                                    @else
+                                    <i>Examen de suficiencia profesional</i>
+                                    @endif
+                                    </a>
+                                </td>
+                                <td>
+                                    @if($titulation_certificate->certificate_date)
+                                    {{ $titulation_certificate->certificate_date }}
+                                    @else
+                                    <i>No fijado</i>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ route('titulation_certificate.generate_pdf', $titulation_certificate->id) }}" target="_blank" class="btn btn-secondary" title="Pdf"><i class="bi-file-earmark-pdf"></i></a>
+                                        <a href="{{ route('titulation_certificate.edit', $titulation_certificate->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>
+                                        {{--<a href="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></a>--}}
+                                        <button type="button" class="btn btn-danger swaldrop" form="deleteall" formaction="{{ route('titulation_certificate.drop_student', [$titulation_certificate->id, $student->id]) }}" value="{{ $loop->iteration }}" class="btn btn-danger" title="Quitar"><i class="bi-trash"></i></button>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
                 @else
-                <p>No tiene actas registradas</p>
+                    @if(!$student->career)
+                    <p>No se le puede asignar acta</p>
+                    @else
+                    <p>No tiene actas registradas</p>
+                    @endif
                 @endif
             </div>
         </div>

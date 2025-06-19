@@ -75,7 +75,7 @@ Acta de Titulacion
                                             @endif
                                         </td>
                                         <td><a href="{{ route('student.show', $student->id) }}">{{ $student->lastname . ' ' . $student->name }}</a></td>
-                                        <td>{{ $student->career->name }}</td>
+                                        <td>{{ $student->career ? $student->career->name : '-' }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info" title="Editar"><i class="bi-pencil"></i></a>
@@ -94,8 +94,9 @@ Acta de Titulacion
                     </div>
                 </div>
                 
+                @if(count($titulation_certificate->students) < 3)
                 <div class="card-footer py-3">
-                    @if(count($titulation_certificate->students) < 3)
+                    
                     <button id="openModalBtn" type="button" class="btn btn-primary"><i class="bi-plus-lg"></i> Agregar Estudiante</button>
 
                     <form action="{{ route('titulation_certificate.add_student', $titulation_certificate->id) }}" method="POST">
@@ -129,8 +130,9 @@ Acta de Titulacion
                         </div>
                     </div>
                     </form>
-                    @endif
+                    
                 </div>
+                @endif
             </div>
         </div>
     </div>
