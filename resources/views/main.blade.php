@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ asset('/logo.png') }}" />
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dzcmxfodx/image/upload/v1750432107/logo_hq0ose.png" />
     <title>Actas de Titulación | @yield('title')</title>
 
     @include('includes.styles')

@@ -81,7 +81,6 @@ $( document ).ready(function() {
                         if (column.search() !== this.value) {
                             column.search(input.value).draw();
                         }
-                        console.log('Periodo:',input.value);
                     });
                 });
         }

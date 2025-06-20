@@ -13,6 +13,16 @@ Estudiantes
 					<h6 class="m-0 font-weight-bold">Estudiantes</h6>
 				</div>
 				<div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <select class="form-select form-select-sm" id="career-filter" placeholder="Carrera">
+                                <option></option>
+                                @foreach($careers as $career)
+                                <option value="{{ $career->id }}">{{ $career->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 					<div class="table-responsive">
 						<table class="table table-hover" id="datat" width="100%" cellspacing="0">
 							<thead>
@@ -21,7 +31,7 @@ Estudiantes
                                     <th>Apellidos</th>
                                     <th>Nombres</th>
                                     <th>DNI</th>
-                                    <th>Carrera Profesional</th>
+                                    <th id="career-column">Carrera Profesional</th>
                                     <th>Nro. de Actas</th>
                                     <th></th>
                                 </tr>
@@ -57,10 +67,30 @@ $( document ).ready(function() {
             {data:'lastname', name:'lastname'},
             {data:'name', name:'name'},
             {data:'dni', name:'dni'},
-            {data:'career', name:'career'},
+            {data:'career_id', name:'career_id'},
             {data:'num_certificates', name:'num_certificates'},
             {data:'actions', name:'actions'},
         ],
+
+        initComplete: function () {
+            this.api()
+                .columns('#career-column')
+                .every(function (index) {
+                    let column = this;
+                    let title = column.header().textContent;
+     
+                    let input = document.getElementById('career-filter');
+                    input.placeholder = title;
+                    input.setAttribute('data-dt-column', index);
+
+                    input.addEventListener('change', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+        }
+
     });  
     
     dt.on('draw', function() {

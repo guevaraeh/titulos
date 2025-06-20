@@ -56,7 +56,7 @@ class StudentController extends Controller
                     return '<img src="'.asset('storage/'.$data->photo).'" height="40"  width="30">';
                 return '-';
             })
-            ->addColumn('career', function(Student $data) {
+            ->editColumn('career_id', function(Student $data) {
                 if($data->career != null)
                     return $data->career->name;
                 return '-';
@@ -74,7 +74,7 @@ class StudentController extends Controller
         }
 
         //return view('student.index',['students' => Student::get()]);
-        return view('student.index');
+        return view('student.index',['careers' => Career::get()]);
     }
 
     /**

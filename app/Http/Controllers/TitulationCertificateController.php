@@ -18,11 +18,6 @@ class TitulationCertificateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    /*public function index()
-    {
-        session(['url_from' => route('titulation_certificate')]);
-        return view('titulation_certificate.index',['titulation_certificates' => TitulationCertificate::orderBy('id', 'asc')->get()]);
-    }*/
 
     public function index(Request $request)
     {
@@ -248,6 +243,8 @@ class TitulationCertificateController extends Controller
               
         //PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('pdf.certificate', $data);
+        /*$pdf = PDF::setOptions(['isRemoteEnabled' => true])
+              ->loadView('pdf.certificate', $data);*/
        
         //return $pdf->download('prueba.pdf');
         return $pdf->stream();

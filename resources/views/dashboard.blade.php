@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content=""><meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Astro v5.7.10">
-        <link rel="shortcut icon" href="{{ asset('/logo.png') }}" />
+        <link rel="shortcut icon" href="https://res.cloudinary.com/dzcmxfodx/image/upload/v1750432107/logo_hq0ose.png" />
 
         <title>Actas de Titulación</title>
         
@@ -79,7 +79,7 @@
                 </div> 
             </header> 
             <main class="px-3"> 
-                <img src="/logo.png" alt="Logo" class="mb-1 flex items-center justify-center rounded-md" />
+                <img src="https://res.cloudinary.com/dzcmxfodx/image/upload/v1750432107/logo_hq0ose.png" alt="Logo" class="mb-1 flex items-center justify-center rounded-md" />
                 <h1>Actas de Titulación</h1> 
                 <p class="lead">Plataforma de generación de actas.</p> 
                 <p class="lead"> 

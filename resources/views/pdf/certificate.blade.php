@@ -159,13 +159,13 @@
 <table width="100%" style="margin-bottom: 10px;" class="alineacion-imagen">
   <tr>
     <td align="left">
-      <img src="{{ public_path('/minedu.png') }}" alt="Logo Perú" height="50">
+      <img src="https://res.cloudinary.com/dzcmxfodx/image/upload/v1750432107/minedu_bkqv0e.png" alt="Logo Perú" height="50">
     </td>
     <td align="center" width="55%">
       
     </td>
     <td align="right">
-      <img src="{{ public_path('/logo.png') }}" alt="Logo Institución" height="70">
+      <img src="https://res.cloudinary.com/dzcmxfodx/image/upload/v1750432107/logo_hq0ose.png" alt="Logo Institución" height="70">
     </td>
   </tr>
 </table>

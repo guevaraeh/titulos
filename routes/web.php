@@ -66,6 +66,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}/update', [UserController::class, 'update'])->name('user.update');
     Route::put('/user/{user}/update-password', [UserController::class, 'update_password'])->name('user.update_password');
+
+    Route::get('/download-example', function () {
+        $ruta = public_path("ejemplo.xlsx");
+        if (file_exists($ruta)) {
+            return response()->download($ruta);
+            } else {
+            abort(404, 'Archivo no encontrado.');
+        }
+    })->name('download_example');
 });
 
 require __DIR__.'/settings.php';

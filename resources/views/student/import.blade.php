@@ -28,29 +28,7 @@ Importar Estudiantes
       </form>
 
       <div class="card-footer py-3">
-      <h6 class="card-title text-primary">Forma de archivo excel</h6>
-      <div class="row">
-      <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-          <thead>
-              <tr>
-                  <th>apellidos</th>
-                  <th>nombres</th>
-                  <th>dni</th>
-                  <th>carrera</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-      </div>
+        <a href="{{ route('download_example') }}" class="btn btn-info">Descargar ejemplo</a>
       </div>
 
     </div>
