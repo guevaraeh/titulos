@@ -58,7 +58,7 @@ Acta de Titulacion
                             <thead>
                                 <tr>
                                     <th>N°</th>
-                                    <th>Foto</th>
+                                    {{--<th>Foto</th>--}}
                                     <th>Apellidos y nombres</th>
                                     <th>Carrera Profesional</th>
                                     <th></th>
@@ -67,13 +67,13 @@ Acta de Titulacion
                                 @foreach($titulation_certificate->students as $student)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>
+                                        {{--<td>
                                             @if($student->photo)
                                             <img src="{{ asset('storage/'.$student->photo) }}" height="40" width="30">
                                             @else
                                             -
                                             @endif
-                                        </td>
+                                        </td>--}}
                                         <td><a href="{{ route('student.show', $student->id) }}">{{ $student->lastname . ' ' . $student->name }}</a></td>
                                         <td>{{ $student->career ? $student->career->name : '-' }}</td>
                                         <td>

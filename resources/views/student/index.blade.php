@@ -27,7 +27,7 @@ Estudiantes
 						<table class="table table-hover" id="datat" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
-                                    <th>Foto</th>
+                                    {{--<th>Foto</th>--}}
                                     <th>Apellidos</th>
                                     <th>Nombres</th>
                                     <th>DNI</th>
@@ -63,7 +63,7 @@ $( document ).ready(function() {
         serverSide: true,
         ajax: "{{ route('student') }}",
         columns: [
-            {data:'photo', name:'photo'},
+            //{data:'photo', name:'photo'},
             {data:'lastname', name:'lastname'},
             {data:'name', name:'name'},
             {data:'dni', name:'dni'},

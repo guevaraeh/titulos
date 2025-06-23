@@ -81,7 +81,7 @@ Crear Acta de Titulación rápida
 				</div>
                 <div class="card-footer py-3">
                     <button type="submit" id="generate" class="btn btn-primary">Generar</button>
-                    <a href="{{ route('titulation_certificate') }}" class="btn btn-danger">Cancelar</a>
+                    <a href="{{ session('url_from') }}" class="btn btn-danger">Cancelar</a>
                 </div>
             </form>
 			</div>

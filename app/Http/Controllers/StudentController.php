@@ -51,11 +51,11 @@ class StudentController extends Controller
                 ';
                 return $actions;
             })
-            ->editColumn('photo', function(Student $data) {
+            /*->editColumn('photo', function(Student $data) {
                 if($data->photo)
                     return '<img src="'.asset('storage/'.$data->photo).'" height="40"  width="30">';
                 return '-';
-            })
+            })*/
             ->editColumn('career_id', function(Student $data) {
                 if($data->career != null)
                     return $data->career->name;

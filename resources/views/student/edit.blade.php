@@ -41,10 +41,10 @@ Editar Estudiante
                             </select>
                         </div>
 
-                        <div class="mb-3">
+                        {{--<div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label"><b>Foto</b></label>
                             <input type="file" class="form-control" id="exampleFirstName" name="photo" id="photo" accept="image/*">
-                        </div>
+                        </div>--}}
 				</div>
                 <div class="card-footer py-3">
                     <button type="submit" class="btn btn-primary">Guardar</button>

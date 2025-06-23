@@ -21,8 +21,8 @@ Buscar Acta de Titulación
                             <label for="exampleFormControlInput1" class="form-label"><b>Estudiante</b></label>
                             
                             <div id="num-students">
-                                <div id="set-1" class="form-group row mb-3">
-                                    <div class="col-sm-5">
+                                <div id="set-1" class="form-group row">
+                                    <div class="col-sm-5 mb-3">
                                         <select class="form-control" id="career" aria-label="Default select example" data-live-search="true" placeholder="- Seleccionar Carrera -">
                                             <option data-placeholder="true" selected disabled></option>
                                             @foreach($careers as $career)
@@ -30,10 +30,10 @@ Buscar Acta de Titulación
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-sm-6" id="sel">
+                                    <div class="col-sm-6 mb-3" id="sel">
                                         <select class="form-control select-student" name="student-id" id="student-id" data-live-search="true" placeholder="- Seleccionar Estudiante -" disabled required></select>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-1 mb-3">
                                         <button type="button" id="search" class="btn btn-primary">Buscar</button>
                                     </div>
                                 </div>

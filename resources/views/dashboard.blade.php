@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content=""><meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Astro v5.7.10">
-        <link rel="shortcut icon" href="https://res.cloudinary.com/dzcmxfodx/image/upload/v1750432107/logo_hq0ose.png" />
+        <link rel="shortcut icon" href="https://res.cloudinary.com/dzcmxfodx/image/upload/w_20,h_20/v1750432107/logo_hq0ose.png" />
 
         <title>Actas de Titulación</title>
         

@@ -10,6 +10,7 @@ Route::get('/', function () {
     //return Inertia::render('welcome');
     //return redirect(route('login'));
     //return redirect(route('titulation_certificate.create_fast'));
+    session(['url_from' => route('home')]);
     return view('dashboard');
 })->name('home');
 
