@@ -11,7 +11,7 @@ Editar Estudiante
 			<div class="card shadow mb-4">
             <form action="{{ route('student.update', $student->id) }}" method="POST" enctype="multipart/form-data">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Editar Estudiante</h6>
+					<h5 class="card-title text-primary">Editar Estudiante</h5>
 				</div>
 				<div class="card-body">
                         @csrf

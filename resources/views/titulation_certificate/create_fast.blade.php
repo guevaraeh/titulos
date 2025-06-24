@@ -11,7 +11,7 @@ Crear Acta de Titulación rápida
 			<div class="card shadow mb-4">
             <form action="{{ route('titulation_certificate.generate_pdf_fast') }}" method="POST" target="_blank">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Crear Acta de Titulación rápida</h6>
+					<h5 class="card-title text-primary">Crear Acta de Titulación rápida</h5>
 				</div>
 				<div class="card-body">
 					

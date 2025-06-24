@@ -11,7 +11,7 @@ Titulación
 			<div class="card shadow mb-4">
             <form action="{{ route('titulation_certificate.update', $titulation_certificate->id) }}" method="POST">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Editar titulación</h6>
+					<h5 class="card-title text-primary">Editar acta de titulación</h5>
 				</div>
 				<div class="card-body">
                         @csrf

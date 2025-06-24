@@ -11,7 +11,7 @@ Crear Acta de Titulación
 			<div class="card shadow mb-4">
             <form action="{{ route('titulation_certificate.store') }}" method="POST">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Crear Acta de Titulación</h6>
+					<h5 class="card-title text-primary">Crear Acta de Titulación</h5>
 				</div>
 				<div class="card-body">
                     @csrf

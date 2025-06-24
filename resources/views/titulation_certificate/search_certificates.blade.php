@@ -10,7 +10,7 @@ Buscar Acta de Titulación
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Buscar Acta de Titulación</h6>
+					<h5 class="card-title text-primary">Buscar Acta de Titulación</h5>
 				</div>
 				<div class="card-body">
 					

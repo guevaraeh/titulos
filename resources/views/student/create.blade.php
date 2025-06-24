@@ -11,7 +11,7 @@ Estudiantes
 			<div class="card shadow mb-4">
             <form action="{{ route('student.store') }}" method="POST" enctype="multipart/form-data">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold">Crear Estudiante</h6>
+					<h5 class="card-title text-primary">Crear Estudiante</h5>
 				</div>
 				<div class="card-body">
                     @csrf

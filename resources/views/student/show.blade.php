@@ -45,7 +45,7 @@ Estudiante
     <div class="col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h5 class="card-title text-primary">Actas</h5>
+                <h6 class="m-0 font-weight-bold">Actas</h6>
             </div>
 
             <div class="card-body">

@@ -67,7 +67,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             )}*/}
                         </div>
                         <Input
-                            class="form-control"
+                            className="form-control"
                             id="password"
                             type="password"
                             required
@@ -102,7 +102,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     */}
 
                     <Button type="submit" className="btn btn-primary mt-4 w-full" tabIndex={4} disabled={processing}>
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                        {processing && <LoaderCircle className="btn btn-primary h-4 w-4 animate-spin" />}
                         Iniciar Sesion
                     </Button>
                 </div>
