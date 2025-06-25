@@ -56,6 +56,7 @@ $( document ).ready(function() {
 
     var dt = $('#datat').DataTable({
         responsive: true,
+        //lengthChange: false,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
         },
@@ -89,6 +90,9 @@ $( document ).ready(function() {
                         }
                     });
                 });
+
+            //$(".dt-length").html('');
+            //$(".dt-length").append($("#career-filter"));
         }
 
     });  

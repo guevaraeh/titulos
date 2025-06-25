@@ -47,7 +47,13 @@ class TitulationCertificateController extends Controller
                 if($data->project_name)
                     return $data->project_name;
                     //return $project_name; //para que de la pantalla de cargando
-                return '-';
+                return '<i>Examen de suficiencia profesional</i>';
+            })
+            ->editColumn('certificate_date', function(TitulationCertificate $data) {
+                if($data->certificate_date)
+                    return $data->certificate_date;
+                    //return $project_name; //para que de la pantalla de cargando
+                return '<i>No fijado</i>';
             })
             ->addColumn('student_group', function(TitulationCertificate $data) {
                 $sts = '';
@@ -84,7 +90,7 @@ class TitulationCertificateController extends Controller
                 ';
                 return $actions;
             })
-            ->rawColumns(['actions','student_group'])
+            ->rawColumns(['actions','student_group','project_name','certificate_date'])
             ->make(true);
         }
         return view('titulation_certificate.index');

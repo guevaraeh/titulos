@@ -71,6 +71,10 @@
                         -->
                         @if(Auth::check())
                         <a class="nav-link fw-bold py-1 px-0" href="{{ route('titulation_certificate') }}">Ingresar</a>
+                        {{--<form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="nav-link fw-bold py-1 px-0"> Cerrar Sesión</button>
+                        </form>--}}
                         @else
                         <a class="nav-link fw-bold py-1 px-0" href="{{ route('login') }}">Iniciar Sesión</a> 
                         @endif

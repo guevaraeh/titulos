@@ -15,19 +15,21 @@ Lista de Actas Registradas
 					<h5 class="card-title text-primary">Lista de Actas Registradas</h5>
 				</div>
 				<div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <select class="form-select form-select-sm" id="type-filter" name="type" placeholder="Tipo">
+                                <option></option>
+                                <option value="0">Proyecto vinculado a formación recibida</option>
+                                <option value="1">Examen de suficiencia profesional</option>
+                            </select>
+                        </div>
+                    </div>
 					<div class="table-responsive">
 						<table class="table table-hover" id="datat" width="100%" cellspacing="0">
 							<thead>
                                 <tr>
-                                    {{--<th>Tipo</th>--}}
-                                    <th id="type-column">
-                                        <select class="form-select form-select-sm" id="type-filter" name="type" placeholder="Tipo">
-                                            <option></option>
-                                            <option value="0">Proyecto vinculado a formación recibida</option>
-                                            <option value="1">Examen de suficiencia profesional</option>
-                                        </select>
-                                    </th>
-                                    <th>Nombre del proyecto</th>
+                                    <th id="type-column">Tipo</th>
+                                    <th>Nombre</th>
                                     <th>Fecha</th>
                                     <th>Estudiantes</th>
                                     <th></th>
@@ -59,7 +61,7 @@ $( document ).ready(function() {
         serverSide: true,
         ajax:"{{ route('titulation_certificate') }}",
         columns: [
-            {data:'type', name:'type'},
+            {data:'type', name:'type', visible: false},
             {data:'project_name', name:'project_name'},
             {data:'certificate_date', name:'certificate_date'},
             {data:'student_group', name:'student_group'},
@@ -83,6 +85,9 @@ $( document ).ready(function() {
                         }
                     });
                 });
+
+            //$(".dt-length").html('');
+            //$(".dt-length").append($("#type-filter"));
         }
     });
     

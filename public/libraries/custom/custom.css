@@ -87,24 +87,14 @@
 }
 
 /*Tempus Dominus*/
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).active{
-  background-color: var(--bs-primary) !important;
+:root {
+  --td-dark: var(--bs-dark);
+  --td-dark-widget-background: var(--bs-dark);
+  --td-active-bg: var(--bs-primary); 
+  --td-dark-active-bg : var(--bs-info);
+  --td-dark-btn-hover-bg: var(--bs-secondary);
+  --td-dark-active-border-color: var(--bs-dark);
 }
-
-.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).active{
-  background-color: var(--bs-primary) !important;
-}
-
-.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).active{
-  background-color: var(--bs-primary) !important;
-}
-
-.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).today:before{
-  border-bottom-color: var(--bs-primary) !important;
-}
-
-
-
 
 /*.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected,
 .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected=true]:not(.select2-results__option--highlighted) {
